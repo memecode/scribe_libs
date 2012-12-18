@@ -1,0 +1,45 @@
+<?xml version="1.0" ?>
+<Project TargetType="2" TabSize="4" IndentSize="4" UseTabs="0" ShowWhitespace="0" Compiler="0" Makefile="./Makefile" Defs="HAVE_CONFIG_H STDC_HEADERS" IncludePaths=".">
+	<Node Name="Source" Type="1" Platforms="7" Open="1">
+		<Node File="./btree.c" Type="2" Platforms="7" />
+		<Node File="./btree_delete.c" Type="2" Platforms="7" />
+		<Node File="./btree_header.c" Type="2" Platforms="7" />
+		<Node File="./btree_insert.c" Type="2" Platforms="7" />
+		<Node File="./btree_lock.c" Type="2" Platforms="7" />
+		<Node File="./btree_node.c" Type="2" Platforms="7" />
+		<Node File="./btree_search.c" Type="2" Platforms="7" />
+		<Node File="./btree_traverse.c" Type="2" Platforms="7" />
+		<Node File="./config.c" Type="2" Platforms="7" />
+		<Node File="./db.c" Type="2" Platforms="7" />
+		<Node File="./db_blocklist.c" Type="2" Platforms="7" />
+		<Node File="./db_blocks.c" Type="2" Platforms="7" />
+		<Node File="./db_cache.c" Type="2" Platforms="7" />
+		<Node File="./db_header.c" Type="2" Platforms="7" />
+		<Node File="./db_lock.c" Type="2" Platforms="7" />
+		<Node File="./db_utils.c" Type="2" Platforms="7" />
+		<Node File="./gbtree.cpp" Type="2" Platforms="7" />
+		<Node File="./hashtable.c" Type="2" Platforms="7" />
+		<Node File="./Makefile" Type="3" Platforms="7" />
+		<Node File="./offsetlist.c" Type="2" Platforms="7" />
+	</Node>
+	<Node Name="Headers" Type="1" Platforms="7" Open="0">
+		<Node File="./types.h" Type="3" Platforms="7" />
+		<Node File="./offsetlist.h" Type="3" Platforms="7" />
+		<Node File="./hashtable.h" Type="3" Platforms="7" />
+		<Node File="./gbtree.h" Type="3" Platforms="7" />
+		<Node File="./db_utils.h" Type="3" Platforms="7" />
+		<Node File="./db_types.h" Type="3" Platforms="7" />
+		<Node File="./db_lock.h" Type="3" Platforms="7" />
+		<Node File="./db_internal.h" Type="3" Platforms="7" />
+		<Node File="./db_header.h" Type="3" Platforms="7" />
+		<Node File="./db_cache.h" Type="3" Platforms="7" />
+		<Node File="./db_blocks.h" Type="3" Platforms="7" />
+		<Node File="./db_blocklist.h" Type="3" Platforms="7" />
+		<Node File="./db.h" Type="3" Platforms="7" />
+		<Node File="./config.h" Type="3" Platforms="7" />
+		<Node File="./btree_node.h" Type="3" Platforms="7" />
+		<Node File="./btree_lock.h" Type="3" Platforms="7" />
+		<Node File="./btree_header.h" Type="3" Platforms="7" />
+		<Node File="./btree.h" Type="3" Platforms="7" />
+	</Node>
+</Project>
