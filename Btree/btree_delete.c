@@ -106,22 +106,22 @@ __borrowRight(BTree *tree, BTreeNode *rootNode, BTreeNode *prevNode, int div)
 			rootNode->children[(int)rootNode->keyCount];
 		
 		free(rootNode->keys[(int)rootNode->keyCount]);
-		rootNode->keys[(int)rootNode->keyCount]     = strdup(node->keys[0]);
+		rootNode->keys[(int)rootNode->keyCount]     = _strdup(node->keys[0]);
 		rootNode->keySizes[(int)rootNode->keyCount] = node->keySizes[0];
 		rootNode->children[(int)rootNode->keyCount] = node->children[0];
 
 		free(rootNode->keys[div]);
-		prevNode->keys[div] = strdup(rootNode->keys[(int)rootNode->keyCount]);
+		prevNode->keys[div] = _strdup(rootNode->keys[(int)rootNode->keyCount]);
 		prevNode->keySizes[div] = rootNode->keySizes[(int)rootNode->keyCount];
 	}
 	else if (!BTREE_IS_LEAF(node) && node->keyCount > tree->minInt)
 	{
 		free(rootNode->keys[(int)rootNode->keyCount]);
-		rootNode->keys[(int)rootNode->keyCount] = strdup(prevNode->keys[div]);
+		rootNode->keys[(int)rootNode->keyCount] = _strdup(prevNode->keys[div]);
 		rootNode->keySizes[(int)rootNode->keyCount] = prevNode->keySizes[div];
 
 		free(rootNode->keys[div]);
-		prevNode->keys[div]                         = strdup(node->keys[0]);
+		prevNode->keys[div]                         = _strdup(node->keys[0]);
 		prevNode->keySizes[div]                     = node->keySizes[0];
 
 		rootNode->children[rootNode->keyCount + 1] = node->children[0];
@@ -166,14 +166,14 @@ __borrowLeft(BTree *tree, BTreeNode *rootNode, BTreeNode *prevNode, int div)
 		}
 
 		rootNode->children[1] = rootNode->children[0];
-		rootNode->keys[0]     = strdup(node->keys[node->keyCount - 1]);
+		rootNode->keys[0]     = _strdup(node->keys[node->keyCount - 1]);
 		rootNode->keySizes[0] = node->keySizes[node->keyCount - 1];
 		rootNode->children[0] = node->children[node->keyCount - 1];
 
 		rootNode->keyCount++;
 
 		free(prevNode->keys[div - 1]);
-		prevNode->keys[div - 1]     = strdup(node->keys[node->keyCount - 2]);
+		prevNode->keys[div - 1]     = _strdup(node->keys[node->keyCount - 2]);
 		prevNode->keySizes[div - 1] = node->keySizes[node->keyCount - 2];
 
 		node->children[node->keyCount - 1] =
@@ -195,14 +195,14 @@ __borrowLeft(BTree *tree, BTreeNode *rootNode, BTreeNode *prevNode, int div)
 		}
 
 		rootNode->children[1] = rootNode->children[0];
-		rootNode->keys[0]     = strdup(prevNode->keys[div - 1]);
+		rootNode->keys[0]     = _strdup(prevNode->keys[div - 1]);
 		rootNode->keySizes[0] = prevNode->keySizes[div - 1];
 		rootNode->children[0] = node->children[(int)node->keyCount];
 
 		rootNode->keyCount++;
 
 		free(prevNode->keys[div - 1]);
-		prevNode->keys[div - 1]     = strdup(node->keys[node->keyCount - 1]);
+		prevNode->keys[div - 1]     = _strdup(node->keys[node->keyCount - 1]);
 		prevNode->keySizes[div - 1] = node->keySizes[node->keyCount - 1];
 		
 		node->children[(int)node->keyCount] = 0;
@@ -246,7 +246,7 @@ __mergeNode(BTree *tree, BTreeNode *rootNode, BTreeNode *prevNode, int div)
 		{
 			free(node->keys[i]);
 			
-			node->keys[i]     = strdup(prevNode->keys[div - 1]);
+			node->keys[i]     = _strdup(prevNode->keys[div - 1]);
 			node->keySizes[i] = prevNode->keySizes[div - 1];
 			node->keyCount++;
 			
@@ -257,7 +257,7 @@ __mergeNode(BTree *tree, BTreeNode *rootNode, BTreeNode *prevNode, int div)
 		{
 			free(node->keys[i]);
 
-			node->keys[i]     = strdup(rootNode->keys[j]);
+			node->keys[i]     = _strdup(rootNode->keys[j]);
 			node->keySizes[i] = rootNode->keySizes[j];
 			node->children[i] = rootNode->children[j];
 			node->keyCount++;
@@ -286,7 +286,7 @@ __mergeNode(BTree *tree, BTreeNode *rootNode, BTreeNode *prevNode, int div)
 		{
 			free(node->keys[i]);
 			
-			rootNode->keys[i]     = strdup(prevNode->keys[div]);
+			rootNode->keys[i]     = _strdup(prevNode->keys[div]);
 			rootNode->keySizes[i] = prevNode->keySizes[div];
 			rootNode->keyCount++;
 			
@@ -296,7 +296,7 @@ __mergeNode(BTree *tree, BTreeNode *rootNode, BTreeNode *prevNode, int div)
 		for (j = 0; j < node->keyCount; j++, i++)
 		{
 			free(node->keys[i]);
-			rootNode->keys[i]     = strdup(node->keys[j]);
+			rootNode->keys[i]     = _strdup(node->keys[j]);
 			rootNode->keySizes[i] = node->keySizes[j];
 			rootNode->children[i] = node->children[j];
 			rootNode->keyCount++;
