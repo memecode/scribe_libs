@@ -79,6 +79,7 @@
 
 #if defined(_WINDOWS)
 #define StringCompare		_stricmp
+#define strdup				_strdup
 #else
 #define StringCompare		strcasecmp
 #endif

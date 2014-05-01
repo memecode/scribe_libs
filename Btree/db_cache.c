@@ -328,9 +328,7 @@ void queDelete(GDatabase *db, GdbBlock *block)
 void
 gdbCacheAddBlock(GDatabase *db, GdbBlock *block)
 {
-	GdbBlock *tempBlock;
 	int insertPos = -1;
-	int i;
 
 	if (block->offset == 0)
 	{
@@ -476,8 +474,6 @@ gdbCacheAddBlock(GDatabase *db, GdbBlock *block)
 unsigned short
 gdbCacheRemoveBlock(GDatabase *db, GdbBlock *block)
 {
-	int i;
-
 	if (block->offset == 0)
 	{
 		btreeSetError("ERROR: Trying to remove block from list with offset 0");
