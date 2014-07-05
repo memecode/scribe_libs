@@ -77,7 +77,7 @@
 # define N_(String) (String)
 #endif
 
-#if defined(_WINDOWS)
+#if defined(WINDOWS)
 #define StringCompare		_stricmp
 #define strdup				_strdup
 #else
