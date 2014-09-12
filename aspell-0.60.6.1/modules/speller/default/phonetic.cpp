@@ -3,6 +3,7 @@
 #include "language.hpp"
 #include "phonetic.hpp"
 #include "phonet.hpp"
+#include "settings.h"
 
 #include "file_util.hpp"
 #include "file_data_util.hpp"
@@ -130,10 +131,7 @@ namespace aspeller {
     PhonetSoundslike(const Language * l) : lang(l) {}
 
     PosibErr<void> setup(Conv & iconv) {
-      String file;
-      file += lang->data_dir();
-      file += '/';
-      file += lang->name();
+      String file = path_append(lang->data_dir(), lang->name());
       file += "_phonet.dat";
       PosibErr<PhonetParms *> pe = new_phonet(file, iconv, lang);
       if (pe.has_err()) return pe;

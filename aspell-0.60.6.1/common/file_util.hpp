@@ -18,6 +18,7 @@ namespace acommon {
   class Config;
   class StringList;
 
+  String path_append(ParmString a, ParmString b);
   bool need_dir(ParmString file);
   String add_possible_dir(ParmString dir, ParmString file);
   String figure_out_dir(ParmString dir, ParmString file);

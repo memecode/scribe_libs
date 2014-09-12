@@ -42,6 +42,20 @@
 
 namespace acommon {
 
+	String path_append(ParmString a, ParmString b)
+	{
+		String path = a;
+		int last = a[a.size()-1];
+		if (last == '/' || last == '\\')
+			path += b;
+		else
+		{
+			path += OsDirChar;
+			path += b;
+		}
+		return path;
+	}
+
   // Return false if file is already an absolute path and does not need
   // a directory prepended.
   bool need_dir(ParmString file) {
