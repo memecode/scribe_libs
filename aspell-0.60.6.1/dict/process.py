@@ -1,9 +1,17 @@
 import os
 import sys
-import ftplib
 import urlparse
+import urllib
 
 start = os.getcwd()
+
+ftp = None
+
+def download_cb(block):
+	file.write(block)
+
+def invalid_file(name):
+	return not os.path.exists(name) or os.stat(name).st_size == 0
 
 txt = open("AvailableDictionaries.html", "r").read().split("<tr>")
 for line in txt:
@@ -25,18 +33,19 @@ for line in txt:
 			os.mkdir(out_path)
 		
 		out_file = os.path.join(out_path, leaf)
-		if not os.path.exists(out_file):
-			uri = urlparse.urlparse(url)
-			path = uri.path
-			parts = path.rsplit("/", 1)
-			print parts
-			
+		if invalid_file(out_file):
 			# download the file from 'url' to 'out_file'
-			print "    opening FTP connection..."
-			ftp = ftplib.FTP("ftp.gnu.org")
-			ftp.login()
-			print "    changing to", parts[0]
-			ftp.cwd(parts[0])
-			print "    getting", parts[1]
-			ftp.retrbinary(parts[1], open(out_file, "wb").write)
-			ftp.quit()
+			urllib.urlretrieve(url, filename=out_file)
+		
+		if not invalid_file(out_file):
+			# unpack the files
+			os.chdir(out_path)
+			cmd = "\"C:\\Program Files\\7-Zip\\7z.exe\" e -y \""+out_file+"\""
+			os.system("\"" + cmd + "\"")
+			
+			tar_name = out_file.rsplit(".", 1)[0]
+			cmd = "\"C:\\Program Files\\7-Zip\\7z.exe\" e -y \""+tar_name+"\""
+			os.system("\"" + cmd + "\"")
+			os.unlink(tar_name)
+
+		# build and package dictionary
