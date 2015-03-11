@@ -91,19 +91,38 @@
 /* Version number of package */
 #define VERSION "0.50.3"
 
-#ifdef WIN32
+#if defined(WIN32) && !defined(__MINGW32__)
 	#define snprintf		_snprintf
+#endif
+
+#if defined(WIN32)
+
 	#define F_OK			0
 	#define OsDirChar		'\\'
 	#define OsDirStr		"\\"
+
+	#if defined(__MINGW32__)
+
+		#define C_EXPORT extern "C"
+
+	#else
+
+		#define snprintf		_snprintf
+	 
+		#ifdef ASPELL060_EXPORTS
+			#define C_EXPORT extern "C" __declspec(dllexport)
+		#else
+			#define C_EXPORT extern "C" __declspec(dllimport)
+		#endif
+	
+	#endif
+
 #else
 	#define OsDirChar		'/'
 	#define OsDirStr		"/"
+
+	#define C_EXPORT extern "C"
+
 #endif
 
-#ifdef ASPELL060_EXPORTS
-	#define C_EXPORT extern "C" __declspec(dllexport)
-#else
-	#define C_EXPORT extern "C" __declspec(dllimport)
-#endif
 

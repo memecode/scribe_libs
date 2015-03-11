@@ -25,7 +25,7 @@
 #include <sys/stat.h>
 #include <dirent.h>
 
-#ifdef WIN32
+#if defined(WIN32) || defined(__MINGW32__)
 
 #  include <io.h>
 #  define ACCESS _access
