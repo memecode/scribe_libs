@@ -7,11 +7,13 @@
 #ifndef ASPELL_ERROR__HPP
 #define ASPELL_ERROR__HPP
 
+#include "settings.h"
+
 namespace acommon {
 
 struct ErrorInfo;
 
-struct Error {
+struct LIB_EXPORT Error {
   const char * mesg; // expected to be allocated with malloc
   const ErrorInfo * err;
 

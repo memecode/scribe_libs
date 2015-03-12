@@ -92,7 +92,7 @@ namespace acommon {
 
   typedef FilterCharVector ConvertBuffer;
 
-  class Convert {
+  class LIB_EXPORT Convert {
   private:
     CachePtr<Decode> decode_c;
     StackPtr<Decode> decode_s;
@@ -197,14 +197,14 @@ namespace acommon {
 
   bool operator== (const Convert & rhs, const Convert & lhs);
 
-  const char * fix_encoding_str(ParmStr enc, String & buf);
+  LIB_EXPORT const char * fix_encoding_str(ParmStr enc, String & buf);
 
   // also returns true if the encoding is unknown
   bool ascii_encoding(const Config & c, ParmStr enc0);
 
   enum Normalize {NormNone, NormFrom, NormTo};
 
-  PosibErr<Convert *> internal_new_convert(const Config & c, 
+  LIB_EXPORT PosibErr<Convert *> internal_new_convert(const Config & c, 
                                            ParmString in, ParmString out,
                                            bool if_needed,
                                            Normalize n);
@@ -402,7 +402,7 @@ namespace acommon {
     }
   };
 
-  struct MBLen 
+  struct LIB_EXPORT MBLen 
   {
     enum Encoding {Other, UTF8, UCS2, UCS4} encoding;
     MBLen() : encoding(Other) {}

@@ -9,12 +9,13 @@
 
 #include "copy_ptr.hpp"
 #include "error.hpp"
+#include "settings.h"
 
 namespace acommon {
 
 struct Error;
 
-class CanHaveError {
+class LIB_EXPORT CanHaveError {
  public:
   CanHaveError(Error * e = 0);
   CopyPtr<Error> err_;

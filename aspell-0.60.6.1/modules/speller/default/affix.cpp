@@ -58,6 +58,7 @@
 #include "hash-t.hpp"
 
 #include "gettext.h"
+#include "file_util.hpp"
 
 using namespace std;
 
@@ -1300,10 +1301,9 @@ PosibErr<AffixMgr *> new_affix_mgr(ParmString name,
     return 0;
   //CERR << "NEW AFFIX MGR\n";
   String file;
-  file += lang->data_dir();
-  file += OsDirChar;
-  file += lang->name();
+  file = path_append(lang->data_dir(), lang->name());
   file += "_affix.dat";
+
   AffixMgr * affix;
   affix = new AffixMgr(lang);
   PosibErrBase pe = affix->setup(file, iconv);

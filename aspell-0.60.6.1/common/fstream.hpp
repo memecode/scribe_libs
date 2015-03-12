@@ -20,17 +20,25 @@
 namespace acommon {
   class String;
 
-  class FStream : public IStream, public OStream
+  class LIB_EXPORT FStream : public IStream, public OStream
   {
   private:
     FILE * file_;
     bool   own_;
+    String name_;
 
   public:
     FStream(char d = '\n') 
-      : IStream(d), file_(0), own_(true) {}
+      : IStream(d), file_(0), own_(true)
+    {
+    }
+    
     FStream(FILE * f, bool own = true) 
-      : IStream('\n'), file_(f), own_(own) {}
+      : IStream('\n'), file_(f), own_(own)
+    {
+		int asd=0;
+    }
+    
     ~FStream() {close();}
 
     PosibErr<void> open(ParmStr, const char *);

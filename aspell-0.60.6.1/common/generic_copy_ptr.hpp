@@ -13,6 +13,8 @@
 #ifndef autil__generic_copy_ptr
 #define autil__generic_copy_ptr
 
+#include "settings.h"
+
 namespace acommon {
 
   // Parms is expected to have the following members

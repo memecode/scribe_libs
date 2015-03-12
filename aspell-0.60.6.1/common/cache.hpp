@@ -22,7 +22,7 @@ PosibErr<Data *> get_cache_data(GlobalCache<Data> *,
                                 const typename Data::CacheKey &);
 
 class Cacheable;
-void release_cache_data(GlobalCacheBase *, const Cacheable *);
+LIB_EXPORT void release_cache_data(GlobalCacheBase *, const Cacheable *);
 static inline void release_cache_data(const GlobalCacheBase * c, const Cacheable * d)
 {
   release_cache_data(const_cast<GlobalCacheBase *>(c),d);

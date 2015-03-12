@@ -31,11 +31,13 @@
 // string changes.
 //
 
+#include "settings.h"
+
 namespace acommon {
 
   template <typename Ret> class PosibErr;
   
-  class String : public OStream
+  class LIB_EXPORT String : public OStream
   {
   public:
     typedef const char * const_iterator;

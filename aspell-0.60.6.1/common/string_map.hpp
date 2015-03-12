@@ -117,7 +117,7 @@ public:
 
 };
 
-StringMap * new_string_map();
+LIB_EXPORT StringMap * new_string_map();
 
 
 }

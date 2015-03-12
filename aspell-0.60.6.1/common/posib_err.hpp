@@ -34,7 +34,7 @@ namespace acommon {
 
   template <typename Ret> class PosibErr;
   
-  class PosibErrBase {
+  class LIB_EXPORT PosibErrBase {
   private:
     struct ErrPtr {
       const Error * err;

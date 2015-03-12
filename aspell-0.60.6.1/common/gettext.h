@@ -22,6 +22,8 @@
 #ifndef _LIBGETTEXT_H
 #define _LIBGETTEXT_H 1
 
+#include "settings.h"
+
 /* NLS can be disabled through the configure --disable-nls option.  */
 #if ENABLE_NLS
 
@@ -92,7 +94,7 @@ static inline const char * gt_(const char * str) {
   return str[0] == '\0' ? str : _(str);
 }
 
-extern "C" void aspell_gettext_init();
+C_EXPORT void aspell_gettext_init();
 
 /* NOTE: DO NOT USE "gettext", ALWAYS USE "_" BECAUSE WHEN ASPELL IS USED
    AS A LIBRARY THE DOMAIN IS NOT GUARANTEED TO BE ASPELL */

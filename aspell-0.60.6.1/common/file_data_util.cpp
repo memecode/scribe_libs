@@ -17,6 +17,7 @@ namespace acommon {
     if (config->have("local-data-dir"))
     {
       dir1 = config->retrieve("local-data-dir");
+      path_convert_native(dir1);
       
       int last = dir1[dir1.size()-1];
       if (last != '/' && last != '\\')
@@ -25,6 +26,8 @@ namespace acommon {
     else
     {
       dir1 = config->retrieve("master-path");
+      path_convert_native(dir1);
+
       size_t pos = dir1.rfind(OsDirChar);
       if (pos != String::npos)
         dir1.resize(pos + 1);

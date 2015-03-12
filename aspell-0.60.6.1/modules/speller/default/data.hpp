@@ -15,6 +15,7 @@
 #include "word_list.hpp"
 #include "cache.hpp"
 #include "wordinfo.hpp"
+#include "settings.h"
 
 using namespace acommon;
 
@@ -32,7 +33,7 @@ namespace aspeller {
   typedef Enumeration<WordEntry *> WordEntryEnumeration;
   typedef Enumeration<Dictionary *> DictsEnumeration;
 
-  class SoundslikeEnumeration 
+  class LIB_EXPORT SoundslikeEnumeration 
   {
   public:
     virtual WordEntry * next(int) = 0;
@@ -171,7 +172,7 @@ namespace aspeller {
     return !(rhs == lhs);
   }
 
-  class DictList {
+  class LIB_EXPORT DictList {
     // well a stack at the moment but it may eventually become a list
     // NOT necessarily first in first out
     Vector<Dict *> data;
@@ -196,7 +197,7 @@ namespace aspeller {
   static const DataType DT_Any          = 0xFF;
 
   // any new extra dictionaries that were loaded will be ii
-  PosibErr<Dict *> add_data_set(ParmString file_name,
+  LIB_EXPORT PosibErr<Dict *> add_data_set(ParmString file_name,
                                 Config &,
                                 DictList * other_dicts = 0,
                                 SpellerImpl * = 0,
@@ -204,19 +205,19 @@ namespace aspeller {
                                 DataType allowed = DT_Any);
   
   // implemented in readonly_ws.cc
-  Dictionary * new_default_readonly_dict();
+  LIB_EXPORT Dictionary * new_default_readonly_dict();
   
-  PosibErr<void> create_default_readonly_dict(StringEnumeration * els,
+  LIB_EXPORT PosibErr<void> create_default_readonly_dict(StringEnumeration * els,
                                               Config & config);
   
   // implemented in multi_ws.cc
-  MultiDict * new_default_multi_dict();
+  LIB_EXPORT MultiDict * new_default_multi_dict();
 
   // implemented in writable.cpp
-  Dictionary * new_default_writable_dict();
+  LIB_EXPORT Dictionary * new_default_writable_dict();
 
   // implemented in writable.cpp
-  ReplacementDict * new_default_replacement_dict();
+  LIB_EXPORT ReplacementDict * new_default_replacement_dict();
 }
 
 #endif

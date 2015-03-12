@@ -1,13 +1,13 @@
 
 #include <cstring>
 
+#include "cache-t.hpp"
 #include "vararray.hpp"
 #include "typo_editdist.hpp"
 #include "config.hpp"
 #include "language.hpp"
 #include "file_data_util.hpp"
 #include "getdata.hpp"
-#include "cache-t.hpp"
 #include "asc_ctype.hpp"
 
 // edit_distance is implemented using a straight forward dynamic

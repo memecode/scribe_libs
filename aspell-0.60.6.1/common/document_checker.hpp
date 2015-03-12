@@ -28,7 +28,7 @@ namespace acommon {
   };
   
   
-  class DocumentChecker : public CanHaveError {
+  class LIB_EXPORT DocumentChecker : public CanHaveError {
   public:
     // will take ownership of tokenizer and filter (even if there is an error)
     // config only used for this method.
@@ -55,7 +55,7 @@ namespace acommon {
     FilterCharVector proc_str_;
   };
 
-  PosibErr<DocumentChecker *> new_document_checker(Speller *);
+  LIB_EXPORT PosibErr<DocumentChecker *> new_document_checker(Speller *);
 
 }
 

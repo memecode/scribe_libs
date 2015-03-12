@@ -74,7 +74,7 @@ namespace acommon {
 
   struct DictInfoNode;
 
-  class DictInfoList {
+  class LIB_EXPORT DictInfoList {
   public:
     DictInfoList() : size_(0), head_(0) {}
     void clear();
@@ -93,9 +93,9 @@ namespace acommon {
     DictInfoNode * head_;
   };
 
-  const DictInfoList * get_dict_info_list(Config *);
+  LIB_EXPORT const DictInfoList * get_dict_info_list(Config *);
 
-  const StringMap * get_dict_aliases(Config *);
+  LIB_EXPORT const StringMap * get_dict_aliases(Config *);
 
   class ModuleInfoEnumeration {
   public:
@@ -119,7 +119,7 @@ namespace acommon {
 
   struct DictInfoNode;
 
-  class DictInfoEnumeration {
+  class LIB_EXPORT DictInfoEnumeration {
   public:
     const DictInfoNode * node_;
     DictInfoEnumeration(const DictInfoNode * n) : node_(n) {}

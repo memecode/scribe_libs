@@ -5,10 +5,11 @@
 #include "parm_string.hpp"
 #include <stdlib.h>
 #include <assert.h>
+#include "settings.h"
 
 namespace acommon {
 
-class ObjStack
+class LIB_EXPORT ObjStack
 {
   typedef unsigned char byte;
   struct Node

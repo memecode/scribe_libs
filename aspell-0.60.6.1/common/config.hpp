@@ -79,7 +79,7 @@ namespace acommon {
   // -- setting a list item directly, ie with out a prefix, is the same as 
   //    setting it to a single value
 
-  class Config : public CanHaveError {
+  class LIB_EXPORT Config : public CanHaveError {
     // copy and destructor provided
     friend class MDInfoListofLists;
 
@@ -230,8 +230,8 @@ namespace acommon {
     PosibErr<void> read_in_string(ParmStr str, const char * what = "");
   };
 
-  Config * new_config();
-  Config * new_basic_config(); // config which doesn't require any
+  LIB_EXPORT Config * new_config();
+  LIB_EXPORT Config * new_basic_config(); // config which doesn't require any
 			       // external symbols
 
   class NotifierEnumeration {

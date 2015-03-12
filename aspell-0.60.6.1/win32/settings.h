@@ -89,7 +89,7 @@
 /* #undef USE_LOCALE */
 
 /* Version number of package */
-#define VERSION "0.50.3"
+#define VERSION "0.60.6.1"
 
 #if defined(WIN32) && !defined(__MINGW32__)
 	#define snprintf		_snprintf
@@ -104,6 +104,7 @@
 	#if defined(__MINGW32__)
 
 		#define C_EXPORT extern "C"
+		#define LIB_EXPORT
 
 	#else
 
@@ -111,8 +112,10 @@
 	 
 		#ifdef ASPELL060_EXPORTS
 			#define C_EXPORT extern "C" __declspec(dllexport)
+			#define LIB_EXPORT __declspec(dllexport)
 		#else
 			#define C_EXPORT extern "C" __declspec(dllimport)
+			#define LIB_EXPORT __declspec(dllimport)
 		#endif
 	
 	#endif
@@ -122,6 +125,7 @@
 	#define OsDirStr		"/"
 
 	#define C_EXPORT extern "C"
+	#define LIB_EXPORT
 
 #endif
 

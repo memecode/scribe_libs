@@ -252,8 +252,8 @@ Conv uiconv;
 
 int main (int argc, const char *argv[]) 
 {
-  options = new_config(); // this needs to be here becuase of a bug
-                          // with static initlizers on Darwin.
+  options = new_config(); // this needs to be here because of a bug
+                          // with static initializers on Darwin.
 #ifdef USE_LOCALE
   setlocale (LC_ALL, "");
 #endif
@@ -478,7 +478,6 @@ int main (int argc, const char *argv[])
   }
 
   return 0;
-
 }
 
 
@@ -1409,13 +1408,19 @@ class IstreamEnumeration : public StringEnumeration {
   String data;
 public:
   IstreamEnumeration(FStream & i) : in(&i) {}
-  IstreamEnumeration * clone() const {
+  
+  IstreamEnumeration * clone() const
+  {
     return new IstreamEnumeration(*this);
   }
-  void assign (const StringEnumeration * other) {
+  
+  void assign (const StringEnumeration * other)
+  {
     *this = *static_cast<const IstreamEnumeration *>(other);
   }
-  Value next() {
+  
+  Value next()
+  {
     if (!in->getline(data)) return 0;
     else return data.c_str();
   }

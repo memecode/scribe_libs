@@ -35,7 +35,7 @@ namespace aspeller {
   struct ConvertWord;
 
   // WordEntry is an entry in the dictionary.  
-  struct WordEntry
+  struct LIB_EXPORT WordEntry
   {
     const char * word;
     const char * aff;

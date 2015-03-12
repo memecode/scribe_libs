@@ -7,6 +7,7 @@
 #ifndef ACOMMON_TOKENIZER__HPP
 #define ACOMMON_TOKENIZER__HPP
 
+#include <assert.h>
 #include "char_vector.hpp"
 #include "filter_char.hpp"
 #include "filter_char_vector.hpp"
@@ -36,7 +37,11 @@ namespace acommon {
     void reset (FilterChar * in, FilterChar * stop);
     bool at_end() const {return word_begin == word_end;}
     
-    virtual bool advance() = 0; // returns false if there is nothing left
+    virtual bool advance() // returns false if there is nothing left
+    {
+		assert(0);
+		return false;
+	}
 
     bool is_begin(unsigned char c) const
       {return char_type_[c].begin;}

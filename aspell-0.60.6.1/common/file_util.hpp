@@ -18,29 +18,30 @@ namespace acommon {
   class Config;
   class StringList;
 
-  String path_append(ParmString a, ParmString b);
-  bool need_dir(ParmString file);
-  String add_possible_dir(ParmString dir, ParmString file);
-  String figure_out_dir(ParmString dir, ParmString file);
+  LIB_EXPORT void path_convert_native(String &a);
+  LIB_EXPORT String path_append(ParmString a, ParmString b);
+  LIB_EXPORT bool need_dir(ParmString file);
+  LIB_EXPORT String add_possible_dir(ParmString dir, ParmString file);
+  LIB_EXPORT String figure_out_dir(ParmString dir, ParmString file);
 
   // FIXME: Possible remove
   //void open_file(FStream & in, const string & file,
   //               ParmString mode = "r");
-  time_t get_modification_time(FStream & f);
-  PosibErr<void> open_file_readlock(FStream& in, ParmString file);
-  PosibErr<bool> open_file_writelock(FStream & in, ParmString file);
+  LIB_EXPORT time_t get_modification_time(FStream & f);
+  LIB_EXPORT PosibErr<void> open_file_readlock(FStream& in, ParmString file);
+  LIB_EXPORT PosibErr<bool> open_file_writelock(FStream & in, ParmString file);
   // returns true if the file already exists
-  void truncate_file(FStream & f, ParmString name);
-  bool remove_file(ParmString name);
-  bool file_exists(ParmString name);
-  bool rename_file(ParmString orig, ParmString new_name);
+  LIB_EXPORT void truncate_file(FStream & f, ParmString name);
+  LIB_EXPORT bool remove_file(ParmString name);
+  LIB_EXPORT bool file_exists(ParmString name);
+  LIB_EXPORT bool rename_file(ParmString orig, ParmString new_name);
   // will return NULL if path is NULL.
-  const char * get_file_name(const char * path);
+  LIB_EXPORT const char * get_file_name(const char * path);
 
   // expands filename to the full path
   // returns the length of the directory part or 0 if nothing found
-  unsigned find_file(const Config *, const char * option, String & filename);
-  unsigned find_file(const StringList &, String & filename);
+  LIB_EXPORT unsigned find_file(const Config *, const char * option, String & filename);
+  LIB_EXPORT unsigned find_file(const StringList &, String & filename);
 
   class StringEnumeration;
 

@@ -42,12 +42,27 @@
 
 namespace acommon {
 
+	void path_convert_native(String &a)
+	{
+		for (char *c = a.begin(); c < a.end(); c++)
+		{
+			#if WIN32
+			if (*c == '/') *c = '\\';
+			#else
+			if (*c == '\\') *c = '/';
+			#endif
+		}
+	}
+
 	String path_append(ParmString a, ParmString b)
 	{
 		String path = a;
+		path_convert_native(path);		
 		int last = a[a.size()-1];
 		if (last == '/' || last == '\\')
+		{
 			path += b;
+		}
 		else
 		{
 			path += OsDirChar;
@@ -74,15 +89,13 @@ namespace acommon {
   {
     if (need_dir(file))
     {
-      String path;
-      path += dir;
-      path += OsDirChar;
-      path += file;
-      return path;
+      return path_append(dir, file);
     }
     else
     {
-      return file;
+	  String s = file;
+	  path_convert_native(s);
+      return s;
     }
   }
 

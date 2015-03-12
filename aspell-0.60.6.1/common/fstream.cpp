@@ -21,19 +21,27 @@ namespace acommon {
     assert (file_ == 0);
     
     // Confirm the absence of the wrong path separators.
+	::printf("FStream::open(%s)\n", name);
     #ifdef WIN32
     assert(!strchr(name, '/'));
     #else
     assert(!strchr(name, '\\'));
     #endif
     
+    name_ = name;    
     file_ = fopen(name, mode);
     if (file_ == 0)
     {
       if (strpbrk(mode, "wa+") != 0)
+      {
+		::printf("    FStream::open failed(%s)\n", name);
 		return make_err(cant_write_file, name);
+	  }
       else
+      {
+		::printf("    FStream::open failed(%s)\n", name);
 		return make_err(cant_read_file, name);
+	  }
     }
     else
     {

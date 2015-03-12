@@ -7,6 +7,7 @@
 
 #include <iostream.hpp>
 
+#include "cache-t.hpp"
 #include "asc_ctype.hpp"
 #include "clone_ptr-t.hpp"
 #include "config.hpp"
@@ -16,7 +17,6 @@
 #include "fstream.hpp"
 #include "language.hpp"
 #include "string.hpp"
-#include "cache-t.hpp"
 #include "getdata.hpp"
 #include "file_util.hpp"
 
@@ -636,9 +636,9 @@ namespace aspeller {
   WordListIterator::WordListIterator(StringEnumeration * in0,
                                    const Language * lang0,
                                    OStream * log0)
-    : in(in0), lang(lang0), log(log0), val(), str(0), str_end(0), brk(), 
-      clean_affix(lang0, log0)
+    : in(in0), lang(lang0), log(log0), val(), str(0), str_end(0), clean_affix(lang0, log0)
   {
+	brk[0] = 0;
   }
 
   PosibErr<void>  WordListIterator::init(Config & config)

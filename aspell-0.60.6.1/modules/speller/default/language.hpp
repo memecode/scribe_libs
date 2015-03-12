@@ -60,7 +60,7 @@ namespace aspeller {
 
   enum StoreAs {Stripped, Lower};
 
-  class Language : public Cacheable {
+  class LIB_EXPORT Language : public Cacheable {
   public:
     typedef const Config CacheConfig;
     typedef String       CacheKey;
@@ -424,7 +424,7 @@ namespace aspeller {
     char * operator() (ParmStr word, char * aff);
   };
 
-  class WordListIterator
+  class LIB_EXPORT WordListIterator
   {
   public:
     struct Value {
@@ -458,18 +458,18 @@ namespace aspeller {
     CleanAffix clean_affix;
   };
 
-  String get_stripped_chars(const Language & l);
+  LIB_EXPORT String get_stripped_chars(const Language & l);
 
-  String get_clean_chars(const Language & l);
+  LIB_EXPORT String get_clean_chars(const Language & l);
   
-  PosibErr<void> check_if_valid(const Language & l, ParmStr word);
-  PosibErr<void> validate_affix(const Language & l, ParmStr word, ParmStr aff);
+  LIB_EXPORT PosibErr<void> check_if_valid(const Language & l, ParmStr word);
+  LIB_EXPORT PosibErr<void> validate_affix(const Language & l, ParmStr word, ParmStr aff);
 
-  bool find_language(Config & c);
+  LIB_EXPORT bool find_language(Config & c);
 
-  PosibErr<Language *> new_language(const Config &, ParmStr lang = 0);
+  LIB_EXPORT PosibErr<Language *> new_language(const Config &, ParmStr lang = 0);
 
-  PosibErr<void> open_affix_file(const Config &, FStream & o);
+  LIB_EXPORT PosibErr<void> open_affix_file(const Config &, FStream & o);
 }
 
 

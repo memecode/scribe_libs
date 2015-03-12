@@ -5,6 +5,7 @@
 // at http://www.gnu.org/.
 
 #include "config.hpp"
+#include "cache-t.hpp"
 #include "convert.hpp"
 #include "data.hpp"
 #include "data_id.hpp"
@@ -13,7 +14,6 @@
 #include "fstream.hpp"
 #include "language.hpp"
 #include "speller_impl.hpp"
-#include "cache-t.hpp"
 #include "vararray.hpp"
 
 #include "gettext.h"
