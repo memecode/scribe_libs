@@ -935,6 +935,14 @@
 				>
 			</File>
 		</Filter>
+		<Filter
+			Name="Prezip"
+			>
+			<File
+				RelativePath="..\..\prog\prezip.c"
+				>
+			</File>
+		</Filter>
 	</Files>
 	<Globals>
 	</Globals>

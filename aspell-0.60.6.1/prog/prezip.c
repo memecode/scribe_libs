@@ -50,211 +50,274 @@
 #define HEAD "prezip, a prefix delta compressor. Version 0.1.1, 2004-11-06"
 
 typedef struct Word {
-  char * str;
-  size_t alloc;
+	char * str;
+	size_t alloc;
 } Word;
 
 #define INSURE_SPACE(cur,p,need)\
-  do {\
-    size_t pos = p - (cur)->str;\
-    if (pos + need + 1 < (cur)->alloc) break;\
-    (cur)->alloc = (cur)->alloc*3/2;\
-    (cur)->str = (char *)realloc((cur)->str, (cur)->alloc);\
-    p = (cur)->str + pos;\
-  } while (0)
+	do {\
+		size_t pos = p - (cur)->str;\
+		if (pos + need + 1 < (cur)->alloc) break;\
+		(cur)->alloc = (cur)->alloc*3/2;\
+		(cur)->str = (char *)realloc((cur)->str, (cur)->alloc);\
+		p = (cur)->str + pos;\
+	} while (0)
 
-#define ADV(w, c) do {char * s = w + c;\
-                      while(w != s) {\
-                        if (*w == 0) ret = 3;\
-                        ++w;}} while (0)
+#define ADV(w, c) do {char * s = w + c; \
+				while(w != s) {\
+					if (*w == 0) ret = 3;\
+					++w;}} while (0)
 
-int main (int argc, const char *argv[]) {
+#ifdef ASPELLDIST060_EXPORTS
+#define main prezip_main
+#endif
 
-  if (argc < 2) {
+void prezip_compress(FILE *in_file, FILE *out_file)
+{
+	Word w1,w2;
+	Word * prev = &w1;
+	Word * cur  = &w2;
+	char * w = 0;
+	char * p = 0;
+	int c,l;
 
-    goto usage;
+	w1.str = (char *)malloc(256);
+	w1.str[0] = '\0';
+	w1.alloc = 256;
+	w2.str = (char *)malloc(256);
+	w2.alloc = 256;
 
-  } else if (strcmp(argv[1], "-z") == 0) {
+	SETBIN (out_file);
 
-    Word w1,w2;
-    Word * prev = &w1;
-    Word * cur  = &w2;
-    char * w = 0;
-    char * p = 0;
-    int c,l;
+	putc(2, out_file);
 
-    w1.str = (char *)malloc(256);
-    w1.str[0] = '\0';
-    w1.alloc = 256;
-    w2.str = (char *)malloc(256);
-    w2.alloc = 256;
+	c = 0;
+	while (c != EOF)
+	{
+		/* get next word */
+		w = cur->str;
+		while (c = getc(in_file), c != EOF && c != '\n')
+		{
+			if (c >= 32)
+			{
+				INSURE_SPACE(cur, w, 1);
+				*w++ = c;
+			}
+			else
+			{
+				INSURE_SPACE(cur, w, 2);
+				*w++ = 31;
+				*w++ = c + 32;
+			}
+		}
 
-    SETBIN (stdout);
+		*w = 0;
+		p = prev->str;
+		w = cur->str;
 
-    putc(2, stdout);
+		/* get the length of the prefix */
+		l = 0;
+		while (p[l] != '\0' && p[l] == w[l]) ++l;
 
-    c = 0;
-    while (c != EOF)
-    {
-      /* get next word */
-      w = cur->str;
-      while (c = getc(stdin), c != EOF && c != '\n') {
-        if (c >= 32) {
-          INSURE_SPACE(cur, w, 1);
-          *w++ = c;
-        } else {
-          INSURE_SPACE(cur, w, 2);
-          *w++ = 31;
-          *w++ = c + 32;
-        }
-      }
+		/* prefix compress, and write word */
+		if (l < 30)
+		{
+			putc(l, out_file);
+		}
+		else
+		{
+			int i = l - 30;
+			putc(30, out_file);
+			while (i >= 255)
+			{
+				putc(255, out_file);
+				i -= 255;
+			}
+			putc(i, out_file);
+		}
+		
+		fputs(w+l, out_file);
 
-      *w = 0;
-      p = prev->str;
-      w = cur->str;
+		/* swap prev and next */
+		{
+			Word * tmp = cur;
+			cur = prev;
+			prev = tmp;
+		}
+	}
 
-      /* get the length of the prefix */
-      l = 0;
-      while (p[l] != '\0' && p[l] == w[l]) ++l;
+	putc(31, out_file);
+	putc(255, out_file);
 
-      /* prefix compress, and write word */
-      if (l < 30) {
-        putc(l, stdout);
-      } else {
-        int i = l - 30;
-        putc(30, stdout);
-        while (i >= 255) {putc(255, stdout); i -= 255;}
-	putc(i, stdout);
-      }
-      fputs(w+l, stdout);
+	free(w1.str);
+	free(w2.str);
+}
 
-      /* swap prev and next */
-      {
-        Word * tmp = cur;
-        cur = prev;
-        prev = tmp;
-      }
-    }
+int prezip_decompress(FILE *in_file, FILE *out_file)
+{
+	int ret = 0;
 
-    putc(31, stdout);
-    putc(255, stdout);
+	Word cur;
+	int c;
+	char * w;
+	unsigned char ch;
 
-    free(w1.str);
-    free(w2.str);
+	cur.str = (char *)malloc(256);
+	cur.alloc = 256;
+	w = cur.str;
 
-  } else if (strcmp(argv[1], "-d") == 0) {
+	SETBIN (in_file);
 
-    int ret = 0;
+	c = getc(in_file);
 
-    Word cur;
-    int c;
-    char * w;
-    unsigned char ch;
+	if (c == 2)
+	{
+		*w = '\0';
+		while (c != EOF && ret <= 0)
+		{
+			ret = -1;
+			if (c != 2)
+			{
+				ret = 3;
+				break;
+			}
+			
+			c = getc(in_file);
+			
+			while (ret < 0)
+			{
+				w = cur.str;
+				ADV(w, c);
+				if (c == 30)
+				{
+					while (c = getc(in_file), c == 255) ADV(w, 255);
+					ADV(w, c);
+				}
+				while (c = getc(in_file), c > 30)
+				{
+					INSURE_SPACE(&cur,w,1);
+					*w++ = (char)c;
+				}
+				
+				*w = '\0';
+				
+				for (w = cur.str; *w; w++)
+				{
+					if (*w != 31)
+					{
+						putc(*w, out_file);
+					}
+					else
+					{
+						++w;
+						ch = *w;
+						if (32 <= ch && ch < 64)
+						{
+							putc(ch - 32, out_file);
+						}
+						else if (ch == 255)
+						{
+							if (w[1] != '\0') ret = 3;
+							else              ret = 0;
+						}
+						else
+						{
+							ret = 3;
+						}
+					}
+				}
+				
+				if (ret < 0 && c == EOF)
+					ret = 4;
+				
+				if (ret != 0)
+					putc('\n', out_file);
+			}
+		}
+	}
+	else if (c == 1)
+	{
+		int last_max = 0;
+		while (c != -1)
+		{
+			if (c == 0)
+				c = getc(in_file);
+			
+			--c;
+			
+			if (c < 0 || c > last_max)
+			{
+				ret = 3;
+				break;
+			}
+			
+			w = cur.str + c;
+			
+			while (c = getc(in_file), c > 32)
+			{
+				INSURE_SPACE(&cur,w,1);
+				*w++ = (char)c;
+			}
+			
+			*w = '\0';
+			
+			last_max = w - cur.str;
+			fputs(cur.str, out_file);
+			putc('\n', out_file);
+		}
+	}
+	else
+	{
+		ret = 2;
+	}
 
-    cur.str = (char *)malloc(256);
-    cur.alloc = 256;
-    w = cur.str;
+	assert(ret >= 0);
+	/*
+	if (ret > 0 && argc > 2)
+		fputs(argv[2], stderr);
+	 */
+	if (ret == 2)
+		fputs("unknown format\n", stderr);
+	else if (ret == 3)
+		fputs("corrupt input\n", stderr);
+	else if (ret == 4)
+		fputs("unexpected EOF\n", stderr);
 
-    SETBIN (stdin);
+	free (cur.str);
 
-    c = getc(stdin);
+	return ret;
+}
 
-    if (c == 2)
-    {
-      *w = '\0';
-      while (c != EOF && ret <= 0) {
-        ret = -1;
-        if (c != 2) {ret = 3; break;}
-        c = getc(stdin);
-        while (ret < 0) {
-          w = cur.str;
-          ADV(w, c);
-          if (c == 30) {
-            while (c = getc(stdin), c == 255) ADV(w, 255);
-            ADV(w, c);
-          }
-          while (c = getc(stdin), c > 30) {
-            INSURE_SPACE(&cur,w,1);
-            *w++ = (char)c;
-          }
-          *w = '\0';
-          for (w = cur.str; *w; w++) {
-            if (*w != 31) {
-              putc(*w, stdout);
-            } else {
-              ++w;
-              ch = *w;
-              if (32 <= ch && ch < 64) {
-                putc(ch - 32, stdout);
-              } else if (ch == 255) {
-                if (w[1] != '\0') ret = 3;
-                else              ret = 0;
-              } else {
-                ret = 3;
-              }
-            }
-          }
-          if (ret < 0 && c == EOF) ret = 4;
-          if (ret != 0)
-            putc('\n', stdout);
-        }
-      }
-    }
-    else if (c == 1)
-    {
-      int last_max = 0;
-      while (c != -1) {
-        if (c == 0)
-          c = getc(stdin);
-        --c;
-        if (c < 0 || c > last_max) {ret = 3; break;}
-        w = cur.str + c;
-        while (c = getc(stdin), c > 32) {
-          INSURE_SPACE(&cur,w,1);
-          *w++ = (char)c;
-        }
-        *w = '\0';
-        last_max = w - cur.str;
-        fputs(cur.str, stdout);
-        putc('\n', stdout);
-      }
-    }
-    else
-    {
-      ret = 2;
-    }
+int main(int argc, const char *argv[])
+{
+	if (argc < 2)
+	{
+		goto usage;
+	}
+	else if (strcmp(argv[1], "-z") == 0)
+	{
+		prezip_compress(stdin, stdout);
+	}
+	else if (strcmp(argv[1], "-d") == 0)
+	{
+		return prezip_decompress(stdin, stdout);
+	}
+	else if (strcmp(argv[1], "-V") == 0)
+	{
+		printf("%s\n", HEAD);
+	}
+	else
+	{
+		goto usage;
+	}
 
-    assert(ret >= 0);
-    if (ret > 0 && argc > 2)
-      fputs(argv[2], stderr);
-    if (ret == 2)
-      fputs("unknown format\n", stderr);
-    else if (ret == 3)
-      fputs("corrupt input\n", stderr);
-    else if (ret == 4)
-      fputs("unexpected EOF\n", stderr);
+	return 0;
 
-    free (cur.str);
+	usage:
 
-    return ret;
-
-  } else if (strcmp(argv[1], "-V") == 0) {
-
-    printf("%s\n", HEAD);
-
-  } else {
-
-    goto usage;
-
-  }
-
-  return 0;
-
-  usage:
-
-  printf("%s\n"
-         "Usage:\n"
-         "  To Compress:   %s -z\n"
-         "  To Decompress: %s -d\n", HEAD, argv[0], argv[0]);
-  return 1;
+	printf("%s\n"
+				 "Usage:\n"
+				 "  To Compress:   %s -z\n"
+				 "  To Decompress: %s -d\n", HEAD, argv[0], argv[0]);
+	return 1;
 }

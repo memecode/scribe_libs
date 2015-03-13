@@ -36,7 +36,6 @@ namespace acommon {
     FStream(FILE * f, bool own = true) 
       : IStream('\n'), file_(f), own_(own)
     {
-		int asd=0;
     }
     
     ~FStream() {close();}
