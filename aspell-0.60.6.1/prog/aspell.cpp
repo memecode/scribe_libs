@@ -1403,30 +1403,6 @@ void print_ver () {
 // module
 //
 
-class IstreamEnumeration : public StringEnumeration {
-  FStream * in;
-  String data;
-public:
-  IstreamEnumeration(FStream & i) : in(&i) {}
-  
-  IstreamEnumeration * clone() const
-  {
-    return new IstreamEnumeration(*this);
-  }
-  
-  void assign (const StringEnumeration * other)
-  {
-    *this = *static_cast<const IstreamEnumeration *>(other);
-  }
-  
-  Value next()
-  {
-    if (!in->getline(data)) return 0;
-    else return data.c_str();
-  }
-  bool at_end() const {return *in;}
-};
-
 ///////////////////////////
 //
 // clean

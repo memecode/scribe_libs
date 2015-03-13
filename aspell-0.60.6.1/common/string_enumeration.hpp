@@ -10,6 +10,7 @@
 #include "parm_string.hpp"
 #include "type_id.hpp"
 #include "char_vector.hpp"
+#include "fstream.hpp"
 
 namespace acommon {
 
@@ -33,6 +34,32 @@ namespace acommon {
     StringEnumeration() : ref_count_(0), copyable_(2), from_internal_(0) {}
     virtual ~StringEnumeration() {}
   };
+  
+	class IstreamEnumeration : public StringEnumeration
+	{
+		FStream * in;
+		String data;
+		public:
+		IstreamEnumeration(FStream & i) : in(&i) {}
+
+		IstreamEnumeration * clone() const
+		{
+			return new IstreamEnumeration(*this);
+		}
+
+		void assign (const StringEnumeration * other)
+		{
+			*this = *static_cast<const IstreamEnumeration *>(other);
+		}
+
+		Value next()
+		{
+			if (!in->getline(data)) return 0;
+			else return data.c_str();
+		}
+		
+		bool at_end() const {return *in;}
+	};
 
 }
 

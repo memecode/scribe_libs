@@ -1,0 +1,1 @@
+This build of the Aspell library contains both the DLL functionality and the command line binary.

@@ -110,7 +110,7 @@
 
 		#define snprintf		_snprintf
 	 
-		#ifdef ASPELL060_EXPORTS
+		#if defined(ASPELL060_EXPORTS) || defined(ASPELLDIST060_EXPORTS)
 			#define C_EXPORT extern "C" __declspec(dllexport)
 			#define LIB_EXPORT __declspec(dllexport)
 		#else

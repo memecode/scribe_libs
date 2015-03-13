@@ -21,7 +21,7 @@ namespace acommon {
     assert (file_ == 0);
     
     // Confirm the absence of the wrong path separators.
-	::printf("FStream::open(%s)\n", name);
+	// ::printf("FStream::open(%s)\n", name);
     #ifdef WIN32
     assert(!strchr(name, '/'));
     #else
@@ -34,12 +34,12 @@ namespace acommon {
     {
       if (strpbrk(mode, "wa+") != 0)
       {
-		::printf("    FStream::open failed(%s)\n", name);
+		// ::printf("    FStream::open failed(%s)\n", name);
 		return make_err(cant_write_file, name);
 	  }
       else
       {
-		::printf("    FStream::open failed(%s)\n", name);
+		// ::printf("    FStream::open failed(%s)\n", name);
 		return make_err(cant_read_file, name);
 	  }
     }

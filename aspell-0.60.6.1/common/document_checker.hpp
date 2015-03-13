@@ -13,12 +13,12 @@
 #include "can_have_error.hpp"
 #include "filter_char.hpp"
 #include "filter_char_vector.hpp"
+#include "tokenizer.hpp"
 
 namespace acommon {
 
   class Config;
   class Speller;
-  class Tokenizer;
   class Convert;
 
   struct Token {
