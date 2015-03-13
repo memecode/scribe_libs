@@ -738,8 +738,7 @@ LIB_EXPORT int aspell_reset_cache(const char * which);
 
 /******************************* memecode additions *********************/
 
-LIB_EXPORT int aspell_create_ro_master(const char *InFile);
-
+LIB_EXPORT int aspell_create_ro_master(AspellConfig *config, const char *InFile);
 
 #ifdef __cplusplus
 }

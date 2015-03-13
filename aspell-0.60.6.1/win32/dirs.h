@@ -1,9 +1,9 @@
 #ifndef _DIRS_H_
 #define _DIRS_H_
 
-#define CONF_DIR "ConfigDir"
-#define DATA_DIR "C:\\Data\\Code\\Scribe\\aspell-0.60.6.1\\data"
-#define DICT_DIR "C:\\Data\\Code\\Scribe\\aspell-0.60.6.1\\dict\\en"
+#define CONF_DIR "~/.aspell"
+#define DATA_DIR "~/.aspell/data"
+#define DICT_DIR "~/.aspell/dict"
 #define PREFIX ""
 
 #endif
