@@ -1,3 +1,4 @@
+#include "aspell.h"
 #include "language.hpp"
 #include "data.hpp"
 
