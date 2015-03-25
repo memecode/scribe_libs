@@ -100,7 +100,7 @@ namespace acommon {
     fputs(_("Unhandled Error: "), stderr);
     fputs(err_->err->mesg, stderr);
     fputs("\n", stderr);
-    abort();
+    // abort();
   }
 #endif
 

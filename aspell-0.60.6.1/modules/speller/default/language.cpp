@@ -587,9 +587,14 @@ namespace aspeller {
   PosibErr<Language *> new_language(const Config & config, ParmStr lang)
   {
     if (!lang)
-      return get_cache_data(&language_cache, &config, config.retrieve("lang"));
+    {
+	  PosibErr<String> lng = config.retrieve("lang");
+      return get_cache_data(&language_cache, &config, lng);
+    }
     else
+    {
       return get_cache_data(&language_cache, &config, lang);
+    }
   }
 
   PosibErr<void> open_affix_file(const Config & c, FStream & f)

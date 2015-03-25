@@ -342,7 +342,9 @@ namespace aspeller {
 
     static inline PosibErr<Language *> get_new(const String & lang, const Config * config) {
       StackPtr<Language> l(new Language());
-      RET_ON_ERR(l->setup(lang, config));
+      PosibErr<void> err = l->setup(lang, config);
+      if (err.has_err())
+		return err;
       return l.release();
     }
 

@@ -8,8 +8,9 @@
  *
  * \returns non-zero on success.
  */
-int aspell_create_ro_master(Config *config, const char *InFile)
+int aspell_create_ro_master(void *cfg, const char *InFile, char *ErrOut, int ErrLen)
 {
+	Config *config = (Config*)cfg;
 	if (!config)
 		return 0;
 
@@ -19,7 +20,16 @@ int aspell_create_ro_master(Config *config, const char *InFile)
 		return 0;
 
 	aspeller::find_language(*config);
-	return !aspeller::create_default_readonly_dict(new IstreamEnumeration(f), *config).has_err();
+	IstreamEnumeration *ie = new IstreamEnumeration(f);
+	err = aspeller::create_default_readonly_dict(ie, *config);
+	if (err.has_err() && ErrOut != NULL && ErrLen > 0)
+	{
+		const char *e = err.get_err()->mesg;
+		if (e)
+			strcpy_s(ErrOut, ErrLen, e);
+	}
+	
+	return !err.has_err();
 }
 
 extern "C" void prezip_compress(FILE *in_file, FILE *out_file);
