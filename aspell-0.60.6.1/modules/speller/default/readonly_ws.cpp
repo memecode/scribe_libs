@@ -1135,7 +1135,9 @@ namespace {
     data_head.word_buckets = lookup.bucket_count();
 
     FStream out;
-    out.open(base, "wb");
+    PosibErr<void> out_err = out.open(base, "wb");
+    if (out_err.has_err())
+		return out_err;
 
     advance_file(out, data_head.head_size);
 
@@ -1180,11 +1182,17 @@ namespace aspeller {
                                               Config & config)
   {
     CachePtr<Language> lang;
+
     PosibErr<Language *> res = new_language(config);
     if (res.has_err()) return res;
+
     lang.reset(res.data);
     lang->set_lang_defaults(config);
-    RET_ON_ERR(create(els,*lang,config));
+
+    PosibErr<void> create_err = create(els,*lang,config);
+    if (create_err.has_err())
+		return create_err;
+
     return no_err;
   }
 }
