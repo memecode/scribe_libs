@@ -457,7 +457,8 @@ namespace acommon {
 
     const StringMap * dict_aliases = get_dict_aliases(config);
     const char * val = dict_aliases->lookup(dict_name);
-    if (val) config->replace("master", val);
+    if (val)
+		config->replace("master", val);
     return config;
   }
 

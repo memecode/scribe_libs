@@ -307,12 +307,15 @@ namespace acommon {
     const Entry * res = 0;
     const Entry * cur = first_;
 
-    while (cur) {
-      if (cur->key == key && cur->action != NoOp)  res = cur;
+    while (cur)
+    {
+      if (cur->key == key && cur->action != NoOp)
+		res = cur;
       cur = cur->next;
     }
 
-    if (!res || res->action == Reset) return 0;
+    if (!res || res->action == Reset)
+		return 0;
     return res;
   }
 

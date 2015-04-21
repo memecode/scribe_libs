@@ -97,13 +97,15 @@ namespace aspeller {
 
     {
       PosibErrBase pe = data.read_in_file(path);
-      if (pe.has_err(cant_read_file)) {
-	String mesg = pe.get_err()->mesg;
-	mesg[0] = asc_tolower(mesg[0]);
-	mesg = _("This is probably because: ") + mesg;
-	return make_err(unknown_language, lang, mesg);
-      } else if (pe.has_err())
-	return pe;
+      if (pe.has_err(cant_read_file))
+      {
+		String mesg = pe.get_err()->mesg;
+		mesg[0] = asc_tolower(mesg[0]);
+		mesg = _("This is probably because: ") + mesg;
+		return make_err(unknown_language, lang, mesg);
+      }
+      else if (pe.has_err())
+		return pe;
     }
 
     if (!data.have("name"))
