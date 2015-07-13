@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Project>
+	<Node Name="Source" Type="1" Platforms="15" Open="1">
+		<Node File="../blocksort.c" Type="2" Platforms="15" />
+		<Node File="../bzlib.c" Type="2" Platforms="15" />
+		<Node File="../compress.c" Type="2" Platforms="15" />
+		<Node File="../crctable.c" Type="2" Platforms="15" />
+		<Node File="../decompress.c" Type="2" Platforms="15" />
+		<Node File="../huffman.c" Type="2" Platforms="15" />
+		<Node File="../randtable.c" Type="2" Platforms="15" />
+	</Node>
+	<Node Name="Headers" Type="1" Platforms="15" Open="1">
+		<Node File="../bzlib.h" Type="3" Platforms="15" />
+	</Node>
+	<Settings>
+		<General>
+			<Makefile>
+				<Linux>Makefile.linux</Linux>
+			</Makefile>
+			<Executable>
+				<Linux />
+			</Executable>
+			<Arguments />
+			<Defines />
+		</General>
+		<Build>
+			<IncludePaths>
+				<All>
+					<Debug>..</Debug>
+					<Release>..</Release>
+				</All>
+			</IncludePaths>
+			<SystemIncludes>
+				<Linux />
+			</SystemIncludes>
+			<Libraries>
+				<All />
+			</Libraries>
+			<LibraryPaths>
+				<All />
+				<Linux />
+			</LibraryPaths>
+			<TargetType>
+				<All>StaticLibrary</All>
+			</TargetType>
+			<TargetName>
+				<Linux>
+					<Debug>bzip2</Debug>
+					<Release>bzip2</Release>
+				</Linux>
+			</TargetName>
+		</Build>
+		<Editor>
+			<TabSize>
+				<All>4</All>
+			</TabSize>
+			<IndentSize>
+				<All>4</All>
+			</IndentSize>
+			<ShowWhiteSpace>
+				<All>0</All>
+			</ShowWhiteSpace>
+			<UseHardTabs>
+				<All>0</All>
+			</UseHardTabs>
+			<CommentFile />
+		</Editor>
+		<Advanced />
+	</Settings>
+</Project>
