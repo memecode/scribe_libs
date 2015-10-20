@@ -35,6 +35,7 @@ namespace acommon {
         dir1 = "." OsDirStr;
     }
     dir2 = config->retrieve("data-dir");
+    path_convert_native(dir2);
     
     int last = dir2[dir2.size()-1];
     if (last != '/' && last != '\\')
