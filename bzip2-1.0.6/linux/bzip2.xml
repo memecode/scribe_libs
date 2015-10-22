@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <Project>
-	<Node Name="Source" Type="1" Platforms="15" Open="1">
+	<Node Name="Source" Type="1" Platforms="15" Open="0">
 		<Node File="../blocksort.c" Type="2" Platforms="15" />
 		<Node File="../bzlib.c" Type="2" Platforms="15" />
 		<Node File="../compress.c" Type="2" Platforms="15" />
@@ -9,7 +9,7 @@
 		<Node File="../huffman.c" Type="2" Platforms="15" />
 		<Node File="../randtable.c" Type="2" Platforms="15" />
 	</Node>
-	<Node Name="Headers" Type="1" Platforms="15" Open="1">
+	<Node Name="Headers" Type="1" Platforms="15" Open="0">
 		<Node File="../bzlib.h" Type="3" Platforms="15" />
 	</Node>
 	<Settings>
@@ -20,8 +20,14 @@
 			<Executable>
 				<Linux />
 			</Executable>
-			<Arguments />
-			<Defines />
+			<Arguments>
+				<All />
+			</Arguments>
+			<Defines>
+				<All />
+				<Linux />
+			</Defines>
+			<Compiler />
 		</General>
 		<Build>
 			<IncludePaths>
@@ -29,12 +35,14 @@
 					<Debug>..</Debug>
 					<Release>..</Release>
 				</All>
+				<Linux />
 			</IncludePaths>
 			<SystemIncludes>
 				<Linux />
 			</SystemIncludes>
 			<Libraries>
 				<All />
+				<Linux />
 			</Libraries>
 			<LibraryPaths>
 				<All />
@@ -64,7 +72,10 @@
 				<All>0</All>
 			</UseHardTabs>
 			<CommentFile />
+			<CommentFunction />
 		</Editor>
-		<Advanced />
+		<Advanced>
+			<OtherMakefileRules />
+		</Advanced>
 	</Settings>
 </Project>
