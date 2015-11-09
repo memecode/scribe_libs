@@ -665,7 +665,7 @@ prezip.o : ../prog/prezip.c
 	../common/string.hpp \
 	../common/vector.hpp
 
-../common/key_info.hpp : ../common/key_info.hpp
+../common/key_info.hpp : 
 
 ../common/lsort.hpp : 
 
