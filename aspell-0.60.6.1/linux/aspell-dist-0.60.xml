@@ -56,8 +56,11 @@
 			<Node File="./settings.h" Type="3" Platforms="15" />
 		</Node>
 	</Node>
-	<Node Name="Headers" Type="1" Platforms="15" Open="1">
+	<Node Name="Headers" Type="1" Platforms="15" Open="0">
 		<Node File="../common/key_info.hpp" Type="3" Platforms="15" />
+	</Node>
+	<Node Name="Build" Type="1" Platforms="15" Open="0">
+		<Node File="./Makefile.linux" Type="3" Platforms="15" />
 	</Node>
 	<Settings>
 		<General>
