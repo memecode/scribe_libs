@@ -20,25 +20,28 @@ ifeq ($(Build),Debug)
 	Flags += -g
 	Tag = d
 	Defs = -D_DEBUG -DLINUX -D_REENTRANT -D_FILE_OFFSET_BITS=64 -DPOSIX -DASPELLDIST060_EXPORTS
-	Libs =
-	Inc =   -I. \
-    		-I../common \
-    		-I../interfaces/cc \
-    		-I../linux \
-    		-I../modules/speller/default
+	Libs = 
+	Inc =  \
+		-I. \
+		-I../common \
+		-I../interfaces/cc \
+		-I../linux \
+		-I../modules/speller/default
 else
 	Flags += -s -Os
 	Defs = -DLINUX -D_REENTRANT -D_FILE_OFFSET_BITS=64 -DPOSIX -DASPELLDIST060_EXPORTS
-	Libs =
-	Inc =   -I. \
-    		-I../common \
-    		-I../interfaces/cc \
-    		-I../linux \
-    		-I../modules/speller/default
+	Libs = 
+	Inc =  \
+		-I. \
+		-I../common \
+		-I../interfaces/cc \
+		-I../linux \
+		-I../modules/speller/default
 endif
 
 # Dependencies
-Depends =	aspell.o \
+Depends =	 \
+			aspell.o \
 			check_funs.o \
 			checker_string.o \
 			affix.o \
@@ -62,6 +65,7 @@ TargetFile = lib$(Target)$(Tag).so
 $(TargetFile) : outputfolder $(Depends)
 	@echo Linking $(TargetFile) [$(Build)]...
 	$(CPP)$s -shared \
+		 \
 		-o $(BuildDir)/$(TargetFile) \
 		$(addprefix $(BuildDir)/,$(Depends)) \
 		$(Libs)

@@ -20,13 +20,13 @@ ifeq ($(Build),Debug)
 	Flags += -g
 	Tag = d
 	Defs = -D_DEBUG -DLINUX -D_REENTRANT -D_FILE_OFFSET_BITS=64 -DPOSIX
-	Libs = (null)
+	Libs = 
 	Inc =  \
 		-I..
 else
 	Flags += -s -Os
 	Defs = -DLINUX -D_REENTRANT -D_FILE_OFFSET_BITS=64 -DPOSIX
-	Libs = (null)
+	Libs = 
 	Inc =  \
 		-I..
 endif
