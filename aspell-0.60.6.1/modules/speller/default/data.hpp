@@ -80,7 +80,7 @@ namespace aspeller {
   protected:
     Dictionary(BasicType,const char *);
   public:
-    virtual ~Dictionary();
+    virtual ~Dictionary() {}
 
     const Id & id() {return *id_;}
     PosibErr<void> check_lang(ParmString lang);

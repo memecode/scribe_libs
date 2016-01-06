@@ -114,7 +114,7 @@ namespace acommon {
     virtual PosibErr<void> store_replacement(MutableString, 
 					     MutableString) = 0;
 
-    virtual ~Speller();
+    virtual ~Speller() {}
 
   };
 

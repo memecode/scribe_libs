@@ -291,7 +291,7 @@ namespace {
     bool operator == (char test) ;
     bool operator != (char test) ;
     Recode & operator = (const Recode & rec);
-    virtual ~Recode();
+    virtual ~Recode() {}
   };
 
   Recode::Recode()
@@ -474,8 +474,8 @@ namespace {
     TexEncoder();
     virtual PosibErr<bool> setup(Config * config); 
     virtual void process(FilterChar * & start, FilterChar * & stop);
-    virtual void reset() ;
-    virtual ~TexEncoder();
+    virtual void reset();
+    virtual ~TexEncoder() {}
   };
 
   TexEncoder::TexEncoder()
@@ -574,8 +574,8 @@ namespace {
     TexDecoder();
     virtual PosibErr<bool> setup(Config * config); 
     virtual void process(FilterChar * & start, FilterChar * & stop);
-    virtual void reset() ;
-    virtual ~TexDecoder();
+    virtual void reset();
+    virtual ~TexDecoder() {}
   };
 
   TexDecoder::TexDecoder()

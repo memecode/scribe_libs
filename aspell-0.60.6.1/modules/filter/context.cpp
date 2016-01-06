@@ -1,12 +1,12 @@
 // This file is part of The New Aspell
-// Copyright (C) 2002 by Christoph Hintermüller under the GNU LGPL license
+// Copyright (C) 2002 by Christoph Hintermÿ¿¿¿ÿ¿¿¿ÿ¿¿¿ÿ¿¿¿ller under the GNU LGPL license
 // version 2.0 or 2.1.  You should have received a copy of the LGPL
 // license along with this library if you did not you can find
 // it at http://www.gnu.org/.
 //
 // Example for a filter implementation usable via extended filter library
 // interface.
-// This was added to Aspell by Christoph Hintermüller
+// This was added to Aspell by Christoph Hintermÿ¿¿¿ÿ¿¿¿ÿ¿¿¿ÿ¿¿¿ller
 
 #include "settings.h"
 

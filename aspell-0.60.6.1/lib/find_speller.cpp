@@ -122,7 +122,7 @@ namespace acommon {
     virtual void set_best_from_cur() = 0;
     virtual void set_cur_rank() = 0;
     IsBetter better_match(IsBetter prev);  
-    virtual ~Better();
+    virtual ~Better() {}
   };
 
   Better::~Better() {}

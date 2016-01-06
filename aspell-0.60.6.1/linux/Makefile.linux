@@ -24,6 +24,7 @@ ifeq ($(Build),Debug)
 	Inc =  \
 		-I. \
 		-I../common \
+		-I../gen \
 		-I../interfaces/cc \
 		-I../linux \
 		-I../modules/speller/default
@@ -34,6 +35,7 @@ else
 	Inc =  \
 		-I. \
 		-I../common \
+		-I../gen \
 		-I../interfaces/cc \
 		-I../linux \
 		-I../modules/speller/default
@@ -44,6 +46,22 @@ Depends =	 \
 			aspell.o \
 			check_funs.o \
 			checker_string.o \
+			config.o \
+			context.o \
+			email.o \
+			errors.o \
+			fstream.o \
+			iostream.o \
+			new_filter.o \
+			new_fmode.o \
+			nroff.o \
+			sgml.o \
+			string.o \
+			string_list.o \
+			string_map.o \
+			tex.o \
+			texinfo.o \
+			url.o \
 			affix.o \
 			data.o \
 			editdist.o \
@@ -80,7 +98,7 @@ clean :
 	rm -f $(BuildDir)/*.o $(BuildDir)/$(TargetFile)
 	@echo Cleaned $(BuildDir)
 
-aspell.o : ../prog/aspell.cpp ./settings.h \
+aspell.o : ../prog/aspell.cpp ../gen/settings.h \
 	../interfaces/cc/aspell.h \
 	../common/asc_ctype.hpp \
 	../common/config.hpp \
@@ -107,7 +125,7 @@ aspell.o : ../prog/aspell.cpp ./settings.h \
 	@echo $(<F) [$(Build)]
 	$(CPP) $(Inc) $(Flags) $(Defs) -c $< -o $(BuildDir)/$(@F)
 
-check_funs.o : ../prog/check_funs.cpp ./settings.h \
+check_funs.o : ../prog/check_funs.cpp ../gen/settings.h \
 	../common/asc_ctype.hpp \
 	../common/convert.hpp \
 	../common/config.hpp \
@@ -119,6 +137,187 @@ checker_string.o : ../prog/checker_string.cpp ../common/speller.hpp \
 	../common/document_checker.hpp \
 	../common/asc_ctype.hpp \
 	../common/convert.hpp
+	@echo $(<F) [$(Build)]
+	$(CPP) $(Inc) $(Flags) $(Defs) -c $< -o $(BuildDir)/$(@F)
+
+config.o : ../common/config.cpp ../common/ndebug.hpp \
+	../gen/settings.h \
+	../common/cache.hpp \
+	../common/asc_ctype.hpp \
+	../common/config.hpp \
+	../common/errors.hpp \
+	../common/file_util.hpp \
+	../common/fstream.hpp \
+	../common/getdata.hpp \
+	../common/itemize.hpp \
+	../common/mutable_container.hpp \
+	../common/posib_err.hpp \
+	../common/string_map.hpp \
+	../common/stack_ptr.hpp \
+	../common/char_vector.hpp \
+	../common/convert.hpp \
+	../common/vararray.hpp \
+	../common/string_list.hpp \
+	../common/gettext.h \
+	../common/iostream.hpp
+	@echo $(<F) [$(Build)]
+	$(CPP) $(Inc) $(Flags) $(Defs) -c $< -o $(BuildDir)/$(@F)
+
+context.o : ../modules/filter/context.cpp ../gen/settings.h \
+	../common/can_have_error.hpp \
+	../common/config.hpp \
+	../common/filter_char.hpp \
+	../common/indiv_filter.hpp \
+	../common/iostream.hpp \
+	../common/posib_err.hpp \
+	../common/string.hpp \
+	../common/string_enumeration.hpp \
+	../common/string_list.hpp \
+	../common/vector.hpp
+	@echo $(<F) [$(Build)]
+	$(CPP) $(Inc) $(Flags) $(Defs) -c $< -o $(BuildDir)/$(@F)
+
+email.o : ../modules/filter/email.cpp ../gen/settings.h \
+	../common/indiv_filter.hpp \
+	../common/convert.hpp \
+	../common/config.hpp \
+	../common/mutable_container.hpp
+	@echo $(<F) [$(Build)]
+	$(CPP) $(Inc) $(Flags) $(Defs) -c $< -o $(BuildDir)/$(@F)
+
+errors.o : ../common/errors.cpp ../gen/settings.h \
+	../common/gettext.h \
+	../common/error.hpp \
+	../common/errors.hpp
+	@echo $(<F) [$(Build)]
+	$(CPP) $(Inc) $(Flags) $(Defs) -c $< -o $(BuildDir)/$(@F)
+
+fstream.o : ../common/fstream.cpp ../common/iostream.hpp \
+	../common/asc_ctype.hpp \
+	../common/string.hpp \
+	../common/fstream.hpp \
+	../common/errors.hpp
+	@echo $(<F) [$(Build)]
+	$(CPP) $(Inc) $(Flags) $(Defs) -c $< -o $(BuildDir)/$(@F)
+
+iostream.o : ../common/iostream.cpp ../common/iostream.hpp
+	@echo $(<F) [$(Build)]
+	$(CPP) $(Inc) $(Flags) $(Defs) -c $< -o $(BuildDir)/$(@F)
+
+new_filter.o : ../lib/new_filter.cpp ../gen/settings.h \
+	../common/cache-t.hpp \
+	../common/asc_ctype.hpp \
+	../common/config.hpp \
+	../common/enumeration.hpp \
+	../common/errors.hpp \
+	../common/filter.hpp \
+	../common/fstream.hpp \
+	../common/getdata.hpp \
+	../common/indiv_filter.hpp \
+	../common/iostream.hpp \
+	../common/itemize.hpp \
+	../common/key_info.hpp \
+	../common/parm_string.hpp \
+	../common/posib_err.hpp \
+	../common/stack_ptr.hpp \
+	../common/string_enumeration.hpp \
+	../common/string_list.hpp \
+	../common/string_map.hpp \
+	../common/strtonum.hpp \
+	../common/file_util.hpp \
+	../gen/static_filters.src.cpp
+	@echo $(<F) [$(Build)]
+	$(CPP) $(Inc) $(Flags) $(Defs) -c $< -o $(BuildDir)/$(@F)
+
+new_fmode.o : ../lib/new_fmode.cpp ../gen/settings.h \
+	../common/stack_ptr.hpp \
+	../common/cache-t.hpp \
+	../common/string.hpp \
+	../common/vector.hpp \
+	../common/config.hpp \
+	../common/errors.hpp \
+	../common/filter.hpp \
+	../common/string_enumeration.hpp \
+	../common/string_list.hpp \
+	../common/posib_err.hpp \
+	../common/file_util.hpp \
+	../common/fstream.hpp \
+	../common/getdata.hpp \
+	../common/strtonum.hpp \
+	../common/asc_ctype.hpp \
+	../common/iostream.hpp \
+	../common/gettext.h
+	@echo $(<F) [$(Build)]
+	$(CPP) $(Inc) $(Flags) $(Defs) -c $< -o $(BuildDir)/$(@F)
+
+nroff.o : ../modules/filter/nroff.cpp ../gen/settings.h \
+	../common/asc_ctype.hpp \
+	../common/config.hpp \
+	../common/indiv_filter.hpp \
+	../common/string_map.hpp \
+	../common/mutable_container.hpp \
+	../common/clone_ptr-t.hpp \
+	../common/filter_char_vector.hpp
+	@echo $(<F) [$(Build)]
+	$(CPP) $(Inc) $(Flags) $(Defs) -c $< -o $(BuildDir)/$(@F)
+
+sgml.o : ../modules/filter/sgml.cpp ../gen/settings.h \
+	../common/asc_ctype.hpp \
+	../common/config.hpp \
+	../common/indiv_filter.hpp \
+	../common/string_map.hpp \
+	../common/mutable_container.hpp \
+	../common/clone_ptr-t.hpp \
+	../common/filter_char_vector.hpp
+	@echo $(<F) [$(Build)]
+	$(CPP) $(Inc) $(Flags) $(Defs) -c $< -o $(BuildDir)/$(@F)
+
+string.o : ../common/string.cpp ../common/string.hpp \
+	../common/asc_ctype.hpp
+	@echo $(<F) [$(Build)]
+	$(CPP) $(Inc) $(Flags) $(Defs) -c $< -o $(BuildDir)/$(@F)
+
+string_list.o : ../common/string_list.cpp ../common/string_list.hpp
+	@echo $(<F) [$(Build)]
+	$(CPP) $(Inc) $(Flags) $(Defs) -c $< -o $(BuildDir)/$(@F)
+
+string_map.o : ../common/string_map.cpp ../common/parm_string.hpp \
+	../common/string_map.hpp \
+	../common/string_pair.hpp \
+	../common/string_pair_enumeration.hpp \
+	../common/hash-t.hpp
+	@echo $(<F) [$(Build)]
+	$(CPP) $(Inc) $(Flags) $(Defs) -c $< -o $(BuildDir)/$(@F)
+
+tex.o : ../modules/filter/tex.cpp ../common/asc_ctype.hpp \
+	../common/config.hpp \
+	../common/string.hpp \
+	../common/indiv_filter.hpp \
+	../common/mutable_container.hpp \
+	../common/string_map.hpp \
+	../common/clone_ptr-t.hpp \
+	../common/vector.hpp \
+	../common/errors.hpp \
+	../common/convert.hpp \
+	../common/filter_char_vector.hpp \
+	../common/string_list.hpp \
+	../common/string_enumeration.hpp \
+	../common/gettext.h
+	@echo $(<F) [$(Build)]
+	$(CPP) $(Inc) $(Flags) $(Defs) -c $< -o $(BuildDir)/$(@F)
+
+texinfo.o : ../modules/filter/texinfo.cpp ../common/asc_ctype.hpp \
+	../common/config.hpp \
+	../common/string.hpp \
+	../common/indiv_filter.hpp \
+	../common/string_map.hpp \
+	../common/vector.hpp
+	@echo $(<F) [$(Build)]
+	$(CPP) $(Inc) $(Flags) $(Defs) -c $< -o $(BuildDir)/$(@F)
+
+url.o : ../modules/filter/url.cpp ../gen/settings.h \
+	../common/indiv_filter.hpp \
+	../common/key_info.hpp
 	@echo $(<F) [$(Build)]
 	$(CPP) $(Inc) $(Flags) $(Defs) -c $< -o $(BuildDir)/$(@F)
 
@@ -157,7 +356,7 @@ editdist.o : ../modules/speller/default/editdist.cpp ../modules/speller/default/
 	@echo $(<F) [$(Build)]
 	$(CPP) $(Inc) $(Flags) $(Defs) -c $< -o $(BuildDir)/$(@F)
 
-language.o : ../modules/speller/default/language.cpp ./settings.h \
+language.o : ../modules/speller/default/language.cpp ../gen/settings.h \
 	../common/iostream.hpp \
 	../common/cache-t.hpp \
 	../common/asc_ctype.hpp \
@@ -207,7 +406,7 @@ phonet.o : ../modules/speller/default/phonet.cpp ../common/asc_ctype.hpp \
 phonetic.o : ../modules/speller/default/phonetic.cpp ../modules/speller/default/language.hpp \
 	../modules/speller/default/phonetic.hpp \
 	../modules/speller/default/phonet.hpp \
-	./settings.h \
+	../gen/settings.h \
 	../common/file_util.hpp \
 	../common/file_data_util.hpp \
 	../common/clone_ptr-t.hpp
@@ -218,7 +417,7 @@ primes.o : ../modules/speller/default/primes.cpp ../modules/speller/default/prim
 	@echo $(<F) [$(Build)]
 	$(CPP) $(Inc) $(Flags) $(Defs) -c $< -o $(BuildDir)/$(@F)
 
-readonly_ws.o : ../modules/speller/default/readonly_ws.cpp ./settings.h \
+readonly_ws.o : ../modules/speller/default/readonly_ws.cpp ../gen/settings.h \
 	../modules/speller/default/block_vector.hpp \
 	../common/config.hpp \
 	../modules/speller/default/data.hpp \
@@ -307,7 +506,11 @@ prezip.o : ../prog/prezip.c
 ../common/getdata.hpp : ../common/string.hpp \
 	../common/mutable_string.hpp
 
-../common/gettext.h : ./settings.h
+../common/gettext.h : ../gen/settings.h
+
+../common/indiv_filter.hpp : ../common/string.hpp \
+	../common/posib_err.hpp \
+	../common/filter_char.hpp
 
 ../common/hash_fun.hpp : 
 
@@ -343,8 +546,6 @@ prezip.o : ../prog/prezip.c
 	../common/objstack.hpp
 
 ../common/parm_string.hpp : 
-
-./settings.h : 
 
 ../modules/speller/default/language.hpp : ../modules/speller/default/affix.hpp \
 	../common/cache.hpp \
@@ -433,7 +634,7 @@ prezip.o : ../prog/prezip.c
 ../common/ostream.hpp : ../common/parm_string.hpp
 
 ../common/objstack.hpp : ../common/parm_string.hpp \
-	./settings.h
+	../gen/settings.h
 
 ../modules/speller/default/speller_impl.hpp : ../common/clone_ptr.hpp \
 	../common/copy_ptr.hpp \
@@ -449,20 +650,33 @@ prezip.o : ../prog/prezip.c
 
 ../modules/speller/default/primes.hpp : 
 
-../modules/speller/default/vector_hash.hpp : ./settings.h
+../modules/speller/default/vector_hash.hpp : ../gen/settings.h
+
+../common/error.hpp : ../gen/settings.h
+
+../common/string_pair.hpp : 
+
+../common/can_have_error.hpp : ../common/copy_ptr.hpp \
+	../common/error.hpp \
+	../gen/settings.h
 
 ../common/block_slist-t.hpp : ../common/block_slist.hpp
+
+../common/char_vector.hpp : ../common/string.hpp \
+	../common/ostream.hpp
 
 ../common/enumeration.hpp : ../common/clone_ptr-t.hpp
 
 ../common/clone_ptr-t.hpp : ../common/clone_ptr.hpp \
 	../common/generic_copy_ptr-t.hpp
 
+../common/string_pair_enumeration.hpp : ../common/string_pair.hpp
+
 ../common/mutable_string.hpp : ../common/parm_string.hpp
 
 ../common/clone_ptr.hpp : ../common/generic_copy_ptr.hpp
 
-../common/generic_copy_ptr.hpp : ./settings.h
+../common/generic_copy_ptr.hpp : ../gen/settings.h
 
 ../common/tokenizer.hpp : ../common/char_vector.hpp \
 	../common/filter_char.hpp \
@@ -483,9 +697,16 @@ prezip.o : ../prog/prezip.c
 
 ../common/can_have_error.hpp : ../common/copy_ptr.hpp \
 	../common/error.hpp \
-	./settings.h
+	../gen/settings.h
 
 ../common/vararray.hpp : 
+
+../common/itemize.hpp : ../common/parm_string.hpp \
+	../common/posib_err.hpp
+
+../common/strtonum.hpp : 
+
+../common/mutable_container.hpp : ../common/parm_string.hpp
 
 ../modules/speller/default/leditdist.hpp : ../modules/speller/default/weights.hpp
 
@@ -507,12 +728,19 @@ prezip.o : ../prog/prezip.c
 
 ../common/string_pair_enumeration.hpp : ../common/string_pair.hpp
 
+../common/filter.hpp : ../common/can_have_error.hpp \
+	../common/copy_ptr.hpp \
+	../common/filter_char.hpp \
+	../common/posib_err.hpp \
+	../common/vector.hpp \
+	../common/string_pair_enumeration.hpp
+
 ../common/string.hpp : ../common/hash_fun.hpp \
 	../common/parm_string.hpp \
 	../common/mutable_string.hpp \
 	../common/ostream.hpp \
 	../common/istream.hpp \
-	./settings.h
+	../gen/settings.h
 
 ../common/hash_fun.hpp : 
 
@@ -521,7 +749,7 @@ prezip.o : ../prog/prezip.c
 	../common/mutable_string.hpp \
 	../common/ostream.hpp \
 	../common/istream.hpp \
-	./settings.h
+	../gen/settings.h
 
 ../modules/speller/default/data.hpp : ../common/ndebug.hpp \
 	../common/copy_ptr.hpp \
@@ -533,7 +761,7 @@ prezip.o : ../prog/prezip.c
 	../common/word_list.hpp \
 	../common/cache.hpp \
 	../modules/speller/default/wordinfo.hpp \
-	./settings.h
+	../gen/settings.h
 
 ../modules/speller/default/language.hpp : ../modules/speller/default/affix.hpp \
 	../common/cache.hpp \
@@ -549,16 +777,22 @@ prezip.o : ../prog/prezip.c
 
 ../common/word_list.hpp : 
 
+../gen/static_filters.src.cpp : 
+
 ../modules/speller/default/typo_editdist.hpp : ../common/cache.hpp \
 	../modules/speller/default/matrix.hpp
 
+../gen/settings.h : 
+
 ../common/filter_char.hpp : 
+
+../common/cache.hpp : ../common/posib_err.hpp
 
 ../common/enumeration.hpp : ../common/clone_ptr-t.hpp
 
 ../common/vector.hpp : 
 
-../common/error.hpp : ./settings.h
+../common/error.hpp : ../gen/settings.h
 
 ../common/vector.hpp : 
 
@@ -592,7 +826,7 @@ prezip.o : ../prog/prezip.c
 
 ../common/errors.hpp : 
 
-../common/lock.hpp : ./settings.h
+../common/lock.hpp : ../gen/settings.h
 
 ../common/errors.hpp : 
 
@@ -609,6 +843,9 @@ prezip.o : ../prog/prezip.c
 	../modules/speller/default/matrix.hpp
 
 ../modules/speller/default/matrix.hpp : 
+
+../common/filter_char_vector.hpp : ../common/vector.hpp \
+	../common/filter_char.hpp
 
 ../common/filter_char_vector.hpp : ../common/vector.hpp \
 	../common/filter_char.hpp
@@ -631,7 +868,7 @@ prezip.o : ../prog/prezip.c
 	../common/word_list.hpp \
 	../common/cache.hpp \
 	../modules/speller/default/wordinfo.hpp \
-	./settings.h
+	../gen/settings.h
 
 ../modules/speller/default/editdist.hpp : ../common/parm_string.hpp \
 	../modules/speller/default/weights.hpp
@@ -639,10 +876,14 @@ prezip.o : ../prog/prezip.c
 ../common/file_util.hpp : ../common/string.hpp \
 	../common/posib_err.hpp
 
+../gen/settings.h : 
+
 ../common/ndebug.hpp : 
 
 ../modules/speller/default/check_list.hpp : ../common/objstack.hpp \
 	../common/speller.hpp
+
+../common/ndebug.hpp : 
 
 ../common/convert.hpp : ../common/string.hpp \
 	../common/posib_err.hpp \
@@ -654,7 +895,9 @@ prezip.o : ../prog/prezip.c
 	../common/cache.hpp
 
 ../common/objstack.hpp : ../common/parm_string.hpp \
-	./settings.h
+	../gen/settings.h
+
+../common/filter_char.hpp : 
 
 ../common/type_id.hpp : ../common/parm_string.hpp
 
@@ -680,17 +923,17 @@ prezip.o : ../prog/prezip.c
 
 ../modules/speller/default/data_util.hpp : ../common/parm_string.hpp
 
-../common/hash.hpp : ./settings.h \
+../common/hash.hpp : ../gen/settings.h \
 	../common/hash_fun.hpp \
 	../common/block_slist.hpp
 
-../modules/speller/default/phonetic.hpp : ../common/string.hpp
+../common/key_info.hpp : 
 
-./settings.h : 
+../modules/speller/default/phonetic.hpp : ../common/string.hpp
 
 ../common/block_slist.hpp : 
 
-../modules/speller/default/data_id.hpp : ./settings.h
+../modules/speller/default/data_id.hpp : ../gen/settings.h
 
 ../common/fstream.hpp : ../common/string.hpp \
 	../common/istream.hpp \
@@ -706,5 +949,6 @@ VPATH=%.cpp \
 	../common \
 	../interfaces/cc \
 	../modules/speller/default \
+	../gen \
 	$(BuildDir)
 
