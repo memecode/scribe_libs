@@ -5,30 +5,56 @@
 			<Node File="../interfaces/cc/aspell.h" Type="3" Platforms="15" />
 			<Node File="../interfaces/cc/pspell.h" Type="3" Platforms="15" />
 		</Node>
-		<Node Name="AspellSrc" Type="1" Platforms="15" Open="1">
+		<Node Name="AspellSrc" Type="1" Platforms="15" Open="0">
 			<Node File="../prog/aspell.cpp" Type="2" Platforms="15" />
+			<Node File="../modules/tokenizer/basic.cpp" Type="2" Platforms="15" />
+			<Node File="../common/cache.cpp" Type="2" Platforms="15" />
+			<Node File="../lib/can_have_error-c.cpp" Type="2" Platforms="15" />
+			<Node File="../common/can_have_error.cpp" Type="2" Platforms="15" />
 			<Node File="../prog/check_funs.cpp" Type="2" Platforms="15" />
 			<Node File="../prog/checker_string.cpp" Type="2" Platforms="15" />
+			<Node File="../lib/config-c.cpp" Type="2" Platforms="15" />
 			<Node File="../common/config.cpp" Type="2" Platforms="15" />
 			<Node File="../modules/filter/context.cpp" Type="2" Platforms="15" />
+			<Node File="../common/convert.cpp" Type="2" Platforms="15" />
+			<Node File="../common/document_checker.cpp" Type="2" Platforms="15" />
 			<Node File="../modules/filter/email.cpp" Type="2" Platforms="15" />
+			<Node File="../common/error.cpp" Type="2" Platforms="15" />
 			<Node File="../common/errors.cpp" Type="2" Platforms="15" />
+			<Node File="../common/file_data_util.cpp" Type="2" Platforms="15" />
+			<Node File="../common/file_util.cpp" Type="2" Platforms="15" />
+			<Node File="../common/filter.cpp" Type="2" Platforms="15" />
+			<Node File="../lib/find_speller.cpp" Type="2" Platforms="15" />
 			<Node File="../common/fstream.cpp" Type="2" Platforms="15" />
+			<Node File="../common/getdata.cpp" Type="2" Platforms="15" />
+			<Node File="../common/gettext_init.cpp" Type="2" Platforms="15" />
+			<Node File="../common/info.cpp" Type="2" Platforms="15" />
 			<Node File="../common/iostream.cpp" Type="2" Platforms="15" />
+			<Node File="../common/itemize.cpp" Type="2" Platforms="15" />
 			<Node File="../common/mutable_container.hpp" Type="3" Platforms="15" />
 			<Node File="../common/mutable_string.hpp" Type="3" Platforms="15" />
+			<Node File="../lib/new_checker.cpp" Type="2" Platforms="15" />
+			<Node File="../lib/new_config.cpp" Type="2" Platforms="15" />
 			<Node File="../lib/new_filter.cpp" Type="2" Platforms="15" />
 			<Node File="../lib/new_fmode.cpp" Type="2" Platforms="15" />
 			<Node File="../modules/filter/nroff.cpp" Type="2" Platforms="15" />
+			<Node File="../common/objstack.cpp" Type="2" Platforms="15" />
+			<Node File="../common/posib_err.cpp" Type="2" Platforms="15" />
 			<Node File="../modules/filter/sgml.cpp" Type="2" Platforms="15" />
+			<Node File="../lib/speller-c.cpp" Type="2" Platforms="15" />
+			<Node File="../common/speller.cpp" Type="2" Platforms="15" />
 			<Node File="../common/speller.hpp" Type="3" Platforms="15" />
 			<Node File="../common/string.cpp" Type="2" Platforms="15" />
+			<Node File="../lib/string_enumeration-c.cpp" Type="2" Platforms="15" />
 			<Node File="../common/string_list.cpp" Type="2" Platforms="15" />
 			<Node File="../common/string_list.hpp" Type="3" Platforms="15" />
 			<Node File="../common/string_map.cpp" Type="2" Platforms="15" />
+			<Node File="../common/strtonum.cpp" Type="2" Platforms="15" />
 			<Node File="../modules/filter/tex.cpp" Type="2" Platforms="15" />
 			<Node File="../modules/filter/texinfo.cpp" Type="2" Platforms="15" />
+			<Node File="../common/tokenizer.cpp" Type="2" Platforms="15" />
 			<Node File="../modules/filter/url.cpp" Type="2" Platforms="15" />
+			<Node File="../lib/word_list-c.cpp" Type="2" Platforms="15" />
 		</Node>
 		<Node Name="Config" Type="1" Platforms="15" Open="0">
 			<Node File="../modules/speller/default/affix.cpp" Type="2" Platforms="15" />
@@ -69,14 +95,15 @@
 			<Node File="../modules/speller/default/wordinfo.hpp" Type="0" Platforms="15" />
 			<Node File="../modules/speller/default/writable.cpp" Type="2" Platforms="15" />
 		</Node>
-		<Node Name="Prezip" Type="1" Platforms="15" Open="0">
+		<Node Name="Prezip" Type="1" Platforms="15" Open="1">
+			<Node File="../win32/api-glue.cpp" Type="2" Platforms="15" />
 			<Node File="../prog/prezip.c" Type="2" Platforms="15" />
 		</Node>
 		<Node Name="Posix" Type="1" Platforms="15" Open="0">
 			<Node File="./settings.h" Type="3" Platforms="15" />
 		</Node>
 	</Node>
-	<Node Name="Headers" Type="1" Platforms="15" Open="1">
+	<Node Name="Headers" Type="1" Platforms="15" Open="0">
 		<Node File="../common/key_info.hpp" Type="3" Platforms="15" />
 	</Node>
 	<Node Name="Build" Type="1" Platforms="15" Open="0">
@@ -95,7 +122,14 @@
 					<Debug>ASPELLDIST060_EXPORTS</Debug>
 					<Release>ASPELLDIST060_EXPORTS</Release>
 				</All>
+				<Linux />
 			</Defines>
+			<Executable>
+				<Linux />
+			</Executable>
+			<Arguments>
+				<All />
+			</Arguments>
 		</General>
 		<Build>
 			<IncludePaths>
@@ -119,6 +153,31 @@
 			<TargetType>
 				<All>DynamicLibrary</All>
 			</TargetType>
+			<SystemIncludes>
+				<Linux />
+			</SystemIncludes>
+			<Libraries>
+				<All />
+				<Linux />
+			</Libraries>
+			<LibraryPaths>
+				<All />
+				<Linux />
+			</LibraryPaths>
+			<TargetName>
+				<Linux />
+			</TargetName>
 		</Build>
+		<Editor>
+			<TabSize />
+			<IndentSize />
+			<ShowWhiteSpace />
+			<UseHardTabs />
+			<CommentFile />
+			<CommentFunction />
+		</Editor>
+		<Advanced>
+			<OtherMakefileRules />
+		</Advanced>
 	</Settings>
 </Project>

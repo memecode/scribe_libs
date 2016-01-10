@@ -2,6 +2,11 @@
 #include "language.hpp"
 #include "data.hpp"
 
+#ifdef LINUX
+#define strcpy_s strncpy
+#define sprintf_s snprintf
+#endif
+
 /**
  * This is a simple version of aspell's 'create master' function 
  * that can be called without the actual aspell binary.

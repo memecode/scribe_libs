@@ -13,6 +13,6 @@ namespace acommon {
 
   Speller::Speller(SpellerLtHandle h) : lt_handle_(h) {}
 
-  Speller::~Speller() {}
+  Speller::~Speller();
 }
 

@@ -44,24 +44,50 @@ endif
 # Dependencies
 Depends =	 \
 			aspell.o \
+			basic.o \
+			cache.o \
+			can_have_error-c.o \
+			can_have_error.o \
 			check_funs.o \
 			checker_string.o \
+			config-c.o \
 			config.o \
 			context.o \
+			convert.o \
+			document_checker.o \
 			email.o \
+			error.o \
 			errors.o \
+			file_data_util.o \
+			file_util.o \
+			filter.o \
+			find_speller.o \
 			fstream.o \
+			getdata.o \
+			gettext_init.o \
+			info.o \
 			iostream.o \
+			itemize.o \
+			new_checker.o \
+			new_config.o \
 			new_filter.o \
 			new_fmode.o \
 			nroff.o \
+			objstack.o \
+			posib_err.o \
 			sgml.o \
+			speller-c.o \
+			speller.o \
 			string.o \
+			string_enumeration-c.o \
 			string_list.o \
 			string_map.o \
+			strtonum.o \
 			tex.o \
 			texinfo.o \
+			tokenizer.o \
 			url.o \
+			word_list-c.o \
 			affix.o \
 			data.o \
 			editdist.o \
@@ -76,6 +102,7 @@ Depends =	 \
 			suggest.o \
 			typo_editdist.o \
 			writable.o \
+			api-glue.o \
 			prezip.o
 
 # Target
@@ -125,6 +152,28 @@ aspell.o : ../prog/aspell.cpp ../gen/settings.h \
 	@echo $(<F) [$(Build)]
 	$(CPP) $(Inc) $(Flags) $(Defs) -c $< -o $(BuildDir)/$(@F)
 
+basic.o : ../modules/tokenizer/basic.cpp ../common/tokenizer.hpp \
+	../common/convert.hpp \
+	../common/speller.hpp
+	@echo $(<F) [$(Build)]
+	$(CPP) $(Inc) $(Flags) $(Defs) -c $< -o $(BuildDir)/$(@F)
+
+cache.o : ../common/cache.cpp ../common/stack_ptr.hpp \
+	../common/cache-t.hpp
+	@echo $(<F) [$(Build)]
+	$(CPP) $(Inc) $(Flags) $(Defs) -c $< -o $(BuildDir)/$(@F)
+
+can_have_error-c.o : ../lib/can_have_error-c.cpp ../common/can_have_error.hpp \
+	../common/error.hpp \
+	../gen/settings.h
+	@echo $(<F) [$(Build)]
+	$(CPP) $(Inc) $(Flags) $(Defs) -c $< -o $(BuildDir)/$(@F)
+
+can_have_error.o : ../common/can_have_error.cpp ../common/error.hpp \
+	../common/can_have_error.hpp
+	@echo $(<F) [$(Build)]
+	$(CPP) $(Inc) $(Flags) $(Defs) -c $< -o $(BuildDir)/$(@F)
+
 check_funs.o : ../prog/check_funs.cpp ../gen/settings.h \
 	../common/asc_ctype.hpp \
 	../common/convert.hpp \
@@ -140,7 +189,16 @@ checker_string.o : ../prog/checker_string.cpp ../common/speller.hpp \
 	@echo $(<F) [$(Build)]
 	$(CPP) $(Inc) $(Flags) $(Defs) -c $< -o $(BuildDir)/$(@F)
 
+config-c.o : ../lib/config-c.cpp ../common/config.hpp \
+	../common/error.hpp \
+	../common/posib_err.hpp \
+	../common/string.hpp \
+	../gen/settings.h
+	@echo $(<F) [$(Build)]
+	$(CPP) $(Inc) $(Flags) $(Defs) -c $< -o $(BuildDir)/$(@F)
+
 config.o : ../common/config.cpp ../common/ndebug.hpp \
+	./dirs.h \
 	../gen/settings.h \
 	../common/cache.hpp \
 	../common/asc_ctype.hpp \
@@ -177,6 +235,30 @@ context.o : ../modules/filter/context.cpp ../gen/settings.h \
 	@echo $(<F) [$(Build)]
 	$(CPP) $(Inc) $(Flags) $(Defs) -c $< -o $(BuildDir)/$(@F)
 
+convert.o : ../common/convert.cpp ../common/asc_ctype.hpp \
+	../common/convert.hpp \
+	../common/fstream.hpp \
+	../common/getdata.hpp \
+	../common/config.hpp \
+	../common/errors.hpp \
+	../common/stack_ptr.hpp \
+	../common/cache-t.hpp \
+	../common/file_util.hpp \
+	../common/file_data_util.hpp \
+	../common/vararray.hpp \
+	../common/iostream.hpp \
+	../common/gettext.h
+	@echo $(<F) [$(Build)]
+	$(CPP) $(Inc) $(Flags) $(Defs) -c $< -o $(BuildDir)/$(@F)
+
+document_checker.o : ../common/document_checker.cpp ../common/document_checker.hpp \
+	../common/tokenizer.hpp \
+	../common/convert.hpp \
+	../common/speller.hpp \
+	../common/config.hpp
+	@echo $(<F) [$(Build)]
+	$(CPP) $(Inc) $(Flags) $(Defs) -c $< -o $(BuildDir)/$(@F)
+
 email.o : ../modules/filter/email.cpp ../gen/settings.h \
 	../common/indiv_filter.hpp \
 	../common/convert.hpp \
@@ -185,10 +267,61 @@ email.o : ../modules/filter/email.cpp ../gen/settings.h \
 	@echo $(<F) [$(Build)]
 	$(CPP) $(Inc) $(Flags) $(Defs) -c $< -o $(BuildDir)/$(@F)
 
+error.o : ../common/error.cpp ../common/error.hpp
+	@echo $(<F) [$(Build)]
+	$(CPP) $(Inc) $(Flags) $(Defs) -c $< -o $(BuildDir)/$(@F)
+
 errors.o : ../common/errors.cpp ../gen/settings.h \
 	../common/gettext.h \
 	../common/error.hpp \
 	../common/errors.hpp
+	@echo $(<F) [$(Build)]
+	$(CPP) $(Inc) $(Flags) $(Defs) -c $< -o $(BuildDir)/$(@F)
+
+file_data_util.o : ../common/file_data_util.cpp ../gen/settings.h \
+	../common/config.hpp \
+	../common/file_util.hpp \
+	../common/file_data_util.hpp
+	@echo $(<F) [$(Build)]
+	$(CPP) $(Inc) $(Flags) $(Defs) -c $< -o $(BuildDir)/$(@F)
+
+file_util.o : ../common/file_util.cpp ../gen/settings.h \
+	../common/config.hpp \
+	../common/file_util.hpp \
+	../common/fstream.hpp \
+	../common/errors.hpp \
+	../common/string_list.hpp \
+	../common/asc_ctype.hpp
+	@echo $(<F) [$(Build)]
+	$(CPP) $(Inc) $(Flags) $(Defs) -c $< -o $(BuildDir)/$(@F)
+
+filter.o : ../common/filter.cpp ../gen/settings.h \
+	../common/config.hpp \
+	../common/filter.hpp \
+	../common/speller.hpp \
+	../common/indiv_filter.hpp \
+	../common/strtonum.hpp \
+	../common/errors.hpp \
+	../common/asc_ctype.hpp
+	@echo $(<F) [$(Build)]
+	$(CPP) $(Inc) $(Flags) $(Defs) -c $< -o $(BuildDir)/$(@F)
+
+find_speller.o : ../lib/find_speller.cpp ../common/asc_ctype.hpp \
+	../common/can_have_error.hpp \
+	../common/config.hpp \
+	../common/convert.hpp \
+	../common/enumeration.hpp \
+	../common/errors.hpp \
+	../common/filter.hpp \
+	../common/fstream.hpp \
+	../common/getdata.hpp \
+	../common/info.hpp \
+	../common/speller.hpp \
+	../common/stack_ptr.hpp \
+	../common/string_enumeration.hpp \
+	../common/string_list.hpp \
+	../common/string_map.hpp \
+	../common/gettext.h
 	@echo $(<F) [$(Build)]
 	$(CPP) $(Inc) $(Flags) $(Defs) -c $< -o $(BuildDir)/$(@F)
 
@@ -200,7 +333,58 @@ fstream.o : ../common/fstream.cpp ../common/iostream.hpp \
 	@echo $(<F) [$(Build)]
 	$(CPP) $(Inc) $(Flags) $(Defs) -c $< -o $(BuildDir)/$(@F)
 
+getdata.o : ../common/getdata.cpp ../common/getdata.hpp \
+	../common/string.hpp \
+	../common/asc_ctype.hpp \
+	../common/iostream.hpp
+	@echo $(<F) [$(Build)]
+	$(CPP) $(Inc) $(Flags) $(Defs) -c $< -o $(BuildDir)/$(@F)
+
+gettext_init.o : ../common/gettext_init.cpp ../common/gettext.h \
+	../common/lock.hpp
+	@echo $(<F) [$(Build)]
+	$(CPP) $(Inc) $(Flags) $(Defs) -c $< -o $(BuildDir)/$(@F)
+
+info.o : ../common/info.cpp ../common/iostream.hpp \
+	../common/asc_ctype.hpp \
+	../common/config.hpp \
+	../common/errors.hpp \
+	../common/fstream.hpp \
+	../common/getdata.hpp \
+	../common/info.hpp \
+	../common/itemize.hpp \
+	../common/string.hpp \
+	../common/string_list.hpp \
+	../common/vector.hpp \
+	../common/stack_ptr.hpp \
+	../common/strtonum.hpp \
+	../common/lock.hpp \
+	../common/string_map.hpp \
+	../common/gettext.h
+	@echo $(<F) [$(Build)]
+	$(CPP) $(Inc) $(Flags) $(Defs) -c $< -o $(BuildDir)/$(@F)
+
 iostream.o : ../common/iostream.cpp ../common/iostream.hpp
+	@echo $(<F) [$(Build)]
+	$(CPP) $(Inc) $(Flags) $(Defs) -c $< -o $(BuildDir)/$(@F)
+
+itemize.o : ../common/itemize.cpp ../common/asc_ctype.hpp \
+	../common/itemize.hpp \
+	../common/mutable_container.hpp
+	@echo $(<F) [$(Build)]
+	$(CPP) $(Inc) $(Flags) $(Defs) -c $< -o $(BuildDir)/$(@F)
+
+new_checker.o : ../lib/new_checker.cpp ../common/speller.hpp \
+	../common/document_checker.hpp \
+	../common/stack_ptr.hpp \
+	../common/convert.hpp \
+	../common/tokenizer.hpp
+	@echo $(<F) [$(Build)]
+	$(CPP) $(Inc) $(Flags) $(Defs) -c $< -o $(BuildDir)/$(@F)
+
+new_config.o : ../lib/new_config.cpp ../common/config.hpp \
+	../common/errors.hpp \
+	../common/filter.hpp
 	@echo $(<F) [$(Build)]
 	$(CPP) $(Inc) $(Flags) $(Defs) -c $< -o $(BuildDir)/$(@F)
 
@@ -261,6 +445,16 @@ nroff.o : ../modules/filter/nroff.cpp ../gen/settings.h \
 	@echo $(<F) [$(Build)]
 	$(CPP) $(Inc) $(Flags) $(Defs) -c $< -o $(BuildDir)/$(@F)
 
+objstack.o : ../common/objstack.cpp ../common/objstack.hpp
+	@echo $(<F) [$(Build)]
+	$(CPP) $(Inc) $(Flags) $(Defs) -c $< -o $(BuildDir)/$(@F)
+
+posib_err.o : ../common/posib_err.cpp ../common/posib_err.hpp \
+	../common/gettext.h \
+	../gen/settings.h
+	@echo $(<F) [$(Build)]
+	$(CPP) $(Inc) $(Flags) $(Defs) -c $< -o $(BuildDir)/$(@F)
+
 sgml.o : ../modules/filter/sgml.cpp ../gen/settings.h \
 	../common/asc_ctype.hpp \
 	../common/config.hpp \
@@ -272,8 +466,31 @@ sgml.o : ../modules/filter/sgml.cpp ../gen/settings.h \
 	@echo $(<F) [$(Build)]
 	$(CPP) $(Inc) $(Flags) $(Defs) -c $< -o $(BuildDir)/$(@F)
 
+speller-c.o : ../lib/speller-c.cpp ../common/convert.hpp \
+	../common/error.hpp \
+	../common/mutable_string.hpp \
+	../common/posib_err.hpp \
+	../common/speller.hpp \
+	../common/word_list.hpp \
+	../gen/settings.h
+	@echo $(<F) [$(Build)]
+	$(CPP) $(Inc) $(Flags) $(Defs) -c $< -o $(BuildDir)/$(@F)
+
+speller.o : ../common/speller.cpp ../common/speller.hpp \
+	../common/convert.hpp \
+	../common/clone_ptr-t.hpp \
+	../common/config.hpp
+	@echo $(<F) [$(Build)]
+	$(CPP) $(Inc) $(Flags) $(Defs) -c $< -o $(BuildDir)/$(@F)
+
 string.o : ../common/string.cpp ../common/string.hpp \
 	../common/asc_ctype.hpp
+	@echo $(<F) [$(Build)]
+	$(CPP) $(Inc) $(Flags) $(Defs) -c $< -o $(BuildDir)/$(@F)
+
+string_enumeration-c.o : ../lib/string_enumeration-c.cpp ../common/convert.hpp \
+	../common/string_enumeration.hpp \
+	../gen/settings.h
 	@echo $(<F) [$(Build)]
 	$(CPP) $(Inc) $(Flags) $(Defs) -c $< -o $(BuildDir)/$(@F)
 
@@ -286,6 +503,11 @@ string_map.o : ../common/string_map.cpp ../common/parm_string.hpp \
 	../common/string_pair.hpp \
 	../common/string_pair_enumeration.hpp \
 	../common/hash-t.hpp
+	@echo $(<F) [$(Build)]
+	$(CPP) $(Inc) $(Flags) $(Defs) -c $< -o $(BuildDir)/$(@F)
+
+strtonum.o : ../common/strtonum.cpp ../common/strtonum.hpp \
+	../common/asc_ctype.hpp
 	@echo $(<F) [$(Build)]
 	$(CPP) $(Inc) $(Flags) $(Defs) -c $< -o $(BuildDir)/$(@F)
 
@@ -315,9 +537,20 @@ texinfo.o : ../modules/filter/texinfo.cpp ../common/asc_ctype.hpp \
 	@echo $(<F) [$(Build)]
 	$(CPP) $(Inc) $(Flags) $(Defs) -c $< -o $(BuildDir)/$(@F)
 
+tokenizer.o : ../common/tokenizer.cpp ../common/tokenizer.hpp \
+	../common/convert.hpp
+	@echo $(<F) [$(Build)]
+	$(CPP) $(Inc) $(Flags) $(Defs) -c $< -o $(BuildDir)/$(@F)
+
 url.o : ../modules/filter/url.cpp ../gen/settings.h \
 	../common/indiv_filter.hpp \
 	../common/key_info.hpp
+	@echo $(<F) [$(Build)]
+	$(CPP) $(Inc) $(Flags) $(Defs) -c $< -o $(BuildDir)/$(@F)
+
+word_list-c.o : ../lib/word_list-c.cpp ../common/string_enumeration.hpp \
+	../common/word_list.hpp \
+	../gen/settings.h
 	@echo $(<F) [$(Build)]
 	$(CPP) $(Inc) $(Flags) $(Defs) -c $< -o $(BuildDir)/$(@F)
 
@@ -499,6 +732,12 @@ writable.o : ../modules/speller/default/writable.cpp ../common/hash-t.hpp \
 	@echo $(<F) [$(Build)]
 	$(CPP) $(Inc) $(Flags) $(Defs) -c $< -o $(BuildDir)/$(@F)
 
+api-glue.o : ../win32/api-glue.cpp ../interfaces/cc/aspell.h \
+	../modules/speller/default/language.hpp \
+	../modules/speller/default/data.hpp
+	@echo $(<F) [$(Build)]
+	$(CPP) $(Inc) $(Flags) $(Defs) -c $< -o $(BuildDir)/$(@F)
+
 prezip.o : ../prog/prezip.c 
 	@echo $(<F) [$(Build)]
 	$(CC) $(Inc) $(Flags) $(Defs) -c $< -o $(BuildDir)/$(@F)
@@ -597,6 +836,8 @@ prezip.o : ../prog/prezip.c
 
 ../common/word_list.hpp : 
 
+../common/lock.hpp : ../gen/settings.h
+
 ../common/stack_ptr.hpp : 
 
 ../common/info.hpp : ../common/posib_err.hpp \
@@ -678,6 +919,8 @@ prezip.o : ../prog/prezip.c
 
 ../common/generic_copy_ptr.hpp : ../gen/settings.h
 
+../common/mutable_string.hpp : ../common/parm_string.hpp
+
 ../common/tokenizer.hpp : ../common/char_vector.hpp \
 	../common/filter_char.hpp \
 	../common/filter_char_vector.hpp
@@ -716,6 +959,8 @@ prezip.o : ../prog/prezip.c
 	../common/generic_copy_ptr-t.hpp
 
 ../common/stack_ptr.hpp : 
+
+./dirs.h : 
 
 ../common/file_data_util.hpp : ../common/parm_string.hpp
 

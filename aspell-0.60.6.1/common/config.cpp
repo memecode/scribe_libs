@@ -11,9 +11,7 @@
 #include "ndebug.hpp"
 #include <assert.h>
 
-#ifdef WINDOWS
 #include "dirs.h"
-#endif
 #include "settings.h"
 
 #ifdef USE_LOCALE

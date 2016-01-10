@@ -19,7 +19,7 @@ class LIB_EXPORT CanHaveError {
  public:
   CanHaveError(Error * e = 0);
   CopyPtr<Error> err_;
-  virtual ~CanHaveError() {}
+  virtual ~CanHaveError();
   CanHaveError(const CanHaveError &);
   CanHaveError & operator=(const CanHaveError &);
 };
