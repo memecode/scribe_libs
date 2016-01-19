@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <Project>
-	<Node Name="Source" Type="1" Platforms="15" Open="1">
+	<Node Name="Source" Type="1" Platforms="15" Open="0">
 		<Node Name="Api" Type="1" Platforms="15" Open="0">
 			<Node File="../interfaces/cc/aspell.h" Type="3" Platforms="15" />
 			<Node File="../interfaces/cc/pspell.h" Type="3" Platforms="15" />
