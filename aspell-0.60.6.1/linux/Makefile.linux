@@ -10,7 +10,7 @@ CC = gcc
 CPP = g++
 Target = aspell-dist-060
 ifndef Build
-	Build = Debug
+	Build = Release
 endif
 BuildDir = $(Build)
 
