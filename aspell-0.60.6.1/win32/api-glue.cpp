@@ -60,10 +60,10 @@ int aspell_create_ro_master(void *cfg, const char *InFile, char *ErrOut, int Err
 	return !err.has_err();
 }
 
-extern "C" void prezip_compress(FILE *in_file, FILE *out_file);
-extern "C" int prezip_decompress(FILE *in_file, FILE *out_file);
+extern "C" void prezip_compress(FILE *in_file, FILE *out_file, char *ErrOut, int ErrLen);
+extern "C" int prezip_decompress(FILE *in_file, FILE *out_file, char *ErrOut, int ErrLen);
 
-int aspell_prezip(const char *InFile, const char *OutFile, bool Decomp)
+int aspell_prezip(const char *InFile, const char *OutFile, bool Decomp, char *ErrOut, int ErrLen)
 {
 	if (!InFile || !OutFile)
 		return 0;
@@ -75,9 +75,9 @@ int aspell_prezip(const char *InFile, const char *OutFile, bool Decomp)
 		return 0;
 
 	if (Decomp)
-		return prezip_decompress(in.c_stream(), out.c_stream()) == 0;
+		return prezip_decompress(in.c_stream(), out.c_stream(), ErrOut, ErrLen) == 0;
 	else
-		prezip_compress(in.c_stream(), out.c_stream());
+		prezip_compress(in.c_stream(), out.c_stream(), ErrOut, ErrLen);
 	
 	return 1;
 }

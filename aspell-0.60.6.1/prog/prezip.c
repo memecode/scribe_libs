@@ -72,7 +72,7 @@ typedef struct Word {
 #define main prezip_main
 #endif
 
-void prezip_compress(FILE *in_file, FILE *out_file)
+void prezip_compress(FILE *in_file, FILE *out_file, char *ErrOut, int ErrLen)
 {
 	Word w1,w2;
 	Word * prev = &w1;
@@ -153,10 +153,10 @@ void prezip_compress(FILE *in_file, FILE *out_file)
 	free(w2.str);
 }
 
-int prezip_decompress(FILE *in_file, FILE *out_file)
+int prezip_decompress(FILE *in_file, FILE *out_file, char *ErrOut, int ErrLen)
 {
 	int ret = 0;
-
+	const char *Msg = NULL;
 	Word cur;
 	int c;
 	char * w;
@@ -276,13 +276,25 @@ int prezip_decompress(FILE *in_file, FILE *out_file)
 	if (ret > 0 && argc > 2)
 		fputs(argv[2], stderr);
 	 */
-	if (ret == 2)
-		fputs("unknown format\n", stderr);
-	else if (ret == 3)
-		fputs("corrupt input\n", stderr);
-	else if (ret == 4)
-		fputs("unexpected EOF\n", stderr);
-
+	switch (ret)
+	{
+		case 2:
+			Msg = "prezip_decompress failed: unknown format";
+			break;
+		case 3:
+			Msg = "prezip_decompress failed: corrupt input";
+			break;
+		case 4:
+			Msg = "prezip_decompress failed: unexpected EOF";
+			break;
+	}
+	if (Msg)
+	{
+		if (ErrOut && ErrLen > 1)
+			strcpy_s(ErrOut, ErrLen, Msg);
+		else
+			printf("%s\n", Msg);
+	}
 	free (cur.str);
 
 	return ret;
@@ -296,11 +308,11 @@ int main(int argc, const char *argv[])
 	}
 	else if (strcmp(argv[1], "-z") == 0)
 	{
-		prezip_compress(stdin, stdout);
+		prezip_compress(stdin, stdout, NULL, 0);
 	}
 	else if (strcmp(argv[1], "-d") == 0)
 	{
-		return prezip_decompress(stdin, stdout);
+		return prezip_decompress(stdin, stdout, NULL, 0);
 	}
 	else if (strcmp(argv[1], "-V") == 0)
 	{

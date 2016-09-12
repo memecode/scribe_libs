@@ -1184,7 +1184,8 @@ namespace aspeller {
     CachePtr<Language> lang;
 
     PosibErr<Language *> res = new_language(config);
-    if (res.has_err()) return res;
+    if (res.has_err())
+		return res;
 
     lang.reset(res.data);
     lang->set_lang_defaults(config);
