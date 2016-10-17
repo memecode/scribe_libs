@@ -99,7 +99,6 @@ namespace acommon {
 	
 		int valid_pos(int pos) {return offset <= pos && pos < size + offset;}
 
-		void clear(Config * c);
 		int find(const StringList &);
 
 	public:
@@ -109,6 +108,7 @@ namespace acommon {
 
 		PosibErr<const MDInfoListAll *> get_lists(Config * c);
 
+		void clear(Config * c);
 		void flush() {} // unimplemented
 	};
 
@@ -319,9 +319,7 @@ namespace acommon {
 			return &*i;
 	}
 
-
-	PosibErr<void> DictInfoList::fill(MDInfoListAll & list_all,
-																		Config * config)
+	PosibErr<void> DictInfoList::fill(MDInfoListAll & list_all, Config * config)
 	{
 		StringList aliases;
 		config->retrieve_list("dict-alias", &aliases);
@@ -332,8 +330,8 @@ namespace acommon {
 			assert(end != 0); // FIXME: Return error
 			String name(str, end - str);
 			RET_ON_ERR(proc_file(list_all, config,
-													 0, name.str(), name.size(), 
-													 find_dict_ext(list_all.dict_exts, ".alias")->module));
+								 0, name.str(), name.size(), 
+								 find_dict_ext(list_all.dict_exts, ".alias")->module));
 		}
 
 		els = list_all.dict_dirs.elements_obj();
@@ -513,8 +511,7 @@ namespace acommon {
 		dict_info_list.clear();
 	}
 
-	PosibErr<void> MDInfoListAll::fill(Config * c, 
-																		 StringList & dirs)
+	PosibErr<void> MDInfoListAll::fill(Config * c, StringList & dirs)
 	{
 		PosibErr<void> err;
 
@@ -591,9 +588,9 @@ namespace acommon {
 		StringList dirs;
 		get_data_dirs(c, dirs);
 		int pos = find(dirs);
-		if (pos == -1) {
-			data[pos - offset].clear();
-		}
+		int index = valid_pos(pos) ? pos - offset : 0;
+		if (index >= 0 && index < size)
+			data[index].clear();
 	}
 
 	int MDInfoListofLists::find(const StringList & key)
@@ -682,6 +679,11 @@ namespace acommon {
 		const MDInfoListAll * la = md_info_list_of_lists.get_lists(c);
 		if (la == 0) return 0;
 		else return &la->module_info_list;
+	}
+	
+	void clear_all_lists(Config *c)
+	{
+		md_info_list_of_lists.clear(c);
 	}
 
 	ModuleInfoEnumeration * ModuleInfoList::elements() const

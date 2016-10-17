@@ -22,6 +22,11 @@ C_EXPORT ModuleInfoList * get_aspell_module_info_list(Config * config)
   return const_cast<ModuleInfoList *>(get_module_info_list(config));
 }
 
+C_EXPORT void aspell_clear_all_lists(Config * config)
+{
+	clear_all_lists(config);
+}
+
 C_EXPORT int aspell_module_info_list_empty(const ModuleInfoList * ths)
 {
   return ths->empty();

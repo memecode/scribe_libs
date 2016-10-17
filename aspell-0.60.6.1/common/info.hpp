@@ -71,6 +71,7 @@ namespace acommon {
   };
   
   const ModuleInfoList * get_module_info_list(Config *);
+  void clear_all_lists(Config *c);
 
   struct DictInfoNode;
 
