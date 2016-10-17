@@ -42,6 +42,7 @@ int aspell_create_ro_master(void *cfg, const char *InFile, char *ErrOut, int Err
 
 	char rws[256];
 	sprintf_s(rws, sizeof(rws), "%.*s.rws", ext - leaf, leaf);
+
 	config->replace("master", rws);
 
 	aspeller::find_language(*config);
