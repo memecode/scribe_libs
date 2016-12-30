@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <Project>
 	<Node Name="Source" Type="1" Platforms="15" Open="0">
-		<Node Name="Api" Type="1" Platforms="15" Open="0">
+		<Node Name="Api" Type="1" Platforms="15" Open="1">
 			<Node File="../interfaces/cc/aspell.h" Type="3" Platforms="15" />
 			<Node File="../interfaces/cc/pspell.h" Type="3" Platforms="15" />
 		</Node>
@@ -28,6 +28,7 @@
 			<Node File="../common/fstream.cpp" Type="2" Platforms="15" />
 			<Node File="../common/getdata.cpp" Type="2" Platforms="15" />
 			<Node File="../common/gettext_init.cpp" Type="2" Platforms="15" />
+			<Node File="../lib/info-c.cpp" Type="2" Platforms="15" />
 			<Node File="../common/info.cpp" Type="2" Platforms="15" />
 			<Node File="../common/iostream.cpp" Type="2" Platforms="15" />
 			<Node File="../common/itemize.cpp" Type="2" Platforms="15" />
@@ -130,6 +131,8 @@
 			<Arguments>
 				<All />
 			</Arguments>
+			<DebugAdmin />
+			<CrossCompiler />
 		</General>
 		<Build>
 			<IncludePaths>
@@ -167,6 +170,7 @@
 			<TargetName>
 				<Linux />
 			</TargetName>
+			<ApplicationIcon />
 		</Build>
 		<Editor>
 			<TabSize />

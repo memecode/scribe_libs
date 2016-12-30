@@ -65,6 +65,7 @@ Depends =	 \
 			fstream.o \
 			getdata.o \
 			gettext_init.o \
+			info-c.o \
 			info.o \
 			iostream.o \
 			itemize.o \
@@ -342,6 +343,11 @@ getdata.o : ../common/getdata.cpp ../common/getdata.hpp \
 
 gettext_init.o : ../common/gettext_init.cpp ../common/gettext.h \
 	../common/lock.hpp
+	@echo $(<F) [$(Build)]
+	$(CPP) $(Inc) $(Flags) $(Defs) -c $< -o $(BuildDir)/$(@F)
+
+info-c.o : ../lib/info-c.cpp ../common/info.hpp \
+	../gen/settings.h
 	@echo $(<F) [$(Build)]
 	$(CPP) $(Inc) $(Flags) $(Defs) -c $< -o $(BuildDir)/$(@F)
 
