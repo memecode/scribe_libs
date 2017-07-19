@@ -125,7 +125,7 @@ GdbStatus btreeInsert(BTree *tree, const char *key, offset_t filePos);
  *
  * @return 1 on success, 0 on failure.
  */
-int btreeDelete(BTree *tree, const char *key);
+offset_t btreeDelete(BTree *tree, const char *key);
 
 /**
  * Traverses the tree with the specified user-defined function.

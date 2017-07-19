@@ -384,7 +384,7 @@ __delete(BTree *tree, offset_t rootOffset, BTreeNode *prevNode,
 	return 1;
 }
 
-int
+offset_t
 btreeDelete(BTree *tree, const char *key)
 {
 	int i;
