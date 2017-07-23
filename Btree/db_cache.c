@@ -328,7 +328,7 @@ void queDelete(GDatabase *db, GdbBlock *block)
 void
 gdbCacheAddBlock(GDatabase *db, GdbBlock *block)
 {
-	int insertPos = -1;
+	// int insertPos = -1;
 
 	if (block->offset == 0)
 	{
@@ -467,8 +467,7 @@ gdbCacheAddBlock(GDatabase *db, GdbBlock *block)
 
 	#endif
 
-	fprintf(stderr,
-			_("** WARNING: Couldn't place the open block in the list!\n"));
+	// fprintf(stderr, _("** WARNING: Couldn't place the open block in the list!\n"));
 }
 
 unsigned short

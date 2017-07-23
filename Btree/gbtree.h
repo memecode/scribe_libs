@@ -19,7 +19,7 @@ public:
 	bool Insert(const char *Key, long Value);
 	bool Delete(const char *Key);
 	bool Find(const char *Key, long &Result);
-	int Length();
+	unsigned long Length();
 
 	void Print();
 };

@@ -76,7 +76,7 @@ bool GBTree::Find(const char *Key, long &Result)
 	return false;
 }
 
-int GBTree::Length()
+unsigned long GBTree::Length()
 {
 	return bt ? btreeGetSize(bt) : 0;
 }

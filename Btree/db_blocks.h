@@ -95,7 +95,7 @@ struct GdbBlock
 	offset_t listNext;       /**< The next block's offset in a list.  */
 
 	offset_t *chain;         /**< The offset chain.                   */
-	unsigned int chainCount; /**< The number of blocks in the chain.  */
+	unsigned long chainCount; /**< The number of blocks in the chain.  */
 
 	void *detail;            /**< The detailed data (BTreeNode, etc.) */
 

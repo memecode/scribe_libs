@@ -399,8 +399,8 @@ gdbWriteBlock(GdbBlock *block)
 	char         *buffer;
 	offset_t     *oldChain;
 	blocktype_t   typeIndex;
-	unsigned int  oldChainCount, oldDataSize;
-	unsigned int  i, pos;
+	unsigned long oldChainCount, oldDataSize;
+	unsigned long  i, pos;
 	
 	if (block == NULL || !GDB_IS_DIRTY(block))
 	{
@@ -454,7 +454,7 @@ gdbWriteBlock(GdbBlock *block)
 	else if (block->chainCount > oldChainCount)
 	{
 		offset_t *newChain;
-		int j;
+		unsigned long j;
 		
 		/* The number of needed blocks is longer than before. */
 		MEM_CHECK_RET_ZERO(block->chain = (offset_t *)malloc(block->chainCount *
@@ -674,7 +674,7 @@ gdbFreeBlockChain(GDatabase *db, offset_t *chain, unsigned short count,
 	GdbFreeBlock  *tempBlocks;
 	unsigned short blockSize;
 	long           blockCount;
-	int            i, j, result;
+	long           i, j, result;
 
 	if (db == NULL || chain == NULL || count == 0 ||
 		!GDB_VALID_BLOCK_TYPE(blockType))
