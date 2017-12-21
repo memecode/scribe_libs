@@ -3,7 +3,7 @@
 #include "data.hpp"
 
 #ifdef LINUX
-#define strcpy_s strncpy
+#define strcpy_s(dst, sz, src) strncpy(dst, src, sz)
 #define sprintf_s snprintf
 #endif
 
@@ -52,7 +52,7 @@ int aspell_create_ro_master(void *cfg, const char *InFile, char *ErrOut, int Err
 	if (err.has_err() && ErrOut != NULL && ErrLen > 0)
 	{
 		const char *e = err.get_err()->mesg;
-		if (e)
+		if (e && ErrOut)
 			strcpy_s(ErrOut, ErrLen, e);
 	}
 
