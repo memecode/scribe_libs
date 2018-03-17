@@ -210,7 +210,7 @@ Char    progNameReally[FILE_NAME_LEN];
 FILE    *outputHandleJustInCase;
 Int32   workFactor;
 
-static void    panic                 ( const Char* ) NORETURN;
+static void    bz_panic                 ( const Char* ) NORETURN;
 static void    ioError               ( void )        NORETURN;
 static void    outOfMemory           ( void )        NORETURN;
 static void    configError           ( void )        NORETURN;
@@ -419,10 +419,10 @@ void compressStream ( FILE *stream, FILE *zStream )
          errhandler_io:
          ioError(); break;
       default:
-         panic ( "compress:unexpected error" );
+         bz_panic ( "compress:unexpected error" );
    }
 
-   panic ( "compress:end" );
+   bz_panic ( "compress:end" );
    /*notreached*/
 }
 
@@ -468,13 +468,13 @@ Bool uncompressStream ( FILE *zStream, FILE *stream )
       if (bzerr != BZ_STREAM_END) goto errhandler;
 
       BZ2_bzReadGetUnused ( &bzerr, bzf, &unusedTmpV, &nUnused );
-      if (bzerr != BZ_OK) panic ( "decompress:bzReadGetUnused" );
+      if (bzerr != BZ_OK) bz_panic ( "decompress:bzReadGetUnused" );
 
       unusedTmp = (UChar*)unusedTmpV;
       for (i = 0; i < nUnused; i++) unused[i] = unusedTmp[i];
 
       BZ2_bzReadClose ( &bzerr, bzf );
-      if (bzerr != BZ_OK) panic ( "decompress:bzReadGetUnused" );
+      if (bzerr != BZ_OK) bz_panic ( "decompress:bzReadGetUnused" );
 
       if (nUnused == 0 && myfeof(zStream)) break;
    }
@@ -541,10 +541,10 @@ Bool uncompressStream ( FILE *zStream, FILE *stream )
             return True;       
          }
       default:
-         panic ( "decompress:unexpected error" );
+         bz_panic ( "decompress:unexpected error" );
    }
 
-   panic ( "decompress:end" );
+   bz_panic ( "decompress:end" );
    return True; /*notreached*/
 }
 
@@ -583,13 +583,13 @@ Bool testStream ( FILE *zStream )
       if (bzerr != BZ_STREAM_END) goto errhandler;
 
       BZ2_bzReadGetUnused ( &bzerr, bzf, &unusedTmpV, &nUnused );
-      if (bzerr != BZ_OK) panic ( "test:bzReadGetUnused" );
+      if (bzerr != BZ_OK) bz_panic ( "test:bzReadGetUnused" );
 
       unusedTmp = (UChar*)unusedTmpV;
       for (i = 0; i < nUnused; i++) unused[i] = unusedTmp[i];
 
       BZ2_bzReadClose ( &bzerr, bzf );
-      if (bzerr != BZ_OK) panic ( "test:bzReadGetUnused" );
+      if (bzerr != BZ_OK) bz_panic ( "test:bzReadGetUnused" );
       if (nUnused == 0 && myfeof(zStream)) break;
 
    }
@@ -634,10 +634,10 @@ Bool testStream ( FILE *zStream )
             return True;       
          }
       default:
-         panic ( "test:unexpected error" );
+         bz_panic ( "test:unexpected error" );
    }
 
-   panic ( "test:end" );
+   bz_panic ( "test:end" );
    return True; /*notreached*/
 }
 
@@ -737,13 +737,13 @@ void cleanUpAndFail ( Int32 ec )
                 numFileNames, numFileNames - numFilesProcessed );
    }
    setExit(ec);
-   exit(exitValue);
+   // exit(exitValue);
 }
 
 
 /*---------------------------------------------*/
 static 
-void panic ( const Char* s )
+void bz_panic ( const Char* s )
 {
    fprintf ( stderr,
              "\n%s: PANIC -- internal consistency error:\n"
@@ -1140,7 +1140,7 @@ void compress ( Char *name )
    deleteOutputOnInterrupt = False;
 
    if (name == NULL && srcMode != SM_I2O)
-      panic ( "compress: bad modes\n" );
+      bz_panic ( "compress: bad modes\n" );
 
    switch (srcMode) {
       case SM_I2O: 
@@ -1279,7 +1279,7 @@ void compress ( Char *name )
          break;
 
       default:
-         panic ( "compress: bad srcMode" );
+         bz_panic ( "compress: bad srcMode" );
          break;
    }
 
@@ -1323,7 +1323,7 @@ void uncompress ( Char *name )
    deleteOutputOnInterrupt = False;
 
    if (name == NULL && srcMode != SM_I2O)
-      panic ( "uncompress: bad modes\n" );
+      bz_panic ( "uncompress: bad modes\n" );
 
    cantGuess = False;
    switch (srcMode) {
@@ -1456,7 +1456,7 @@ void uncompress ( Char *name )
          break;
 
       default:
-         panic ( "uncompress: bad srcMode" );
+         bz_panic ( "uncompress: bad srcMode" );
          break;
    }
 
@@ -1518,7 +1518,7 @@ void testf ( Char *name )
    deleteOutputOnInterrupt = False;
 
    if (name == NULL && srcMode != SM_I2O)
-      panic ( "testf: bad modes\n" );
+      bz_panic ( "testf: bad modes\n" );
 
    copyFileName ( outName, (Char*)"(none)" );
    switch (srcMode) {
@@ -1577,7 +1577,7 @@ void testf ( Char *name )
          break;
 
       default:
-         panic ( "testf: bad srcMode" );
+         bz_panic ( "testf: bad srcMode" );
          break;
    }
 
