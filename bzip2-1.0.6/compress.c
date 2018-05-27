@@ -120,7 +120,8 @@ static
 void generateMTFValues ( EState* s )
 {
    UChar   yy[256];
-   Int32   i, j;
+   Int32   i;
+   ssize_t j;
    Int32   zPend;
    Int32   wr;
    Int32   EOB;
@@ -239,7 +240,7 @@ static
 void sendMTFValues ( EState* s )
 {
    Int32 v, t, i, j, gs, ge, totc, bt, bc, iter;
-   Int32 nSelectors, alphaSize, minLen, maxLen, selCtr;
+   Int32 nSelectors = 0, alphaSize, minLen, maxLen, selCtr;
    Int32 nGroups, nBytes;
 
    /*--

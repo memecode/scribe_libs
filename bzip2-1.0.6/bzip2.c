@@ -330,7 +330,7 @@ void compressStream ( FILE *stream, FILE *zStream )
 {
    BZFILE* bzf = NULL;
    UChar   ibuf[5000];
-   Int32   nIbuf;
+   size_t   nIbuf;
    UInt32  nbytes_in_lo32, nbytes_in_hi32;
    UInt32  nbytes_out_lo32, nbytes_out_hi32;
    Int32   bzerr, bzerr_dummy, ret;

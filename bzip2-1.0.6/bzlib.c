@@ -967,7 +967,8 @@ void BZ_API(BZ2_bzWrite)
                void*   buf, 
                int     len )
 {
-   Int32 n, n2, ret;
+   Int32 n, ret;
+   size_t n2;
    bzFile* bzf = (bzFile*)b;
 
    BZ_SETERR(BZ_OK);
