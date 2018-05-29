@@ -45,6 +45,13 @@ typedef int             Int32;
 typedef unsigned int    UInt32;
 typedef short           Int16;
 typedef unsigned short  UInt16;
+#ifdef _MSC_VER
+	#ifdef _WIN64
+		typedef __int64	ssize_t;
+	#else
+		typedef int		ssize_t;
+	#endif
+#endif
 
 #define True  ((Bool)1)
 #define False ((Bool)0)
