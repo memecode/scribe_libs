@@ -965,7 +965,7 @@ void BZ_API(BZ2_bzWrite)
              ( int*    bzerror, 
                BZFILE* b, 
                void*   buf, 
-               int     len )
+               ssize_t len )
 {
    Int32 n, ret;
    size_t n2;

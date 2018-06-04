@@ -219,7 +219,7 @@ static void    cleanUpAndFail        ( Int32 )       NORETURN;
 static void    compressedStreamEOF   ( void )        NORETURN;
 
 static void    copyFileName ( Char*, Char* );
-static void*   myMalloc     ( Int32 );
+static void*   myMalloc     ( size_t );
 static void    applySavedFileAttrToOutputFile ( IntNative fd );
 
 
@@ -433,7 +433,8 @@ static
 Bool uncompressStream ( FILE *zStream, FILE *stream )
 {
    BZFILE* bzf = NULL;
-   Int32   bzerr, bzerr_dummy, ret, nread, streamNo, i;
+   Int32   bzerr, bzerr_dummy, ret, streamNo, i;
+   ssize_t nread;
    UChar   obuf[5000];
    UChar   unused[BZ_MAX_UNUSED];
    Int32   nUnused;
@@ -1109,8 +1110,8 @@ const Char* unzSuffix[BZ_N_SUFFIX_PAIRS]
 static 
 Bool hasSuffix ( Char* s, const Char* suffix )
 {
-   Int32 ns = strlen(s);
-   Int32 nx = strlen(suffix);
+   size_t ns = strlen(s);
+   size_t nx = strlen(suffix);
    if (ns < nx) return False;
    if (strcmp(s + ns - nx, suffix) == 0) return True;
    return False;
@@ -1701,7 +1702,7 @@ typedef
 
 /*---------------------------------------------*/
 static 
-void *myMalloc ( Int32 n )
+void *myMalloc ( size_t n )
 {
    void* p;
 

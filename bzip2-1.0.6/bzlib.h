@@ -182,7 +182,7 @@ BZ_EXTERN void BZ_API(BZ2_bzWrite) (
       int*    bzerror, 
       BZFILE* b, 
       void*   buf, 
-      int     len 
+      ssize_t len
    );
 
 BZ_EXTERN void BZ_API(BZ2_bzWriteClose) ( 
