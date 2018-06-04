@@ -95,6 +95,13 @@ typedef
 			#define BZ_EXTERN
 		#endif
 	#endif
+
+	#ifdef  _WIN64
+		typedef signed __int64		ssize_t;
+	#else
+		typedef signed int			ssize_t;
+	#endif
+
 #else
 	#define BZ_API(func) func
 	#define BZ_EXTERN extern
