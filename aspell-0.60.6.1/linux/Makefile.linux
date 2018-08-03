@@ -748,8 +748,19 @@ prezip.o : ../prog/prezip.c
 	@echo $(<F) [$(Build)]
 	$(CC) $(Inc) $(Flags) $(Defs) -c $< -o $(BuildDir)/$(@F)
 
+./dirs.h : 
+
+../common/file_data_util.hpp : ../common/parm_string.hpp
+
 ../common/getdata.hpp : ../common/string.hpp \
 	../common/mutable_string.hpp
+
+../common/filter.hpp : ../common/can_have_error.hpp \
+	../common/copy_ptr.hpp \
+	../common/filter_char.hpp \
+	../common/posib_err.hpp \
+	../common/vector.hpp \
+	../common/string_pair_enumeration.hpp
 
 ../common/gettext.h : ./settings.h
 
@@ -757,7 +768,40 @@ prezip.o : ../prog/prezip.c
 	../common/posib_err.hpp \
 	../common/filter_char.hpp
 
+../common/string.hpp : ../common/hash_fun.hpp \
+	../common/parm_string.hpp \
+	../common/mutable_string.hpp \
+	../common/ostream.hpp \
+	../common/istream.hpp \
+	./settings.h
+
 ../common/hash_fun.hpp : 
+
+../common/hash_fun.hpp : 
+
+../common/string.hpp : ../common/hash_fun.hpp \
+	../common/parm_string.hpp \
+	../common/mutable_string.hpp \
+	../common/ostream.hpp \
+	../common/istream.hpp \
+	./settings.h
+
+../modules/speller/default/data.hpp : ../common/ndebug.hpp \
+	../common/copy_ptr.hpp \
+	../common/enumeration.hpp \
+	../modules/speller/default/language.hpp \
+	../common/posib_err.hpp \
+	../common/string.hpp \
+	../common/string_enumeration.hpp \
+	../common/word_list.hpp \
+	../common/cache.hpp \
+	../modules/speller/default/wordinfo.hpp \
+	./settings.h
+
+../gen/static_filters.src.cpp : 
+
+../modules/speller/default/typo_editdist.hpp : ../common/cache.hpp \
+	../modules/speller/default/matrix.hpp
 
 ../modules/speller/default/affix.hpp : ../common/posib_err.hpp \
 	../modules/speller/default/wordinfo.hpp \
@@ -772,6 +816,8 @@ prezip.o : ../prog/prezip.c
 
 ../modules/speller/default/block_vector.hpp : 
 
+../common/istream.hpp : 
+
 ../modules/speller/default/wordinfo.hpp : ../common/string.hpp
 
 ../common/convert.hpp : ../common/string.hpp \
@@ -783,6 +829,15 @@ prezip.o : ../prog/prezip.c
 	../common/filter.hpp \
 	../common/cache.hpp
 
+../common/stack_ptr.hpp : 
+
+../common/filter.hpp : ../common/can_have_error.hpp \
+	../common/copy_ptr.hpp \
+	../common/filter_char.hpp \
+	../common/posib_err.hpp \
+	../common/vector.hpp \
+	../common/string_pair_enumeration.hpp
+
 ../common/string_map.hpp : ../common/mutable_container.hpp \
 	../common/parm_string.hpp \
 	../common/posib_err.hpp \
@@ -790,9 +845,17 @@ prezip.o : ../prog/prezip.c
 	../common/hash.hpp \
 	../common/objstack.hpp
 
+../common/filter_char.hpp : 
+
+../common/cache.hpp : ../common/posib_err.hpp
+
 ../common/parm_string.hpp : 
 
 ./settings.h : 
+
+../common/enumeration.hpp : ../common/clone_ptr-t.hpp
+
+../common/vector.hpp : 
 
 ../modules/speller/default/language.hpp : ../modules/speller/default/affix.hpp \
 	../common/cache.hpp \
@@ -814,6 +877,8 @@ prezip.o : ../prog/prezip.c
 	../common/char_vector.hpp \
 	../common/objstack.hpp
 
+../common/vector.hpp : 
+
 ../common/string_pair.hpp : 
 
 ../common/char_vector.hpp : ../common/string.hpp \
@@ -824,25 +889,63 @@ prezip.o : ../prog/prezip.c
 	../common/errors.hpp \
 	../common/ndebug.hpp
 
+../common/error.hpp : ./settings.h
+
+../modules/speller/default/phonetic.hpp : ../common/string.hpp
+
+../common/speller.hpp : ../common/can_have_error.hpp \
+	../common/copy_ptr.hpp \
+	../common/clone_ptr.hpp \
+	../common/mutable_string.hpp \
+	../common/posib_err.hpp \
+	../common/parm_string.hpp \
+	../common/char_vector.hpp
+
+../common/string_pair_enumeration.hpp : ../common/string_pair.hpp
+
 ../modules/speller/default/editdist2.hpp : ../modules/speller/default/leditdist.hpp \
 	../modules/speller/default/editdist.hpp
 
 ../modules/speller/default/editdist.hpp : ../common/parm_string.hpp \
 	../modules/speller/default/weights.hpp
 
+../common/document_checker.hpp : ../common/filter.hpp \
+	../common/char_vector.hpp \
+	../common/copy_ptr.hpp \
+	../common/can_have_error.hpp \
+	../common/filter_char.hpp \
+	../common/filter_char_vector.hpp \
+	../common/tokenizer.hpp
+
+../common/tokenizer.hpp : ../common/char_vector.hpp \
+	../common/filter_char.hpp \
+	../common/filter_char_vector.hpp
+
+../interfaces/cc/aspell.h : ../win32/settings.h
+
 ../common/fstream.hpp : ../common/string.hpp \
 	../common/istream.hpp \
 	../common/ostream.hpp \
 	../common/posib_err.hpp
 
-../common/istream.hpp : 
-
 ../common/cache-t.hpp : ../common/lock.hpp \
 	../common/cache.hpp
 
+../common/copy_ptr.hpp : ../common/generic_copy_ptr-t.hpp
+
+../common/mutable_container.hpp : ../common/parm_string.hpp
+
 ../common/iostream.hpp : ../common/fstream.hpp
 
+../common/iostream.hpp : ../common/fstream.hpp
+
+../common/errors.hpp : 
+
+../common/lock.hpp : ./settings.h
+
 ../common/word_list.hpp : 
+
+../common/errors.hpp : 
 
 ../common/lock.hpp : ./settings.h
 
@@ -851,8 +954,21 @@ prezip.o : ../prog/prezip.c
 ../common/info.hpp : ../common/posib_err.hpp \
 	../common/type_id.hpp
 
+../modules/speller/default/asuggest.hpp : ../modules/speller/default/suggest.hpp \
+	../modules/speller/default/editdist.hpp \
+	../modules/speller/default/typo_editdist.hpp \
+	../common/cache.hpp
+
+../modules/speller/default/typo_editdist.hpp : ../common/cache.hpp \
+	../modules/speller/default/matrix.hpp
+
 ../modules/speller/default/phonet.hpp : ../common/string.hpp \
 	../common/posib_err.hpp
+
+../modules/speller/default/matrix.hpp : 
+
+../common/clone_ptr-t.hpp : ../common/clone_ptr.hpp \
+	../common/generic_copy_ptr-t.hpp
 
 ../common/hash-t.hpp : ../common/hash.hpp \
 	../common/block_slist-t.hpp
@@ -860,6 +976,9 @@ prezip.o : ../prog/prezip.c
 ../common/simple_string.hpp : ../common/parm_string.hpp
 
 ../modules/speller/default/primes.hpp : 
+
+../common/filter_char_vector.hpp : ../common/vector.hpp \
+	../common/filter_char.hpp
 
 ../common/string_list.hpp : ../common/string.hpp \
 	../common/string_enumeration.hpp \
@@ -870,20 +989,59 @@ prezip.o : ../prog/prezip.c
 
 ../common/asc_ctype.hpp : 
 
-../common/string_enumeration.hpp : ../common/parm_string.hpp \
-	../common/type_id.hpp \
-	../common/char_vector.hpp \
-	../common/fstream.hpp
+../common/filter_char_vector.hpp : ../common/vector.hpp \
+	../common/filter_char.hpp
+
+../modules/speller/default/suggest.hpp : ../common/word_list.hpp \
+	../common/enumeration.hpp \
+	../common/parm_string.hpp
+
+../common/basic_list.hpp : 
+
+../modules/speller/default/suggest.hpp : ../common/word_list.hpp \
+	../common/enumeration.hpp \
+	../common/parm_string.hpp
 
 ../common/string_enumeration.hpp : ../common/parm_string.hpp \
 	../common/type_id.hpp \
 	../common/char_vector.hpp \
 	../common/fstream.hpp
+
+../win32/settings.h : 
+
+../common/string_enumeration.hpp : ../common/parm_string.hpp \
+	../common/type_id.hpp \
+	../common/char_vector.hpp \
+	../common/fstream.hpp
+
+../modules/speller/default/editdist.hpp : ../common/parm_string.hpp \
+	../modules/speller/default/weights.hpp
+
+../common/file_util.hpp : ../common/string.hpp \
+	../common/posib_err.hpp
+
+../common/ndebug.hpp : 
+
+../common/ndebug.hpp : 
 
 ../common/ostream.hpp : ../common/parm_string.hpp
 
 ../common/objstack.hpp : ../common/parm_string.hpp \
 	./settings.h
+
+../common/convert.hpp : ../common/string.hpp \
+	../common/posib_err.hpp \
+	../common/char_vector.hpp \
+	../common/filter_char.hpp \
+	../common/filter_char_vector.hpp \
+	../common/stack_ptr.hpp \
+	../common/filter.hpp \
+	../common/cache.hpp
+
+../common/objstack.hpp : ../common/parm_string.hpp \
+	./settings.h
+
+../common/filter_char.hpp : 
 
 ../modules/speller/default/speller_impl.hpp : ../common/clone_ptr.hpp \
 	../common/copy_ptr.hpp \
@@ -892,7 +1050,26 @@ prezip.o : ../prog/prezip.c
 	../common/speller.hpp \
 	../modules/speller/default/check_list.hpp
 
-../common/copy_ptr.hpp : ../common/generic_copy_ptr-t.hpp
+../modules/speller/default/data.hpp : ../common/ndebug.hpp \
+	../common/copy_ptr.hpp \
+	../common/enumeration.hpp \
+	../modules/speller/default/language.hpp \
+	../common/posib_err.hpp \
+	../common/string.hpp \
+	../common/string_enumeration.hpp \
+	../common/word_list.hpp \
+	../common/cache.hpp \
+	../modules/speller/default/wordinfo.hpp \
+	./settings.h
+
+../modules/speller/default/check_list.hpp : ../common/objstack.hpp \
+	../common/speller.hpp
+
+../common/type_id.hpp : ../common/parm_string.hpp
+
+../common/can_have_error.hpp : ../common/copy_ptr.hpp \
+	../common/error.hpp \
+	./settings.h
 
 ../modules/speller/default/vector_hash-t.hpp : ../modules/speller/default/vector_hash.hpp \
 	../modules/speller/default/primes.hpp
@@ -909,29 +1086,54 @@ prezip.o : ../prog/prezip.c
 	../common/error.hpp \
 	./settings.h
 
-../common/block_slist-t.hpp : ../common/block_slist.hpp
+../common/lsort.hpp : 
+
+../common/config.hpp : ../common/can_have_error.hpp \
+	../common/key_info.hpp \
+	../common/posib_err.hpp \
+	../common/string.hpp \
+	../common/vector.hpp
 
 ../common/char_vector.hpp : ../common/string.hpp \
 	../common/ostream.hpp
 
-../common/enumeration.hpp : ../common/clone_ptr-t.hpp
+../modules/speller/default/data_util.hpp : ../common/parm_string.hpp
 
-../common/clone_ptr-t.hpp : ../common/clone_ptr.hpp \
-	../common/generic_copy_ptr-t.hpp
+../common/parm_string.hpp : 
 
 ../common/string_pair_enumeration.hpp : ../common/string_pair.hpp
 
 ../common/mutable_string.hpp : ../common/parm_string.hpp
 
-../common/clone_ptr.hpp : ../common/generic_copy_ptr.hpp
+../common/enumeration.hpp : ../common/clone_ptr-t.hpp
 
-../common/generic_copy_ptr.hpp : ./settings.h
+../modules/speller/default/language.hpp : ../modules/speller/default/affix.hpp \
+	../common/cache.hpp \
+	../common/config.hpp \
+	../common/convert.hpp \
+	../modules/speller/default/phonetic.hpp \
+	../common/posib_err.hpp \
+	../common/stack_ptr.hpp \
+	../common/string.hpp \
+	../common/objstack.hpp \
+	../common/string_enumeration.hpp \
+	../common/iostream.hpp
 
 ../common/mutable_string.hpp : ../common/parm_string.hpp
+
+../common/cache.hpp : ../common/posib_err.hpp
+
+../common/hash.hpp : ./settings.h \
+	../common/hash_fun.hpp \
+	../common/block_slist.hpp
 
 ../common/tokenizer.hpp : ../common/char_vector.hpp \
 	../common/filter_char.hpp \
 	../common/filter_char_vector.hpp
+
+../common/key_info.hpp : 
+
+./settings.h : 
 
 ../common/posib_err.hpp : ../common/string.hpp \
 	../common/error.hpp \
@@ -946,11 +1148,23 @@ prezip.o : ../prog/prezip.c
 	../common/parm_string.hpp \
 	../common/char_vector.hpp
 
-../common/can_have_error.hpp : ../common/copy_ptr.hpp \
-	../common/error.hpp \
-	./settings.h
-
 ../common/vararray.hpp : 
+
+../common/config.hpp : ../common/can_have_error.hpp \
+	../common/key_info.hpp \
+	../common/posib_err.hpp \
+	../common/string.hpp \
+	../common/vector.hpp
+
+../modules/speller/default/phonetic.hpp : ../common/string.hpp
+
+../common/clone_ptr.hpp : ../common/generic_copy_ptr.hpp
+
+../common/block_slist-t.hpp : ../common/block_slist.hpp
+
+../common/key_info.hpp : 
+
+../common/generic_copy_ptr.hpp : ./settings.h
 
 ../common/itemize.hpp : ../common/parm_string.hpp \
 	../common/posib_err.hpp
@@ -966,221 +1180,7 @@ prezip.o : ../prog/prezip.c
 ../common/clone_ptr-t.hpp : ../common/clone_ptr.hpp \
 	../common/generic_copy_ptr-t.hpp
 
-../common/stack_ptr.hpp : 
-
-./dirs.h : 
-
-../common/file_data_util.hpp : ../common/parm_string.hpp
-
-../common/filter.hpp : ../common/can_have_error.hpp \
-	../common/copy_ptr.hpp \
-	../common/filter_char.hpp \
-	../common/posib_err.hpp \
-	../common/vector.hpp \
-	../common/string_pair_enumeration.hpp
-
-../common/string_pair_enumeration.hpp : ../common/string_pair.hpp
-
-../common/filter.hpp : ../common/can_have_error.hpp \
-	../common/copy_ptr.hpp \
-	../common/filter_char.hpp \
-	../common/posib_err.hpp \
-	../common/vector.hpp \
-	../common/string_pair_enumeration.hpp
-
-../common/string.hpp : ../common/hash_fun.hpp \
-	../common/parm_string.hpp \
-	../common/mutable_string.hpp \
-	../common/ostream.hpp \
-	../common/istream.hpp \
-	./settings.h
-
-../common/hash_fun.hpp : 
-
-../common/string.hpp : ../common/hash_fun.hpp \
-	../common/parm_string.hpp \
-	../common/mutable_string.hpp \
-	../common/ostream.hpp \
-	../common/istream.hpp \
-	./settings.h
-
-../modules/speller/default/data.hpp : ../common/ndebug.hpp \
-	../common/copy_ptr.hpp \
-	../common/enumeration.hpp \
-	../modules/speller/default/language.hpp \
-	../common/posib_err.hpp \
-	../common/string.hpp \
-	../common/string_enumeration.hpp \
-	../common/word_list.hpp \
-	../common/cache.hpp \
-	../modules/speller/default/wordinfo.hpp \
-	./settings.h
-
-../modules/speller/default/language.hpp : ../modules/speller/default/affix.hpp \
-	../common/cache.hpp \
-	../common/config.hpp \
-	../common/convert.hpp \
-	../modules/speller/default/phonetic.hpp \
-	../common/posib_err.hpp \
-	../common/stack_ptr.hpp \
-	../common/string.hpp \
-	../common/objstack.hpp \
-	../common/string_enumeration.hpp \
-	../common/iostream.hpp
-
 ../common/word_list.hpp : 
-
-../gen/static_filters.src.cpp : 
-
-../modules/speller/default/typo_editdist.hpp : ../common/cache.hpp \
-	../modules/speller/default/matrix.hpp
-
-../common/filter_char.hpp : 
-
-../common/cache.hpp : ../common/posib_err.hpp
-
-../common/enumeration.hpp : ../common/clone_ptr-t.hpp
-
-../common/vector.hpp : 
-
-../common/error.hpp : ./settings.h
-
-../common/vector.hpp : 
-
-../modules/speller/default/phonetic.hpp : ../common/string.hpp
-
-../common/speller.hpp : ../common/can_have_error.hpp \
-	../common/copy_ptr.hpp \
-	../common/clone_ptr.hpp \
-	../common/mutable_string.hpp \
-	../common/posib_err.hpp \
-	../common/parm_string.hpp \
-	../common/char_vector.hpp
-
-../common/document_checker.hpp : ../common/filter.hpp \
-	../common/char_vector.hpp \
-	../common/copy_ptr.hpp \
-	../common/can_have_error.hpp \
-	../common/filter_char.hpp \
-	../common/filter_char_vector.hpp \
-	../common/tokenizer.hpp
-
-../common/tokenizer.hpp : ../common/char_vector.hpp \
-	../common/filter_char.hpp \
-	../common/filter_char_vector.hpp
-
-../interfaces/cc/aspell.h : ../win32/settings.h
-
-../common/mutable_container.hpp : ../common/parm_string.hpp
-
-../common/iostream.hpp : ../common/fstream.hpp
-
-../common/errors.hpp : 
-
-../common/lock.hpp : ./settings.h
-
-../common/errors.hpp : 
-
-../modules/speller/default/asuggest.hpp : ../modules/speller/default/suggest.hpp \
-	../modules/speller/default/editdist.hpp \
-	../modules/speller/default/typo_editdist.hpp \
-	../common/cache.hpp
-
-../modules/speller/default/suggest.hpp : ../common/word_list.hpp \
-	../common/enumeration.hpp \
-	../common/parm_string.hpp
-
-../modules/speller/default/typo_editdist.hpp : ../common/cache.hpp \
-	../modules/speller/default/matrix.hpp
-
-../modules/speller/default/matrix.hpp : 
-
-../common/filter_char_vector.hpp : ../common/vector.hpp \
-	../common/filter_char.hpp
-
-../common/filter_char_vector.hpp : ../common/vector.hpp \
-	../common/filter_char.hpp
-
-../common/basic_list.hpp : 
-
-../modules/speller/default/suggest.hpp : ../common/word_list.hpp \
-	../common/enumeration.hpp \
-	../common/parm_string.hpp
-
-../win32/settings.h : 
-
-../modules/speller/default/data.hpp : ../common/ndebug.hpp \
-	../common/copy_ptr.hpp \
-	../common/enumeration.hpp \
-	../modules/speller/default/language.hpp \
-	../common/posib_err.hpp \
-	../common/string.hpp \
-	../common/string_enumeration.hpp \
-	../common/word_list.hpp \
-	../common/cache.hpp \
-	../modules/speller/default/wordinfo.hpp \
-	./settings.h
-
-../modules/speller/default/editdist.hpp : ../common/parm_string.hpp \
-	../modules/speller/default/weights.hpp
-
-../common/file_util.hpp : ../common/string.hpp \
-	../common/posib_err.hpp
-
-../common/ndebug.hpp : 
-
-../modules/speller/default/check_list.hpp : ../common/objstack.hpp \
-	../common/speller.hpp
-
-../common/ndebug.hpp : 
-
-../common/convert.hpp : ../common/string.hpp \
-	../common/posib_err.hpp \
-	../common/char_vector.hpp \
-	../common/filter_char.hpp \
-	../common/filter_char_vector.hpp \
-	../common/stack_ptr.hpp \
-	../common/filter.hpp \
-	../common/cache.hpp
-
-../common/objstack.hpp : ../common/parm_string.hpp \
-	./settings.h
-
-../common/filter_char.hpp : 
-
-../common/type_id.hpp : ../common/parm_string.hpp
-
-../common/cache.hpp : ../common/posib_err.hpp
-
-../common/parm_string.hpp : 
-
-../common/config.hpp : ../common/can_have_error.hpp \
-	../common/key_info.hpp \
-	../common/posib_err.hpp \
-	../common/string.hpp \
-	../common/vector.hpp
-
-../common/key_info.hpp : 
-
-../common/lsort.hpp : 
-
-../common/config.hpp : ../common/can_have_error.hpp \
-	../common/key_info.hpp \
-	../common/posib_err.hpp \
-	../common/string.hpp \
-	../common/vector.hpp
-
-../modules/speller/default/data_util.hpp : ../common/parm_string.hpp
-
-../common/hash.hpp : ./settings.h \
-	../common/hash_fun.hpp \
-	../common/block_slist.hpp
-
-../common/key_info.hpp : 
-
-./settings.h : 
-
-../modules/speller/default/phonetic.hpp : ../common/string.hpp
 
 ../common/block_slist.hpp : 
 
@@ -1197,9 +1197,9 @@ prezip.o : ../prog/prezip.c
 
 VPATH=%.cpp \
 	../interfaces/cc \
-	../common \
 	../modules/speller/default \
 	../gen \
+	../common \
 	./ \
 	$(BuildDir)
 
