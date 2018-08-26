@@ -982,7 +982,7 @@ void BZ_API(BZ2_bzWrite)
    if (len == 0)
       { BZ_SETERR(BZ_OK); return; };
 
-   bzf->strm.avail_in = len;
+   bzf->strm.avail_in = (unsigned)len;
    bzf->strm.next_in  = buf;
 
    while (True) {
@@ -1053,7 +1053,7 @@ void BZ_API(BZ2_bzWriteClose64)
 
          if (bzf->strm.avail_out < BZ_MAX_UNUSED) {
             n = BZ_MAX_UNUSED - bzf->strm.avail_out;
-            n2 = fwrite ( (void*)(bzf->buf), sizeof(UChar), 
+            n2 = (Int32) fwrite ( (void*)(bzf->buf), sizeof(UChar),
                           n, bzf->handle );
             if (n != n2 || ferror(bzf->handle))
                { BZ_SETERR(BZ_IO_ERROR); return; };
@@ -1188,7 +1188,7 @@ int BZ_API(BZ2_bzRead)
          { BZ_SETERR(BZ_IO_ERROR); return 0; };
 
       if (bzf->strm.avail_in == 0 && !myfeof(bzf->handle)) {
-         n = fread ( bzf->buf, sizeof(UChar), 
+         n = (Int32) fread ( bzf->buf, sizeof(UChar),
                      BZ_MAX_UNUSED, bzf->handle );
          if (ferror(bzf->handle))
             { BZ_SETERR(BZ_IO_ERROR); return 0; };
