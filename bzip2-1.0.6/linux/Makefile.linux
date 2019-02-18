@@ -10,7 +10,7 @@ CC = gcc
 CPP = g++
 Target = bzip2
 ifndef Build
-	Build = Release
+	Build = Debug
 endif
 BuildDir = $(Build)
 
