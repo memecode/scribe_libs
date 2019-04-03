@@ -91,7 +91,7 @@
 /* Version number of package */
 #define VERSION "0.60.6.1"
 
-#if defined(WIN32) && !defined(__MINGW32__)
+#if defined(WIN32) && !defined(__MINGW32__) && _MSC_VER < 1900
 	#define snprintf		_snprintf
 #endif
 
@@ -108,8 +108,6 @@
 
 	#else
 
-		#define snprintf		_snprintf
-	 
 		#if defined(ASPELL060_EXPORTS) || defined(ASPELLDIST060_EXPORTS)
 			#define C_EXPORT extern "C" __declspec(dllexport)
 			#define LIB_EXPORT __declspec(dllexport)
