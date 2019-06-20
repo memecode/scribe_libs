@@ -43,7 +43,6 @@ namespace acommon {
 		IstreamEnumeration(FStream & i) : in(&i) {}
 		~IstreamEnumeration()
 		{
-			int asd=0;
 		}
 
 		IstreamEnumeration * clone() const

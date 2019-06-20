@@ -49,10 +49,10 @@ endif()
 
 add_library(aspell ${SRC})
 target_compile_definitions(aspell PRIVATE ASPELL060_EXPORTS)
-target_include_directories(aspell PUBLIC win32 common)
+target_include_directories(aspell PUBLIC common)
 if(WIN32)
 	target_include_directories(aspell PUBLIC win32)
 else()
-	target_include_directories(aspell PUBLIC linux)
+	target_include_directories(aspell PUBLIC linux gen)
 endif()
 
