@@ -18,7 +18,7 @@ extern "C" int aspell_string_pair_enumeration_at_end(const StringPairEnumeration
   return ths->at_end();
 }
 
-extern "C" StringPair aspell_string_pair_enumeration_next(StringPairEnumeration * ths)
+extern StringPair aspell_string_pair_enumeration_next(StringPairEnumeration * ths)
 {
   return ths->next();
 }

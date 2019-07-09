@@ -41,7 +41,7 @@ int aspell_create_ro_master(void *cfg, const char *InFile, char *ErrOut, int Err
 		return 0;
 
 	char rws[256];
-	sprintf_s(rws, sizeof(rws), "%.*s.rws", ext - leaf, leaf);
+	sprintf_s(rws, sizeof(rws), "%.*s.rws", (int)(ext-leaf), leaf);
 
 	config->replace("master", rws);
 
