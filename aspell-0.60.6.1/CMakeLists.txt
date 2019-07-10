@@ -67,4 +67,4 @@ if(WIN32)
 else()
 	target_include_directories(aspell PUBLIC linux gen)
 endif()
-set_target_properties(aspell PROPERTIES ARCHIVE_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/lib)
+
