@@ -53,7 +53,10 @@ set(SRC
 	modules/filter/url.cpp modules/filter/email.cpp
 	modules/filter/tex.cpp modules/filter/sgml.cpp
 	modules/filter/context.cpp modules/filter/nroff.cpp
-	modules/filter/texinfo.cpp)
+	modules/filter/texinfo.cpp
+	win32/api-glue.cpp
+	prog/prezip.c
+	)
 
 if(WIN32)
 	list(APPEND SRC win32/dirent.cpp)
@@ -61,7 +64,7 @@ endif()
 
 add_library(aspell SHARED ${SRC})
 target_compile_definitions(aspell PRIVATE ASPELL060_EXPORTS)
-target_include_directories(aspell PUBLIC common)
+target_include_directories(aspell PUBLIC common interfaces/cc modules/speller/default)
 if(WIN32)
 	target_include_directories(aspell PUBLIC win32)
 else()

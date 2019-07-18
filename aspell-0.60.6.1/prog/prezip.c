@@ -72,6 +72,10 @@ typedef struct Word {
 #define main prezip_main
 #endif
 
+#ifndef _WIN32
+#define strcpy_s(dst,sz,src) strncpy(dst,src,sz)
+#endif
+
 void prezip_compress(FILE *in_file, FILE *out_file, char *ErrOut, int ErrLen)
 {
 	Word w1,w2;

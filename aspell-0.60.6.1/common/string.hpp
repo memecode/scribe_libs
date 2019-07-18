@@ -468,7 +468,7 @@ namespace acommon {
 
   class StringIStream : public IStream {
     const char * in_str;
-    char         delem;
+    //char         delem;
   public:
     StringIStream(ParmStr s, char d = ';')
       : IStream(d), in_str(s) {}

@@ -242,7 +242,7 @@ LIB_EXPORT void delete_aspell_can_have_error(struct AspellCanHaveError * ths);
 
 /******************************** errors ********************************/
 
-
+/*
 extern const struct AspellErrorInfo * const aerror_other;
 extern const struct AspellErrorInfo * const aerror_operation_not_supported;
 extern const struct AspellErrorInfo * const   aerror_cant_copy;
@@ -328,7 +328,7 @@ extern const struct AspellErrorInfo * const   aerror_missing_magic;
 extern const struct AspellErrorInfo * const   aerror_bad_magic;
 extern const struct AspellErrorInfo * const aerror_expression;
 extern const struct AspellErrorInfo * const   aerror_invalid_expression;
-
+*/
 
 /******************************* speller *******************************/
 

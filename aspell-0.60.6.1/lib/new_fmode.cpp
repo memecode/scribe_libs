@@ -562,8 +562,8 @@ namespace acommon {
       unsigned pathPos = 0;
       unsigned pathPosEnd = 0;
 
-      while (    ( (pathPosEnd = possMode.find('/',pathPos)) < possMode.size() )
-              && ( pathPosEnd >= 0 ) ) {
+      while ((pathPosEnd = possMode.find('/',pathPos)) < possMode.size())
+      {
         pathPos = pathPosEnd + 1;
       }
       possMode.erase(0,pathPos);

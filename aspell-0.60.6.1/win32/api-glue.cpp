@@ -2,7 +2,7 @@
 #include "language.hpp"
 #include "data.hpp"
 
-#ifdef LINUX
+#if defined(LINUX) || defined(MAC)
 #define strcpy_s(dst, sz, src) strncpy(dst, src, sz)
 #define sprintf_s snprintf
 #endif

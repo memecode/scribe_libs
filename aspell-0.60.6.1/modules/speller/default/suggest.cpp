@@ -126,6 +126,7 @@ namespace {
     return compare(lhs, rhs) < 0;
   }
 
+  /*
   inline bool operator <= (const ScoreWordSound & lhs, 
 			   const ScoreWordSound & rhs) {
     return compare(lhs, rhs) <= 0;
@@ -135,6 +136,7 @@ namespace {
 			   const ScoreWordSound & rhs) {
     return compare(lhs, rhs) == 0;
   }
+  */
 
   typedef BasicList<ScoreWordSound> NearMisses;
  

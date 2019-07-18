@@ -108,7 +108,7 @@ static inline void mmap_free(char *, unsigned int)
 #endif
 
 static byte HAVE_AFFIX_FLAG = 1 << 7;
-static byte HAVE_CATEGORY_FLAG = 1 << 6;
+// static byte HAVE_CATEGORY_FLAG = 1 << 6;
 
 static byte DUPLICATE_FLAG = 1 << 4;
 // this flag is set when there is is more than one word for a
@@ -118,7 +118,7 @@ static byte DUPLICATE_FLAG = 1 << 4;
 
 static byte WORD_INFO_MASK = 0x0F;
 
-static const int FREQUENCY_INFO_O = 4;
+//static const int FREQUENCY_INFO_O = 4;
 static const int FLAGS_O = 3;
 static const int NEXT_O = 2;
 static const int WORD_SIZE_O = 1;
@@ -158,6 +158,7 @@ static inline const char * get_affix(const char * d) {
     return d + word_size;
 }
 
+/*
 static inline const char * get_category(const char * d) {
   int word_size = get_word_size(d);
   if (get_flags(d) & (HAVE_AFFIX_FLAG | HAVE_CATEGORY_FLAG)) 
@@ -167,6 +168,7 @@ static inline const char * get_category(const char * d) {
   else
     return d + word_size;
 }
+*/
 
 static inline bool duplicate_flag(const char * d) {
   return get_flags(d) & DUPLICATE_FLAG;
@@ -199,7 +201,7 @@ namespace {
       typedef BlockVector<const u32int> Vector;
       typedef u32int                    Value;
       typedef const char *              Key;
-      static const bool is_multi = false;
+      // static const bool is_multi = false;
       Key key(Value v) const {return block_begin + v;}
       InsensitiveHash  hash;
       InsensitiveEqual equal;
