@@ -40,7 +40,6 @@ extern size_t my_fwrite(void *buffer, size_t size, size_t count, FILE *stream);
 void
 btreeSetError(const char *Err, ...);
 
-const char *
-btreeGetError();
+extern const char *btreeGetError(void);
 
 #endif
