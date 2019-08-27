@@ -73,7 +73,7 @@ struct _GDatabase
 	
 	GdbType type;           /**< Database type.                  */
 
-	long freeBlockCount;    /**< Number of BFree blocks.          */
+	uint32_t freeBlockCount;    /**< Number of BFree blocks.          */
 
 	BTree *mainTree;        /**< Main B+Tree.                    */
 

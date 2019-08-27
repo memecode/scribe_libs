@@ -20,6 +20,7 @@
  * Free Software Foundation, Inc., 59 Temple Place - Suite 330,
  * Boston, MA  02111-1307, USA.
  */
+#include <stdint.h>
 #include "db_internal.h"
 #include "config.h"
 
@@ -39,7 +40,7 @@ gdbGetFreeBlockList(GDatabase *db, GdbFreeBlock **blocks, long *count)
 	/* Seek to the start of the block list. */
 	fseek(db->fp, DB_FREE_BLOCK_LIST_OFFSET /* 16 */, SEEK_SET);
 
-	if (fread(&db->freeBlockCount, sizeof(long), 1, db->fp) != 1)
+	if (fread(&db->freeBlockCount, sizeof(db->freeBlockCount), 1, db->fp) != 1)
 		db->freeBlockCount = 0;
 
 	*count = db->freeBlockCount;
@@ -80,7 +81,7 @@ gdbGetFreeBlockList(GDatabase *db, GdbFreeBlock **blocks, long *count)
 void
 gdbWriteFreeBlockList(GDatabase *db, GdbFreeBlock *blocks, long count)
 {
-	unsigned long listSize;
+	uint32_t listSize = 0;
 	unsigned char *buffer;
 	int i, counter = 0;
 	
@@ -88,7 +89,7 @@ gdbWriteFreeBlockList(GDatabase *db, GdbFreeBlock *blocks, long count)
 		return;
 
 	/* Get the total size of the list. */
-	listSize = sizeof(long) + count * (sizeof(short) + sizeof(offset_t));
+	listSize = (uint32_t) (sizeof(uint32_t) + (count * (sizeof(short) + sizeof(offset_t))));
 
 	/* Allocate the buffer for the block list. */
 	MEM_CHECK(buffer = (unsigned char *)malloc(listSize));
