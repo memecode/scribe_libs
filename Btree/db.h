@@ -23,6 +23,7 @@
 #ifndef _GNUPDATEDB_DB_H_
 #define _GNUPDATEDB_DB_H_
 
+#include <stdint.h>
 #include "types.h"
 #include "config.h"
 
