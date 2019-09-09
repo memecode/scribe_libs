@@ -316,6 +316,8 @@ __insertKey(BTree *tree, offset_t rootOffset, char **key,
 	}
 
 	rootNode = btreeReadNode(tree, rootOffset);
+	if (!rootNode)
+		return error;
 
 	if (BTREE_IS_LEAF(rootNode))
 	{

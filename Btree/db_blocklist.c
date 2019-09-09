@@ -58,7 +58,7 @@ gdbGetFreeBlockList(GDatabase *db, GdbFreeBlock **blocks, long *count)
 	if (fread(buffer, listSize, 1, db->fp) != 1)
 	{
 		fprintf(stderr, _("ERROR: Truncated block list.\n"));
-		abort();
+		return 0;
 	}
 
 	MEM_CHECK_RET_ZERO(blockList = (GdbFreeBlock *)malloc(db->freeBlockCount *

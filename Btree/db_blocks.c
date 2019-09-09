@@ -300,7 +300,7 @@ gdbReadBlock(GDatabase *db, offset_t offset, blocktype_t blockType,
 	{
 		fprintf(stderr, _("ERROR: Unable to read block at %ld\n"), offset);
 		fprintf(stderr, _("ERROR: `%s'\n"), db->filename);
-		abort();
+		return NULL;
 	}
 
 	/* Get the number of needed blocks. */
@@ -359,7 +359,7 @@ gdbReadBlock(GDatabase *db, offset_t offset, blocktype_t blockType,
 				fprintf(stderr, "[%s]\n", db->filename);
 				fprintf(stderr, _("FATAL: Infinite loop detected in database "
 								  "blocks!\n"));
-				abort();
+				return NULL;
 			}
 			
 			if (i < block->chainCount)

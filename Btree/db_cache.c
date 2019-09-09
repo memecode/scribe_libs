@@ -322,7 +322,6 @@ void queDelete(GDatabase *db, GdbBlock *block)
 		block->qprev = 0;
 	}
 }
-
 #endif
 
 void
@@ -334,7 +333,7 @@ gdbCacheAddBlock(GDatabase *db, GdbBlock *block)
 	{
 		fprintf(stderr,
 				_("ERROR: Trying to add block to list with offset 0\n"));
-		abort();
+		return;
 	}
 
 	/* See if it's already in the list. */

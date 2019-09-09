@@ -30,6 +30,8 @@ __search(BTree *tree, offset_t rootOffset, const char *key, offset_t *filePos)
 	char result;
 
 	rootNode = btreeReadNode(tree, rootOffset);
+	if (!rootNode)
+		return 0;
 	
 	for (i = 0;
 		 i < rootNode->keyCount && StringCompare(rootNode->keys[i], key) < 0;
