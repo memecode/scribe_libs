@@ -257,6 +257,11 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_CFLAGS = (
+					"-DLGI_COCOA=1",
+					"-DMAC",
+					"-DCOCOA",
+				);
 				SDKROOT = macosx;
 			};
 			name = Debug;
@@ -304,6 +309,11 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_CFLAGS = (
+					"-DLGI_COCOA=1",
+					"-DMAC",
+					"-DCOCOA",
+				);
 				SDKROOT = macosx;
 			};
 			name = Release;
@@ -322,10 +332,6 @@
 				);
 				MACH_O_TYPE = staticlib;
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
-				OTHER_CFLAGS = (
-					"-DMAC",
-					"-DLGI_COCOA",
-				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -344,10 +350,6 @@
 				);
 				MACH_O_TYPE = staticlib;
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
-				OTHER_CFLAGS = (
-					"-DMAC",
-					"-DLGI_COCOA",
-				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
