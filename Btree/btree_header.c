@@ -171,11 +171,16 @@ btreeGetRootNode(BTree *tree)
 	block = tree->block;
 
 	fp = block->db->fp;
+	tree->root = 0;
 	
 	// GDB_BLOCK_HEADER_SIZE	= 15
 	// BTREE_ROOT_OFFSET		= 5
-	fseek(fp, block->offset + GDB_BLOCK_HEADER_SIZE + BTREE_ROOT_OFFSET,
-		  SEEK_SET);
+	int r = fseek(fp, block->offset + GDB_BLOCK_HEADER_SIZE + BTREE_ROOT_OFFSET, SEEK_SET);
+	if (r < 0)
+	{
+		btreeSetError("Error: B+Tree: Unable to fseekt to the root node offset.");
+		return 0;
+	}
 
 	if (fread(&tree->root, sizeof(offset_t), 1, fp) != 1)
 	{

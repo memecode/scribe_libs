@@ -332,7 +332,6 @@ btreeReadNode(BTree *tree, offset_t offset)
 		return NULL;
 
 	block = gdbReadBlock(tree->block->db, offset, GDB_BLOCK_BTREE_NODE, tree);
-
 	if (block == NULL)
 		return NULL;
 
