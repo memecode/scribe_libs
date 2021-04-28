@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <Project>
-	<Node Name="Source" Type="1" Platforms="15" Open="0">
-		<Node Name="Api" Type="1" Platforms="15" Open="1">
+	<Node Name="Source" Type="1" Platforms="15" Open="0" Id="1">
+		<Node Name="Api" Type="1" Platforms="15" Open="1" Id="2">
 			<Node File="../interfaces/cc/aspell.h" Type="3" Platforms="15" />
 			<Node File="../interfaces/cc/pspell.h" Type="3" Platforms="15" />
 		</Node>
-		<Node Name="AspellSrc" Type="1" Platforms="15" Open="0">
-			<Node File="../prog/aspell.cpp" Type="2" Platforms="15" />
+		<Node Name="AspellSrc" Type="1" Platforms="15" Open="0" Id="3">
+			<Node File="../lib/word_list-c.cpp" Type="2" Platforms="15" />
 			<Node File="../modules/tokenizer/basic.cpp" Type="2" Platforms="15" />
 			<Node File="../common/cache.cpp" Type="2" Platforms="15" />
 			<Node File="../lib/can_have_error-c.cpp" Type="2" Platforms="15" />
@@ -55,59 +55,58 @@
 			<Node File="../modules/filter/texinfo.cpp" Type="2" Platforms="15" />
 			<Node File="../common/tokenizer.cpp" Type="2" Platforms="15" />
 			<Node File="../modules/filter/url.cpp" Type="2" Platforms="15" />
-			<Node File="../lib/word_list-c.cpp" Type="2" Platforms="15" />
 		</Node>
-		<Node Name="Config" Type="1" Platforms="15" Open="0">
+		<Node Name="Config" Type="1" Platforms="15" Open="0" Id="4">
 			<Node File="../modules/speller/default/affix.cpp" Type="2" Platforms="15" />
-			<Node File="../modules/speller/default/affix.hpp" Type="0" Platforms="15" />
-			<Node File="../modules/speller/default/asuggest.hpp" Type="0" Platforms="15" />
-			<Node File="../modules/speller/default/block_vector.hpp" Type="0" Platforms="15" />
-			<Node File="../modules/speller/default/check_list.hpp" Type="0" Platforms="15" />
+			<Node File="../modules/speller/default/affix.hpp" Type="3" Platforms="15" />
+			<Node File="../modules/speller/default/asuggest.hpp" Type="3" Platforms="15" />
+			<Node File="../modules/speller/default/block_vector.hpp" Type="3" Platforms="15" />
+			<Node File="../modules/speller/default/check_list.hpp" Type="3" Platforms="15" />
 			<Node File="../modules/speller/default/data.cpp" Type="2" Platforms="15" />
-			<Node File="../modules/speller/default/data.hpp" Type="0" Platforms="15" />
-			<Node File="../modules/speller/default/data_id.hpp" Type="0" Platforms="15" />
-			<Node File="../modules/speller/default/data_util.hpp" Type="0" Platforms="15" />
+			<Node File="../modules/speller/default/data.hpp" Type="3" Platforms="15" />
+			<Node File="../modules/speller/default/data_id.hpp" Type="3" Platforms="15" />
+			<Node File="../modules/speller/default/data_util.hpp" Type="3" Platforms="15" />
 			<Node File="../modules/speller/default/editdist.cpp" Type="2" Platforms="15" />
-			<Node File="../modules/speller/default/editdist.hpp" Type="0" Platforms="15" />
-			<Node File="../modules/speller/default/editdist2.hpp" Type="0" Platforms="15" />
+			<Node File="../modules/speller/default/editdist.hpp" Type="3" Platforms="15" />
+			<Node File="../modules/speller/default/editdist2.hpp" Type="3" Platforms="15" />
 			<Node File="../modules/speller/default/language.cpp" Type="2" Platforms="15" />
-			<Node File="../modules/speller/default/language.hpp" Type="0" Platforms="15" />
+			<Node File="../modules/speller/default/language.hpp" Type="3" Platforms="15" />
 			<Node File="../modules/speller/default/leditdist.cpp" Type="2" Platforms="15" />
-			<Node File="../modules/speller/default/leditdist.hpp" Type="0" Platforms="15" />
+			<Node File="../modules/speller/default/leditdist.hpp" Type="3" Platforms="15" />
 			<Node File="../modules/speller/default/Makefile.in" Type="3" Platforms="15" />
-			<Node File="../modules/speller/default/matrix.hpp" Type="0" Platforms="15" />
+			<Node File="../modules/speller/default/matrix.hpp" Type="3" Platforms="15" />
 			<Node File="../modules/speller/default/multi_ws.cpp" Type="2" Platforms="15" />
 			<Node File="../modules/speller/default/phonet.cpp" Type="2" Platforms="15" />
-			<Node File="../modules/speller/default/phonet.hpp" Type="0" Platforms="15" />
+			<Node File="../modules/speller/default/phonet.hpp" Type="3" Platforms="15" />
 			<Node File="../modules/speller/default/phonetic.cpp" Type="2" Platforms="15" />
-			<Node File="../modules/speller/default/phonetic.hpp" Type="0" Platforms="15" />
+			<Node File="../modules/speller/default/phonetic.hpp" Type="3" Platforms="15" />
 			<Node File="../modules/speller/default/primes.cpp" Type="2" Platforms="15" />
-			<Node File="../modules/speller/default/primes.hpp" Type="0" Platforms="15" />
+			<Node File="../modules/speller/default/primes.hpp" Type="3" Platforms="15" />
 			<Node File="../modules/speller/default/readonly_ws.cpp" Type="2" Platforms="15" />
 			<Node File="../modules/speller/default/speller_impl.cpp" Type="2" Platforms="15" />
-			<Node File="../modules/speller/default/speller_impl.hpp" Type="0" Platforms="15" />
+			<Node File="../modules/speller/default/speller_impl.hpp" Type="3" Platforms="15" />
 			<Node File="../modules/speller/default/suggest.cpp" Type="2" Platforms="15" />
-			<Node File="../modules/speller/default/suggest.hpp" Type="0" Platforms="15" />
+			<Node File="../modules/speller/default/suggest.hpp" Type="3" Platforms="15" />
 			<Node File="../modules/speller/default/typo_editdist.cpp" Type="2" Platforms="15" />
-			<Node File="../modules/speller/default/typo_editdist.hpp" Type="0" Platforms="15" />
-			<Node File="../modules/speller/default/vector_hash-t.hpp" Type="0" Platforms="15" />
-			<Node File="../modules/speller/default/vector_hash.hpp" Type="0" Platforms="15" />
-			<Node File="../modules/speller/default/weights.hpp" Type="0" Platforms="15" />
-			<Node File="../modules/speller/default/wordinfo.hpp" Type="0" Platforms="15" />
+			<Node File="../modules/speller/default/typo_editdist.hpp" Type="3" Platforms="15" />
+			<Node File="../modules/speller/default/vector_hash-t.hpp" Type="3" Platforms="15" />
+			<Node File="../modules/speller/default/vector_hash.hpp" Type="3" Platforms="15" />
+			<Node File="../modules/speller/default/weights.hpp" Type="3" Platforms="15" />
+			<Node File="../modules/speller/default/wordinfo.hpp" Type="3" Platforms="15" />
 			<Node File="../modules/speller/default/writable.cpp" Type="2" Platforms="15" />
 		</Node>
-		<Node Name="Prezip" Type="1" Platforms="15" Open="1">
+		<Node Name="Prezip" Type="1" Platforms="15" Open="1" Id="5">
 			<Node File="../win32/api-glue.cpp" Type="2" Platforms="15" />
 			<Node File="../prog/prezip.c" Type="2" Platforms="15" />
 		</Node>
-		<Node Name="Posix" Type="1" Platforms="15" Open="0">
+		<Node Name="Posix" Type="1" Platforms="15" Open="0" Id="6">
 			<Node File="./settings.h" Type="3" Platforms="15" />
 		</Node>
 	</Node>
-	<Node Name="Headers" Type="1" Platforms="15" Open="0">
+	<Node Name="Headers" Type="1" Platforms="15" Open="0" Id="7">
 		<Node File="../common/key_info.hpp" Type="3" Platforms="15" />
 	</Node>
-	<Node Name="Build" Type="1" Platforms="15" Open="0">
+	<Node Name="Build" Type="1" Platforms="15" Open="0" Id="8">
 		<Node File="./Makefile.linux" Type="3" Platforms="15" />
 	</Node>
 	<Settings>
@@ -123,16 +122,13 @@
 					<Debug>ASPELLDIST060_EXPORTS</Debug>
 					<Release>ASPELLDIST060_EXPORTS</Release>
 				</All>
-				<Linux />
 			</Defines>
 			<Executable>
 				<Linux />
 			</Executable>
-			<Arguments>
-				<All />
-			</Arguments>
-			<DebugAdmin />
-			<CrossCompiler />
+			<Arguments />
+			<CppCrossCompiler />
+			<CCrossCompiler />
 		</General>
 		<Build>
 			<IncludePaths>
@@ -171,6 +167,10 @@
 				<Linux />
 			</TargetName>
 			<ApplicationIcon />
+			<Defines>
+				<All />
+				<Linux />
+			</Defines>
 		</Build>
 		<Editor>
 			<TabSize />
@@ -182,6 +182,21 @@
 		</Editor>
 		<Advanced>
 			<OtherMakefileRules />
+			<PostBuildCommands>
+				<Linux />
+			</PostBuildCommands>
 		</Advanced>
+		<Remote>
+			<RemoteUri />
+			<RemotePass />
+		</Remote>
+		<Debug>
+			<Environment />
+			<Arguments>
+				<All />
+			</Arguments>
+			<DebugAdmin />
+			<InitialDir />
+		</Debug>
 	</Settings>
 </Project>

@@ -414,6 +414,8 @@ btreeDelete(BTree *tree, const char *key)
 
 	/* Read in the root node. */
 	rootNode = btreeReadNode(tree, tree->root);
+	if (!rootNode)
+		return 0;
 	
 	for (i = 0;
 		 i < rootNode->keyCount && StringCompare(rootNode->keys[i], key) < 0;
