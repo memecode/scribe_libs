@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <Project>
-	<Node Name="Source" Type="1" Platforms="15" Open="0">
+	<Node Name="Source" Type="1" Platforms="15" Open="0" Id="1">
 		<Node File="../blocksort.c" Type="2" Platforms="15" />
 		<Node File="../bzlib.c" Type="2" Platforms="15" />
 		<Node File="../compress.c" Type="2" Platforms="15" />
@@ -9,13 +9,13 @@
 		<Node File="../huffman.c" Type="2" Platforms="15" />
 		<Node File="../randtable.c" Type="2" Platforms="15" />
 	</Node>
-	<Node Name="Headers" Type="1" Platforms="15" Open="0">
+	<Node Name="Headers" Type="1" Platforms="15" Open="0" Id="2">
 		<Node File="../bzlib.h" Type="3" Platforms="15" />
 	</Node>
 	<Settings>
 		<General>
 			<Makefile>
-				<Linux>Makefile.linux</Linux>
+				<Linux>./Makefile.linux</Linux>
 			</Makefile>
 			<Executable>
 				<Linux />
@@ -28,7 +28,9 @@
 				<Linux />
 			</Defines>
 			<Compiler />
-			<CrossCompiler />
+			<CppCrossCompiler />
+			<DebugAdmin />
+			<CCrossCompiler />
 		</General>
 		<Build>
 			<IncludePaths>
@@ -78,6 +80,13 @@
 		</Editor>
 		<Advanced>
 			<OtherMakefileRules />
+			<PostBuildCommands>
+				<Linux />
+			</PostBuildCommands>
 		</Advanced>
+		<Remote>
+			<RemoteUri />
+			<RemotePass />
+		</Remote>
 	</Settings>
 </Project>
