@@ -19,7 +19,7 @@ Flags = -fPIC -w -fno-inline -fpermissive
 ifeq ($(Build),Debug)
 	Flags += -g -std=c++11
 	Tag = d
-	Defs = -D_DEBUG -DLINUX -D_REENTRANT -D_FILE_OFFSET_BITS=64 -DPOSIX -DASPELLDIST060_EXPORTS
+	Defs = -D_DEBUG -DLINUX -D_REENTRANT -D_FILE_OFFSET_BITS=64 -DPOSIX -DASPELL060_EXPORTS -DASPELLDIST060_EXPORTS
 	Libs = 
 	Inc =  \
 		-I../modules/speller/default \
@@ -30,7 +30,7 @@ ifeq ($(Build),Debug)
 		-I.
 else
 	Flags += -s -Os -std=c++11
-	Defs = -DLINUX -D_REENTRANT -D_FILE_OFFSET_BITS=64 -DPOSIX -DASPELLDIST060_EXPORTS
+	Defs = -DLINUX -D_REENTRANT -D_FILE_OFFSET_BITS=64 -DPOSIX -DASPELL060_EXPORTS -DASPELLDIST060_EXPORTS
 	Libs = 
 	Inc =  \
 		-I../modules/speller/default \
@@ -42,14 +42,10 @@ else
 endif
 
 # Dependencies
-Depends =	 \
-			aspell.o \
-			basic.o \
+Depends =	basic.o \
 			cache.o \
 			can_have_error-c.o \
 			can_have_error.o \
-			check_funs.o \
-			checker_string.o \
 			config-c.o \
 			config.o \
 			context.o \
@@ -126,33 +122,6 @@ clean :
 	rm -f $(BuildDir)/*.o $(BuildDir)/$(TargetFile)
 	@echo Cleaned $(BuildDir)
 
-aspell.o : ../prog/aspell.cpp ./settings.h \
-	../interfaces/cc/aspell.h \
-	../common/asc_ctype.hpp \
-	../common/config.hpp \
-	../common/convert.hpp \
-	../common/document_checker.hpp \
-	../common/enumeration.hpp \
-	../common/errors.hpp \
-	../common/file_util.hpp \
-	../common/fstream.hpp \
-	../common/info.hpp \
-	../common/iostream.hpp \
-	../common/posib_err.hpp \
-	../common/speller.hpp \
-	../common/stack_ptr.hpp \
-	../common/string_enumeration.hpp \
-	../common/string_map.hpp \
-	../common/word_list.hpp \
-	../common/string_list.hpp \
-	../modules/speller/default/speller_impl.hpp \
-	../modules/speller/default/data.hpp \
-	../common/hash-t.hpp \
-	../common/hash_fun.hpp \
-	../common/gettext.h
-	@echo $(<F) [$(Build)]
-	$(CPP) $(Inc) $(Flags) $(Defs) -c $< -o $(BuildDir)/$(@F)
-
 basic.o : ../modules/tokenizer/basic.cpp ../common/tokenizer.hpp \
 	../common/convert.hpp \
 	../common/speller.hpp
@@ -172,21 +141,6 @@ can_have_error-c.o : ../lib/can_have_error-c.cpp ../common/can_have_error.hpp \
 
 can_have_error.o : ../common/can_have_error.cpp ../common/error.hpp \
 	../common/can_have_error.hpp
-	@echo $(<F) [$(Build)]
-	$(CPP) $(Inc) $(Flags) $(Defs) -c $< -o $(BuildDir)/$(@F)
-
-check_funs.o : ../prog/check_funs.cpp ./settings.h \
-	../common/asc_ctype.hpp \
-	../common/convert.hpp \
-	../common/config.hpp \
-	../common/gettext.h
-	@echo $(<F) [$(Build)]
-	$(CPP) $(Inc) $(Flags) $(Defs) -c $< -o $(BuildDir)/$(@F)
-
-checker_string.o : ../prog/checker_string.cpp ../common/speller.hpp \
-	../common/document_checker.hpp \
-	../common/asc_ctype.hpp \
-	../common/convert.hpp
 	@echo $(<F) [$(Build)]
 	$(CPP) $(Inc) $(Flags) $(Defs) -c $< -o $(BuildDir)/$(@F)
 
@@ -770,14 +724,14 @@ prezip.o : ../prog/prezip.c
 	../common/posib_err.hpp \
 	../common/filter_char.hpp
 
-../common/hash_fun.hpp : 
-
 ../common/string.hpp : ../common/hash_fun.hpp \
 	../common/parm_string.hpp \
 	../common/mutable_string.hpp \
 	../common/ostream.hpp \
 	../common/istream.hpp \
 	./settings.h
+
+../gen/static_filters.src.cpp : 
 
 ../modules/speller/default/data.hpp : ../common/ndebug.hpp \
 	../common/copy_ptr.hpp \
@@ -792,8 +746,6 @@ prezip.o : ../prog/prezip.c
 	./settings.h
 
 ../modules/speller/default/wordinfo.hpp : ../common/string.hpp
-
-../gen/static_filters.src.cpp : 
 
 ../modules/speller/default/typo_editdist.hpp : ../common/cache.hpp \
 	../modules/speller/default/matrix.hpp
@@ -1112,6 +1064,8 @@ prezip.o : ../prog/prezip.c
 ../modules/speller/default/vector_hash-t.hpp : ../modules/speller/default/vector_hash.hpp \
 	../modules/speller/default/primes.hpp
 
+../modules/speller/default/primes.hpp : 
+
 ../common/error.hpp : ./settings.h
 
 ../common/string_pair.hpp : 
@@ -1120,18 +1074,41 @@ prezip.o : ../prog/prezip.c
 	../common/error.hpp \
 	./settings.h
 
+../common/lsort.hpp : 
+
+../common/config.hpp : ../common/can_have_error.hpp \
+	../common/key_info.hpp \
+	../common/posib_err.hpp \
+	../common/string.hpp \
+	../common/vector.hpp
+
 ../common/char_vector.hpp : ../common/string.hpp \
 	../common/ostream.hpp
+
+../modules/speller/default/data_util.hpp : ../common/parm_string.hpp
+
+../modules/speller/default/suggest.hpp : ../common/word_list.hpp \
+	../common/enumeration.hpp \
+	../common/parm_string.hpp
 
 ../common/string_pair_enumeration.hpp : ../common/string_pair.hpp
 
 ../common/mutable_string.hpp : ../common/parm_string.hpp
 
-../modules/speller/default/vector_hash.hpp : ./settings.h
+../common/istream.hpp : 
+
+../modules/speller/default/check_list.hpp : ../common/objstack.hpp \
+	../common/speller.hpp
 
 ../common/tokenizer.hpp : ../common/char_vector.hpp \
 	../common/filter_char.hpp \
 	../common/filter_char_vector.hpp
+
+../common/key_info.hpp : 
+
+./settings.h : 
+
+../modules/speller/default/vector_hash.hpp : ./settings.h
 
 ../common/vararray.hpp : 
 
@@ -1144,11 +1121,20 @@ prezip.o : ../prog/prezip.c
 
 ../common/strtonum.hpp : 
 
+../modules/speller/default/data_id.hpp : ./settings.h
+
+../modules/speller/default/leditdist.hpp : ../modules/speller/default/weights.hpp
+
 ../common/mutable_container.hpp : ../common/parm_string.hpp
 
 ../common/simple_string.hpp : ../common/parm_string.hpp
 
 ../common/errors.hpp : 
+
+../common/parm_string.hpp : 
+
+../common/objstack.hpp : ../common/parm_string.hpp \
+	./settings.h
 
 ../modules/speller/default/leditdist.hpp : ../modules/speller/default/weights.hpp
 
@@ -1157,43 +1143,9 @@ prezip.o : ../prog/prezip.c
 
 ../common/enumeration.hpp : ../common/clone_ptr-t.hpp
 
-../modules/speller/default/primes.hpp : 
-
-../common/lsort.hpp : 
-
-../common/config.hpp : ../common/can_have_error.hpp \
-	../common/key_info.hpp \
-	../common/posib_err.hpp \
-	../common/string.hpp \
-	../common/vector.hpp
-
-../modules/speller/default/data_util.hpp : ../common/parm_string.hpp
-
-../modules/speller/default/suggest.hpp : ../common/word_list.hpp \
-	../common/enumeration.hpp \
-	../common/parm_string.hpp
-
-../common/istream.hpp : 
-
-../modules/speller/default/check_list.hpp : ../common/objstack.hpp \
-	../common/speller.hpp
-
-../common/key_info.hpp : 
-
-./settings.h : 
-
-../modules/speller/default/data_id.hpp : ./settings.h
-
-../modules/speller/default/leditdist.hpp : ../modules/speller/default/weights.hpp
-
-../common/parm_string.hpp : 
-
-../common/objstack.hpp : ../common/parm_string.hpp \
-	./settings.h
+../modules/speller/default/matrix.hpp : 
 
 ../common/generic_copy_ptr-t.hpp : ../common/generic_copy_ptr.hpp
-
-../modules/speller/default/matrix.hpp : 
 
 VPATH=%.cpp \
 	../modules/speller/default \

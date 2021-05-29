@@ -1,18 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <Project>
 	<Node Name="Source" Type="1" Platforms="15" Open="0" Id="1">
-		<Node Name="Api" Type="1" Platforms="15" Open="1" Id="2">
-			<Node File="../interfaces/cc/aspell.h" Type="3" Platforms="15" />
-			<Node File="../interfaces/cc/pspell.h" Type="3" Platforms="15" />
+		<Node Name="Prezip" Type="1" Platforms="15" Open="1" Id="5">
+			<Node File="../win32/api-glue.cpp" Type="2" Platforms="15" />
+			<Node File="../prog/prezip.c" Type="2" Platforms="15" />
 		</Node>
 		<Node Name="AspellSrc" Type="1" Platforms="15" Open="0" Id="3">
-			<Node File="../lib/word_list-c.cpp" Type="2" Platforms="15" />
 			<Node File="../modules/tokenizer/basic.cpp" Type="2" Platforms="15" />
 			<Node File="../common/cache.cpp" Type="2" Platforms="15" />
 			<Node File="../lib/can_have_error-c.cpp" Type="2" Platforms="15" />
 			<Node File="../common/can_have_error.cpp" Type="2" Platforms="15" />
-			<Node File="../prog/check_funs.cpp" Type="2" Platforms="15" />
-			<Node File="../prog/checker_string.cpp" Type="2" Platforms="15" />
+			<Node File="../lib/word_list-c.cpp" Type="2" Platforms="15" />
+			<Node File="../modules/filter/url.cpp" Type="2" Platforms="15" />
 			<Node File="../lib/config-c.cpp" Type="2" Platforms="15" />
 			<Node File="../common/config.cpp" Type="2" Platforms="15" />
 			<Node File="../modules/filter/context.cpp" Type="2" Platforms="15" />
@@ -54,7 +53,6 @@
 			<Node File="../modules/filter/tex.cpp" Type="2" Platforms="15" />
 			<Node File="../modules/filter/texinfo.cpp" Type="2" Platforms="15" />
 			<Node File="../common/tokenizer.cpp" Type="2" Platforms="15" />
-			<Node File="../modules/filter/url.cpp" Type="2" Platforms="15" />
 		</Node>
 		<Node Name="Config" Type="1" Platforms="15" Open="0" Id="4">
 			<Node File="../modules/speller/default/affix.cpp" Type="2" Platforms="15" />
@@ -95,16 +93,12 @@
 			<Node File="../modules/speller/default/wordinfo.hpp" Type="3" Platforms="15" />
 			<Node File="../modules/speller/default/writable.cpp" Type="2" Platforms="15" />
 		</Node>
-		<Node Name="Prezip" Type="1" Platforms="15" Open="1" Id="5">
-			<Node File="../win32/api-glue.cpp" Type="2" Platforms="15" />
-			<Node File="../prog/prezip.c" Type="2" Platforms="15" />
-		</Node>
-		<Node Name="Posix" Type="1" Platforms="15" Open="0" Id="6">
-			<Node File="./settings.h" Type="3" Platforms="15" />
-		</Node>
 	</Node>
 	<Node Name="Headers" Type="1" Platforms="15" Open="0" Id="7">
 		<Node File="../common/key_info.hpp" Type="3" Platforms="15" />
+		<Node File="../interfaces/cc/aspell.h" Type="3" Platforms="15" />
+		<Node File="../interfaces/cc/pspell.h" Type="3" Platforms="15" />
+		<Node File="./settings.h" Type="3" Platforms="15" />
 	</Node>
 	<Node Name="Build" Type="1" Platforms="15" Open="0" Id="8">
 		<Node File="./Makefile.linux" Type="3" Platforms="15" />
@@ -123,12 +117,6 @@
 					<Release>ASPELLDIST060_EXPORTS</Release>
 				</All>
 			</Defines>
-			<Executable>
-				<Linux />
-			</Executable>
-			<Arguments />
-			<CppCrossCompiler />
-			<CCrossCompiler />
 		</General>
 		<Build>
 			<IncludePaths>
@@ -152,51 +140,14 @@
 			<TargetType>
 				<All>DynamicLibrary</All>
 			</TargetType>
-			<SystemIncludes>
-				<Linux />
-			</SystemIncludes>
-			<Libraries>
-				<All />
-				<Linux />
-			</Libraries>
-			<LibraryPaths>
-				<All />
-				<Linux />
-			</LibraryPaths>
-			<TargetName>
-				<Linux />
-			</TargetName>
-			<ApplicationIcon />
 			<Defines>
-				<All />
-				<Linux />
+				<All>
+					<Debug>ASPELL060_EXPORTS
+ASPELLDIST060_EXPORTS</Debug>
+					<Release>ASPELL060_EXPORTS
+ASPELLDIST060_EXPORTS</Release>
+				</All>
 			</Defines>
 		</Build>
-		<Editor>
-			<TabSize />
-			<IndentSize />
-			<ShowWhiteSpace />
-			<UseHardTabs />
-			<CommentFile />
-			<CommentFunction />
-		</Editor>
-		<Advanced>
-			<OtherMakefileRules />
-			<PostBuildCommands>
-				<Linux />
-			</PostBuildCommands>
-		</Advanced>
-		<Remote>
-			<RemoteUri />
-			<RemotePass />
-		</Remote>
-		<Debug>
-			<Environment />
-			<Arguments>
-				<All />
-			</Arguments>
-			<DebugAdmin />
-			<InitialDir />
-		</Debug>
 	</Settings>
 </Project>

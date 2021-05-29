@@ -13,7 +13,6 @@
 #include "convert.hpp"
 
 extern Conv dconv;
-extern Conv uiconv;
 
 static int get_line(FILE * in, CheckerString::Line & d)
 {
