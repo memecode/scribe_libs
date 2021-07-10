@@ -26,8 +26,18 @@
 		3477C4D31CC279590028B84B /* GBTreeWordStore.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3477C4C01CC279590028B84B /* GBTreeWordStore.cpp */; };
 		3477C4D41CC279590028B84B /* hashtable.c in Sources */ = {isa = PBXBuildFile; fileRef = 3477C4C11CC279590028B84B /* hashtable.c */; };
 		3477C4D51CC279590028B84B /* offsetlist.c in Sources */ = {isa = PBXBuildFile; fileRef = 3477C4C21CC279590028B84B /* offsetlist.c */; };
-		3477C4DE1CC27C230028B84B /* LgiCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3477C4DD1CC27C230028B84B /* LgiCocoa.framework */; };
+		3477C4DE1CC27C230028B84B /* LgiCocoa.xcodeproj in Frameworks */ = {isa = PBXBuildFile; fileRef = 3477C4DD1CC27C230028B84B /* LgiCocoa.xcodeproj */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		341A7865269903B300872FEB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3477C4DD1CC27C230028B84B /* LgiCocoa.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 3477C2681CBF020F0028B84B;
+			remoteInfo = LgiCocoa;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		3477C4A81CC2792F0028B84B /* libBtree.a */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = libBtree.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -50,7 +60,7 @@
 		3477C4C01CC279590028B84B /* GBTreeWordStore.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GBTreeWordStore.cpp; path = ../../trunk/Code/GBTreeWordStore.cpp; sourceTree = "<group>"; };
 		3477C4C11CC279590028B84B /* hashtable.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = hashtable.c; sourceTree = "<group>"; };
 		3477C4C21CC279590028B84B /* offsetlist.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = offsetlist.c; sourceTree = "<group>"; };
-		3477C4DD1CC27C230028B84B /* LgiCocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = LgiCocoa.framework; path = ../../Lgi/trunk/src/mac/cocoa/build/Debug/LgiCocoa.framework; sourceTree = "<group>"; };
+		3477C4DD1CC27C230028B84B /* LgiCocoa.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = LgiCocoa.xcodeproj; path = ../../../Lgi/trunk/src/mac/cocoa/LgiCocoa.xcodeproj; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,13 +68,21 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3477C4DE1CC27C230028B84B /* LgiCocoa.framework in Frameworks */,
+				3477C4DE1CC27C230028B84B /* LgiCocoa.xcodeproj in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		341A7862269903B300872FEB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				341A7866269903B300872FEB /* LgiCocoa.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		3477C49F1CC2792F0028B84B = {
 			isa = PBXGroup;
 			children = (
@@ -111,7 +129,7 @@
 		3477C4D61CC27BE30028B84B /* Libs */ = {
 			isa = PBXGroup;
 			children = (
-				3477C4DD1CC27C230028B84B /* LgiCocoa.framework */,
+				3477C4DD1CC27C230028B84B /* LgiCocoa.xcodeproj */,
 			);
 			name = Libs;
 			sourceTree = "<group>";
@@ -165,17 +183,34 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 			);
 			mainGroup = 3477C49F1CC2792F0028B84B;
 			productRefGroup = 3477C4A91CC2792F0028B84B /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 341A7862269903B300872FEB /* Products */;
+					ProjectRef = 3477C4DD1CC27C230028B84B /* LgiCocoa.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				3477C4A71CC2792F0028B84B /* Btree */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		341A7866269903B300872FEB /* LgiCocoa.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = LgiCocoa.framework;
+			remoteRef = 341A7865269903B300872FEB /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXSourcesBuildPhase section */
 		3477C4A41CC2792F0028B84B /* Sources */ = {
@@ -327,8 +362,8 @@
 				EXECUTABLE_PREFIX = lib;
 				FRAMEWORK_SEARCH_PATHS = ../../../Lgi/trunk/src/mac/cocoa/build/Debug;
 				HEADER_SEARCH_PATHS = (
-					../../../Lgi/trunk/include/common,
-					../../../Lgi/trunk/include/mac/cocoa,
+					../../../Lgi/trunk/include,
+					../../../Lgi/trunk/include/lgi/mac/cocoa,
 				);
 				MACH_O_TYPE = staticlib;
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
@@ -345,8 +380,8 @@
 				EXECUTABLE_PREFIX = lib;
 				FRAMEWORK_SEARCH_PATHS = ../../../Lgi/trunk/src/mac/cocoa/build/Debug;
 				HEADER_SEARCH_PATHS = (
-					../../../Lgi/trunk/include/common,
-					../../../Lgi/trunk/include/mac/cocoa,
+					../../../Lgi/trunk/include,
+					../../../Lgi/trunk/include/lgi/mac/cocoa,
 				);
 				MACH_O_TYPE = staticlib;
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
