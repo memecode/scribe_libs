@@ -17,7 +17,7 @@ BuildDir = $(Build)
 Flags = -fPIC -w -fno-inline -fpermissive
 
 ifeq ($(Build),Debug)
-	Flags += -g -std=c++11
+	Flags += -g -std=c++14
 	Tag = d
 	Defs = -D_DEBUG -DLINUX -D_REENTRANT -D_FILE_OFFSET_BITS=64 -DPOSIX -DASPELL060_EXPORTS -DASPELLDIST060_EXPORTS
 	Libs = 
@@ -29,7 +29,7 @@ ifeq ($(Build),Debug)
 		-I../common \
 		-I.
 else
-	Flags += -s -Os -std=c++11
+	Flags += -s -Os -std=c++14
 	Defs = -DLINUX -D_REENTRANT -D_FILE_OFFSET_BITS=64 -DPOSIX -DASPELL060_EXPORTS -DASPELLDIST060_EXPORTS
 	Libs = 
 	Inc =  \
@@ -42,10 +42,14 @@ else
 endif
 
 # Dependencies
-Depends =	basic.o \
+Depends =	api-glue.o \
+			prezip.o \
+			basic.o \
 			cache.o \
 			can_have_error-c.o \
 			can_have_error.o \
+			word_list-c.o \
+			url.o \
 			config-c.o \
 			config.o \
 			context.o \
@@ -83,8 +87,6 @@ Depends =	basic.o \
 			tex.o \
 			texinfo.o \
 			tokenizer.o \
-			url.o \
-			word_list-c.o \
 			affix.o \
 			data.o \
 			editdist.o \
@@ -98,9 +100,7 @@ Depends =	basic.o \
 			speller_impl.o \
 			suggest.o \
 			typo_editdist.o \
-			writable.o \
-			api-glue.o \
-			prezip.o
+			writable.o
 
 # Target
 TargetFile = lib$(Target)$(Tag).so
@@ -122,6 +122,16 @@ clean :
 	rm -f $(BuildDir)/*.o $(BuildDir)/$(TargetFile)
 	@echo Cleaned $(BuildDir)
 
+api-glue.o : ../win32/api-glue.cpp ../interfaces/cc/aspell.h \
+	../modules/speller/default/language.hpp \
+	../modules/speller/default/data.hpp
+	@echo $(<F) [$(Build)]
+	$(CPP) $(Inc) $(Flags) $(Defs) -c $< -o $(BuildDir)/$(@F)
+
+prezip.o : ../prog/prezip.c 
+	@echo $(<F) [$(Build)]
+	$(CC) $(Inc) $(Flags) $(Defs) -c $< -o $(BuildDir)/$(@F)
+
 basic.o : ../modules/tokenizer/basic.cpp ../common/tokenizer.hpp \
 	../common/convert.hpp \
 	../common/speller.hpp
@@ -141,6 +151,18 @@ can_have_error-c.o : ../lib/can_have_error-c.cpp ../common/can_have_error.hpp \
 
 can_have_error.o : ../common/can_have_error.cpp ../common/error.hpp \
 	../common/can_have_error.hpp
+	@echo $(<F) [$(Build)]
+	$(CPP) $(Inc) $(Flags) $(Defs) -c $< -o $(BuildDir)/$(@F)
+
+word_list-c.o : ../lib/word_list-c.cpp ../common/string_enumeration.hpp \
+	../common/word_list.hpp \
+	./settings.h
+	@echo $(<F) [$(Build)]
+	$(CPP) $(Inc) $(Flags) $(Defs) -c $< -o $(BuildDir)/$(@F)
+
+url.o : ../modules/filter/url.cpp ./settings.h \
+	../common/indiv_filter.hpp \
+	../common/key_info.hpp
 	@echo $(<F) [$(Build)]
 	$(CPP) $(Inc) $(Flags) $(Defs) -c $< -o $(BuildDir)/$(@F)
 
@@ -502,18 +524,6 @@ tokenizer.o : ../common/tokenizer.cpp ../common/tokenizer.hpp \
 	@echo $(<F) [$(Build)]
 	$(CPP) $(Inc) $(Flags) $(Defs) -c $< -o $(BuildDir)/$(@F)
 
-url.o : ../modules/filter/url.cpp ./settings.h \
-	../common/indiv_filter.hpp \
-	../common/key_info.hpp
-	@echo $(<F) [$(Build)]
-	$(CPP) $(Inc) $(Flags) $(Defs) -c $< -o $(BuildDir)/$(@F)
-
-word_list-c.o : ../lib/word_list-c.cpp ../common/string_enumeration.hpp \
-	../common/word_list.hpp \
-	./settings.h
-	@echo $(<F) [$(Build)]
-	$(CPP) $(Inc) $(Flags) $(Defs) -c $< -o $(BuildDir)/$(@F)
-
 affix.o : ../modules/speller/default/affix.cpp ../modules/speller/default/affix.hpp \
 	../common/errors.hpp \
 	../common/getdata.hpp \
@@ -692,16 +702,6 @@ writable.o : ../modules/speller/default/writable.cpp ../common/hash-t.hpp \
 	@echo $(<F) [$(Build)]
 	$(CPP) $(Inc) $(Flags) $(Defs) -c $< -o $(BuildDir)/$(@F)
 
-api-glue.o : ../win32/api-glue.cpp ../interfaces/cc/aspell.h \
-	../modules/speller/default/language.hpp \
-	../modules/speller/default/data.hpp
-	@echo $(<F) [$(Build)]
-	$(CPP) $(Inc) $(Flags) $(Defs) -c $< -o $(BuildDir)/$(@F)
-
-prezip.o : ../prog/prezip.c 
-	@echo $(<F) [$(Build)]
-	$(CC) $(Inc) $(Flags) $(Defs) -c $< -o $(BuildDir)/$(@F)
-
 ./dirs.h : 
 
 ../common/file_data_util.hpp : ../common/parm_string.hpp
@@ -731,8 +731,6 @@ prezip.o : ../prog/prezip.c
 	../common/istream.hpp \
 	./settings.h
 
-../gen/static_filters.src.cpp : 
-
 ../modules/speller/default/data.hpp : ../common/ndebug.hpp \
 	../common/copy_ptr.hpp \
 	../common/enumeration.hpp \
@@ -746,6 +744,8 @@ prezip.o : ../prog/prezip.c
 	./settings.h
 
 ../modules/speller/default/wordinfo.hpp : ../common/string.hpp
+
+../gen/static_filters.src.cpp : 
 
 ../modules/speller/default/typo_editdist.hpp : ../common/cache.hpp \
 	../modules/speller/default/matrix.hpp
@@ -1148,20 +1148,10 @@ prezip.o : ../prog/prezip.c
 ../common/generic_copy_ptr-t.hpp : ../common/generic_copy_ptr.hpp
 
 VPATH=%.cpp \
-<<<<<<< working copy
-	../interfaces/cc \
-	../gen \
-	../common \
-=======
 	../modules/speller/default \
->>>>>>> destination
 	./ \
-<<<<<<< working copy
-	../modules/speller/default \
-=======
 	../interfaces/cc \
 	../gen \
 	../common \
->>>>>>> destination
 	$(BuildDir)
 
