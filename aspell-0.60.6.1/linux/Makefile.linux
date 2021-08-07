@@ -1196,10 +1196,20 @@ prezip.o : ../prog/prezip.c
 ../modules/speller/default/matrix.hpp : 
 
 VPATH=%.cpp \
-	../modules/speller/default \
-	./ \
+<<<<<<< working copy
 	../interfaces/cc \
 	../gen \
 	../common \
+=======
+	../modules/speller/default \
+>>>>>>> destination
+	./ \
+<<<<<<< working copy
+	../modules/speller/default \
+=======
+	../interfaces/cc \
+	../gen \
+	../common \
+>>>>>>> destination
 	$(BuildDir)
 
