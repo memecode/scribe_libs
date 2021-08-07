@@ -1148,10 +1148,20 @@ prezip.o : ../prog/prezip.c
 ../common/generic_copy_ptr-t.hpp : ../common/generic_copy_ptr.hpp
 
 VPATH=%.cpp \
-	../modules/speller/default \
-	./ \
+<<<<<<< working copy
 	../interfaces/cc \
 	../gen \
 	../common \
+=======
+	../modules/speller/default \
+>>>>>>> destination
+	./ \
+<<<<<<< working copy
+	../modules/speller/default \
+=======
+	../interfaces/cc \
+	../gen \
+	../common \
+>>>>>>> destination
 	$(BuildDir)
 

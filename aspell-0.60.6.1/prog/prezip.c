@@ -304,6 +304,7 @@ int prezip_decompress(FILE *in_file, FILE *out_file, char *ErrOut, int ErrLen)
 	return ret;
 }
 
+#if 0
 int main(int argc, const char *argv[])
 {
 	if (argc < 2)
@@ -337,3 +338,4 @@ int main(int argc, const char *argv[])
 				 "  To Decompress: %s -d\n", HEAD, argv[0], argv[0]);
 	return 1;
 }
+#endif
