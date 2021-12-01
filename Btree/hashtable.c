@@ -392,7 +392,7 @@ htGetData(GdbHashTable *table, unsigned short key, unsigned short *size,
 void
 htAddString(GdbHashTable *table, unsigned short key, const char *value)
 {
-	if (table == NULL || key == 0 || value == NULL || value == '\0')
+	if (table == NULL || key == 0 || value == NULL || *value == '\0')
 		return;
 
 	/* We don't really need the trailing NUL. */
