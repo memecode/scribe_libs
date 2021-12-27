@@ -106,9 +106,9 @@ void Terminator::PrepareMetaData() {
 }
 
 void Terminator::Vectorization(std::string email_content, std::map<std::string, node>& weights) {
-  size_t len = email_content.length();
+  int64_t len = email_content.length();
   len = len <= MAX_READ_LEN ? len : MAX_READ_LEN;
-  for (unsigned i = 0; i <= len - NGRAM; i++) {
+  for (int64_t i = 0; i <= len - NGRAM; i++) {
     std::string feature = email_content.substr(i, NGRAM);
     if (db_.get(feature.c_str(), feature.size(), (char*) cache_node_, sizeof(node))
         == -1) {
