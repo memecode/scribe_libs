@@ -30,8 +30,16 @@ double TerminatorClassifierOWV::Predict(std::map<std::string, node>& weights) {
   double final_score = 0.0;
   double total_weights = 0.0;
   for (unsigned i = 0; i < CLASSIFIER_NUMBER; i++) {
-    final_score += classifiers_[i]->Predict(weights) * weights_classifier_[i];
-    total_weights += weights_classifier_[i];
+	auto w = classifiers_[i]->Predict(weights);
+	if (!isnan(w))
+	{
+		final_score += w * weights_classifier_[i];
+		total_weights += weights_classifier_[i];
+	}
+	else
+	{
+		int asd=0;
+	}
   }
   return final_score / total_weights;
 }

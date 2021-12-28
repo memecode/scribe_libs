@@ -15,6 +15,7 @@
 #include <kchashdb.h>
 #include <cstdio>
 #include <cstdlib>
+#include <functional>
 
 #include "terminator_classifier_owv.h"
 
@@ -34,13 +35,14 @@ class Terminator {
   TerminatorClassifierBase* classifier_;
   ptr_node cache_node_;
   double classifier_weights_[CLASSIFIER_NUMBER];
+  std::function<void(const char*)> log_;
 
   bool InitDB(std::string db_path, size_t mem_cache);
   void PrepareMetaData();
   void SaveWeights(std::map<std::string, node>& weights);
   void Vectorization(std::string email_content, std::map<std::string, node>& weights);
  public:
-  Terminator(std::string db_path, size_t mem_cache);
+  Terminator(std::string db_path, size_t mem_cache, std::function<void(const char*)> log);
   ~Terminator();
   double Predict(std::string email_content);
   void Train(std::string email_content, bool is_spam);

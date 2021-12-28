@@ -29,16 +29,20 @@ const std::string Terminator::IDENTIFIER_CLASSIFIER_WEIGHTS = "classifier:weight
 const std::string Terminator::IDENTIFIER_TOTAL_SPAM = "classifier:total:spam";
 const std::string Terminator::IDENTIFIER_TOTAL_HAM = "classifier:total:ham";
 
-Terminator::Terminator(std::string db_path, size_t mem_cache) {
+Terminator::Terminator(std::string db_path, size_t mem_cache, std::function<void(const char*)> log) {
   this->db_path_ = db_path;
   this->mem_cache_ = mem_cache;
+  log_ = log;
   if (this->InitDB(db_path, mem_cache) != true) {
-    printf("Errors in initialization of kyotocabinet db file, check the file path and the library");
-    exit(EXIT_FAILURE);
+    if (log_) log_("Errors in initialization of kyotocabinet db file, check the file path and the library");
+    assert(!"InitDB failed.");
   }
-  this->PrepareMetaData();
-  // Real classifier in use
-  this->classifier_ = new TerminatorClassifierOWV(this->classifier_weights_);
+  else
+  {
+    this->PrepareMetaData();
+    // Real classifier in use
+    this->classifier_ = new TerminatorClassifierOWV(this->classifier_weights_);
+  }
 }
 
 Terminator::~Terminator() {
@@ -47,6 +51,14 @@ Terminator::~Terminator() {
           (char*)&TerminatorClassifierBase::TotalSpam, sizeof(TerminatorClassifierBase::TotalSpam));
   db_.set(Terminator::IDENTIFIER_TOTAL_HAM.c_str(), Terminator::IDENTIFIER_TOTAL_HAM.size(),
           (char*)&TerminatorClassifierBase::TotalHam, sizeof(TerminatorClassifierBase::TotalHam));
+
+    for (int i = 0; log_ && i < CLASSIFIER_NUMBER; i++)
+    {
+      char s[80];
+      snprintf(s, sizeof(s), "save: classifier_weights_[%i]=%g", i, this->classifier_weights_[i]);
+      log_(s);
+    }
+
   db_.set(Terminator::IDENTIFIER_CLASSIFIER_WEIGHTS.c_str(), Terminator::IDENTIFIER_CLASSIFIER_WEIGHTS.size(),
           (char*)this->classifier_weights_, sizeof(this->classifier_weights_));
   db_.close();
@@ -98,11 +110,22 @@ void Terminator::PrepareMetaData() {
   // Read the weights of each classifier
   if (db_.get(Terminator::IDENTIFIER_CLASSIFIER_WEIGHTS.c_str(), Terminator::IDENTIFIER_CLASSIFIER_WEIGHTS.size(),
               (char*)classifier_weights, sizeof(classifier_weights))
-      == -1) {
+      == -1)
+  {
+    if (log_) log_("Error loading classifier weights.");
     for (i = 0; i < CLASSIFIER_NUMBER; i++) this->classifier_weights_[i] = 1;
-  } else {
+  }
+  else
+  {
     for (i = 0; i < CLASSIFIER_NUMBER; i++) this->classifier_weights_[i] = classifier_weights[i];
   }
+
+    for (i = 0; log_ && i < CLASSIFIER_NUMBER; i++)
+    {
+      char s[80];
+      snprintf(s, sizeof(s), "load: classifier_weights_[%i]=%g", i, this->classifier_weights_[i]);
+      log_(s);
+    }
 }
 
 void Terminator::Vectorization(std::string email_content, std::map<std::string, node>& weights) {

@@ -19,3 +19,9 @@ if (MSVC)
 else()
   # target_compile_options(${TARGET} PRIVATE -Wall -Wextra -Wpedantic)
 endif()
+
+
+set(TARGET demo)
+add_executable(${TARGET} demo/main.cc)
+target_include_directories(${TARGET} PRIVATE ${KYOTO_PATH})
+target_link_libraries(${TARGET} terminator kyotocabinet)

@@ -15,7 +15,7 @@ using namespace kyotocabinet;
 
 int main(int argc, const char** argv) {
   clock_t begin = clock();
-  Terminator* classifier = new Terminator("train.model", 5<<23);
+  Terminator* classifier = new Terminator("train.model", 5<<23, [](auto str){});
   string corpus_path = "corpus/";
 
   string index_path = corpus_path + "index";
