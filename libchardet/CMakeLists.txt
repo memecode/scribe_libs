@@ -1,7 +1,14 @@
 project(libchardet)
 cmake_minimum_required(VERSION 3.8)
 
-add_library(chardet SHARED
+include(../common.cmake)
+if (WIN32)
+    set(TARGET "chardet${VSVER}x${BITSIZE}")
+else()
+    set(TARGET "chardet")
+endif()
+
+add_library(${TARGET} SHARED
     src/chardet.cpp
     src/CharDistribution.cpp
     src/JpCntx.cpp
@@ -38,5 +45,12 @@ add_library(chardet SHARED
     src/tables/LangVietnameseModel.cpp
     )
 
-target_include_directories(chardet PUBLIC include src)
-target_compile_definitions(chardet PRIVATE -DHAVE_DLL_EXPORT)
+target_include_directories(${TARGET} PUBLIC include src)
+target_compile_definitions(${TARGET} PRIVATE -DHAVE_DLL_EXPORT)
+
+if (WIN32)
+    get_filename_component(LIB_DIR "../../../Lgi/trunk/lib"
+                        ABSOLUTE BASE_DIR ${CMAKE_CURRENT_LIST_DIR})
+    add_custom_command(TARGET ${TARGET} POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_FILE:${TARGET}> ${LIB_DIR})
+endif()
