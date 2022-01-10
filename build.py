@@ -3,21 +3,26 @@ import os
 import sys
 import subprocess
 import shutil
+import platform``
 
-if os.name == "nt":
-    subfolders = ["build32", "build64"]
+if platform.system() == "Windows":
+    subfolders = ["build-x32", "build-x64"]
     gen = ["Visual Studio 14 2015"]
     gen.append(gen[0] + " Win64")
 
-elif os.name == "posix":
+elif platform.system() == "Darwin":
     
-    subfolders = ["build"]
+    subfolders = ["build-x64", "build-arm64"]
     gen = ["Xcode"]
+
+elif platform.system() == "Linux":
+    
+    subfolders = ["build-x64"]
+    gen = ["Unix Makefiles"]
 
 else:
     print("Unsupported os:", os.name)
     sys.exit(-1)
-
 
 for n in range(len(subfolders)):
     path = os.path.abspath(os.path.join(os.path.realpath(__file__), "..", subfolders[n]))

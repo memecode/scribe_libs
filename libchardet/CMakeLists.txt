@@ -48,6 +48,8 @@ add_library(${TARGET} SHARED
 target_include_directories(${TARGET} PUBLIC include src)
 target_compile_definitions(${TARGET} PRIVATE -DHAVE_DLL_EXPORT)
 
+set(CMAKE_OSX_DEPLOYMENT_TARGET "10.13")
+
 if (WIN32)
     get_filename_component(LIB_DIR "../../../Lgi/trunk/lib"
                         ABSOLUTE BASE_DIR ${CMAKE_CURRENT_LIST_DIR})
