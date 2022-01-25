@@ -3,7 +3,7 @@ import os
 import sys
 import subprocess
 import shutil
-import platform``
+import platform
 
 if platform.system() == "Windows":
     subfolders = ["build-x32", "build-x64"]
@@ -13,7 +13,7 @@ if platform.system() == "Windows":
 elif platform.system() == "Darwin":
     
     subfolders = ["build-x64", "build-arm64"]
-    gen = ["Xcode"]
+    gen = ["Xcode", "Xcode"]
 
 elif platform.system() == "Linux":
     
