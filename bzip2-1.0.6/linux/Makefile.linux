@@ -32,13 +32,17 @@ else
 endif
 
 # Dependencies
-Depends =	blocksort.o \
-			bzlib.o \
-			compress.o \
-			crctable.o \
-			decompress.o \
-			huffman.o \
-			randtable.o
+Source =	../randtable.c \
+			../huffman.c \
+			../decompress.c \
+			../crctable.c \
+			../compress.c \
+			../bzlib.c \
+			../blocksort.c
+
+SourceLst := $(patsubst %.c,%.o,$(patsubst %.cpp,%.o,$(Sources)))
+
+Objects := $(addprefix $(BuildDir)/,$(SourceLst))
 
 # Target
 TargetFile = lib$(Target)$(Tag).a
@@ -47,46 +51,22 @@ $(TargetFile) : outputfolder $(Depends)
 	ar rcs $(BuildDir)/$(TargetFile) $(addprefix $(BuildDir)/,$(Depends))
 	@echo Done.
 
-# Create the output folder
-outputfolder :
-	-mkdir -p $(BuildDir) 2> /dev/null
+.SECONDEXPANSION:
+$(Objects): $(BuildDir)/%.o: $$(wildcard %.c*)
+	mkdir -p $(@D)
+	@echo $(<F) [$(Build)]
+ifeq "$(suffix $<)" ".cpp"
+	$(CPP) -MMD -MP $(Inc) $(Flags) $(Defs) -c $< -o $@
+else
+	$(CC) -MMD -MP $(Inc) $(Flags) $(Defs) -c $< -o $@
+endif
+
+-include $(Objects:.o=.d)
 
 # Clean out targets
 clean :
-	rm -f $(BuildDir)/*.o $(BuildDir)/$(TargetFile)
+	rm -rf $(BuildDir)/* $(BuildDir)/$(TargetFile)
 	@echo Cleaned $(BuildDir)
-
-blocksort.o : ../blocksort.c ../bzlib_private.h
-	@echo $(<F) [$(Build)]
-	$(CC) $(Inc) $(Flags) $(Defs) -c $< -o $(BuildDir)/$(@F)
-
-bzlib.o : ../bzlib.c ../bzlib_private.h
-	@echo $(<F) [$(Build)]
-	$(CC) $(Inc) $(Flags) $(Defs) -c $< -o $(BuildDir)/$(@F)
-
-compress.o : ../compress.c ../bzlib_private.h
-	@echo $(<F) [$(Build)]
-	$(CC) $(Inc) $(Flags) $(Defs) -c $< -o $(BuildDir)/$(@F)
-
-crctable.o : ../crctable.c ../bzlib_private.h
-	@echo $(<F) [$(Build)]
-	$(CC) $(Inc) $(Flags) $(Defs) -c $< -o $(BuildDir)/$(@F)
-
-decompress.o : ../decompress.c ../bzlib_private.h
-	@echo $(<F) [$(Build)]
-	$(CC) $(Inc) $(Flags) $(Defs) -c $< -o $(BuildDir)/$(@F)
-
-huffman.o : ../huffman.c ../bzlib_private.h
-	@echo $(<F) [$(Build)]
-	$(CC) $(Inc) $(Flags) $(Defs) -c $< -o $(BuildDir)/$(@F)
-
-randtable.o : ../randtable.c ../bzlib_private.h
-	@echo $(<F) [$(Build)]
-	$(CC) $(Inc) $(Flags) $(Defs) -c $< -o $(BuildDir)/$(@F)
-
-../bzlib_private.h : ../bzlib.h
-
-../bzlib.h : 
 
 VPATH=%.cpp \
 	../ \
