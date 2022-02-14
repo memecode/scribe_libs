@@ -102,13 +102,14 @@ Source =	../win32/api-glue.cpp \
 			../common/can_have_error.cpp \
 			../common/cache.cpp
 
-SourceLst := $(patsubst %.c,%.o,$(patsubst %.cpp,%.o,$(Sources)))
+SourceLst := $(patsubst %.c,%.o,$(patsubst %.cpp,%.o,$(Source)))
 
 Objects := $(addprefix $(BuildDir)/,$(SourceLst))
 
 # Target
 TargetFile = lib$(Target)$(Tag).so
 $(TargetFile) : $(Objects)
+	mkdir -p $(BuildDir)
 	@echo Linking $(TargetFile) [$(Build)]...
 	$(CPP)$s -shared \
 		 \

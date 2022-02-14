@@ -40,15 +40,16 @@ Source =	../randtable.c \
 			../bzlib.c \
 			../blocksort.c
 
-SourceLst := $(patsubst %.c,%.o,$(patsubst %.cpp,%.o,$(Sources)))
+SourceLst := $(patsubst %.c,%.o,$(patsubst %.cpp,%.o,$(Source)))
 
 Objects := $(addprefix $(BuildDir)/,$(SourceLst))
 
 # Target
 TargetFile = lib$(Target)$(Tag).a
-$(TargetFile) : outputfolder $(Depends)
+$(TargetFile) : $(Objects)
+	mkdir -p $(BuildDir)
 	@echo Linking $(TargetFile) [$(Build)]...
-	ar rcs $(BuildDir)/$(TargetFile) $(addprefix $(BuildDir)/,$(Depends))
+	ar rcs $(BuildDir)/$(TargetFile) $(Objects)
 	@echo Done.
 
 .SECONDEXPANSION:

@@ -11,6 +11,7 @@
 	</Node>
 	<Node Name="Headers" Type="1" Platforms="15" Open="0" Id="2">
 		<Node File="../bzlib.h" Type="3" Platforms="15" />
+		<Node File="./Makefile.linux" Type="9" Platforms="15" />
 	</Node>
 	<Settings>
 		<General>
@@ -20,16 +21,10 @@
 			<Executable>
 				<Linux />
 			</Executable>
-			<Arguments>
-				<All />
-			</Arguments>
-			<Defines>
-				<All />
-				<Linux />
-			</Defines>
+			<Arguments />
+			<Defines />
 			<Compiler />
 			<CppCrossCompiler />
-			<DebugAdmin />
 			<CCrossCompiler />
 		</General>
 		<Build>
@@ -61,6 +56,10 @@
 				</Linux>
 			</TargetName>
 			<ApplicationIcon />
+			<Defines>
+				<All />
+				<Linux />
+			</Defines>
 		</Build>
 		<Editor>
 			<TabSize>
@@ -88,5 +87,13 @@
 			<RemoteUri />
 			<RemotePass />
 		</Remote>
+		<Debug>
+			<Environment />
+			<Arguments>
+				<All />
+			</Arguments>
+			<DebugAdmin />
+			<InitialDir />
+		</Debug>
 	</Settings>
 </Project>
