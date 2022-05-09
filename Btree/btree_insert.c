@@ -53,7 +53,7 @@ int __verifyNode(BTreeNode *rootNode)
 
 	for (i=0; i<rootNode->keyCount; i++)
 	{
-		int len;
+		size_t len;
 
 		if (rootNode->keys[i] == 0)
 		{
@@ -104,7 +104,7 @@ __splitNode(BTree *tree, BTreeNode *rootNode, char **key,
 		temp1                 = rootNode->keys[i];
 		tempSize1             = rootNode->keySizes[i];
 		rootNode->keys[i]     = strdup(*key);
-		rootNode->keySizes[i] = strlen(*key) + 1;
+		rootNode->keySizes[i] = (unsigned short) (strlen(*key) + 1);
 		j = i;
 
 		for (i++; i < (tree->order - 1); i++)
@@ -135,7 +135,7 @@ __splitNode(BTree *tree, BTreeNode *rootNode, char **key,
 	else
 	{
 		temp1     = strdup(*key);
-		tempSize1 = strlen(temp1) + 1;
+		tempSize1 = (unsigned short) (strlen(temp1) + 1);
 
 		if (BTREE_IS_LEAF(rootNode))
 		{
@@ -244,7 +244,7 @@ __addKey(BTree *tree, BTreeNode *rootNode, char **key, offset_t *filePos, char *
 		rootNode->keys[i]     = strdup(*key);
 		assert(rootNode->keys[i]);
 
-		rootNode->keySizes[i] = strlen(*key) + 1;
+		rootNode->keySizes[i] = (unsigned short) (strlen(*key) + 1);
 		
 		j = i;
 		
@@ -280,7 +280,7 @@ __addKey(BTree *tree, BTreeNode *rootNode, char **key, offset_t *filePos, char *
 		rootNode->keys[i]     = strdup(*key);
 		assert(rootNode->keys[i]);
 
-		rootNode->keySizes[i] = strlen(*key) + 1;
+		rootNode->keySizes[i] = (unsigned short) (strlen(*key) + 1);
 	
 		if (BTREE_IS_LEAF(rootNode))
 		{
@@ -418,7 +418,7 @@ btreeInsert(BTree *tree, const char *key, offset_t filePos)
 		node->keys[0]     = strdup(newKey);
 		assert(node->keys[0]);
 
-		node->keySizes[0] = strlen(newKey) + 1;
+		node->keySizes[0] = (unsigned short) (strlen(newKey) + 1);
 		node->keyCount    = 1;
 
 		if (tree->root == 0)
