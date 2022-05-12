@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 3.8)
 
 include(../common.cmake)
 if (WIN32)
-    set(TARGET "chardet${VSVER}x${BITSIZE}")
+    set(TARGET "chardet${VSYEAR}x${BITSIZE}")
 else()
     set(TARGET "chardet")
 endif()

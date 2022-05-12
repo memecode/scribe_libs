@@ -5,21 +5,17 @@ import subprocess
 import shutil
 import platform
 
+arch = []
 if platform.system() == "Windows":
-    subfolders = ["build-x32", "build-x64"]
-    gen = ["Visual Studio 14 2015"]
-    gen.append(gen[0] + " Win64")
-
-elif platform.system() == "Darwin":
-    
+    subfolders = ["build-x64"]
+    gen = ["Visual Studio 16 2019"]
+    arch = ["-A", "x64"]
+elif platform.system() == "Darwin":    
     subfolders = ["build-x64", "build-arm64"]
     gen = ["Xcode", "Xcode"]
-
-elif platform.system() == "Linux":
-    
+elif platform.system() == "Linux":    
     subfolders = ["build-x64"]
     gen = ["Unix Makefiles"]
-
 else:
     print("Unsupported os:", os.name)
     sys.exit(-1)
@@ -31,7 +27,9 @@ for n in range(len(subfolders)):
     os.mkdir(path)
 
     print("Config:", path)
-    p = subprocess.run(["cmake", "-G", gen[n], ".."], stdout=subprocess.PIPE, stderr=subprocess.STDOUT, cwd=path)
+    args = ["cmake", "-G", gen[n]] + arch + [".."]
+    print("args:", " ".join(args))
+    p = subprocess.run(args, cwd=path) # stdout=subprocess.PIPE, stderr=subprocess.STDOUT, 
     if p.returncode:
         print("Error:", p.stdout.decode())
         sys.exit(-1)
