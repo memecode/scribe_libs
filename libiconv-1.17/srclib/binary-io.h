@@ -24,6 +24,9 @@
 /* The MSVC7 <stdio.h> doesn't like to be included after '#define fileno ...',
    so we include it here first.  */
 #include <stdio.h>
+#ifdef _MSC_VER
+#include <io.h>
+#endif
 
 #ifndef _GL_INLINE_HEADER_BEGIN
  #error "Please include config.h first."

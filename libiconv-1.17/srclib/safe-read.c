@@ -27,7 +27,11 @@
 
 /* Get ssize_t.  */
 #include <sys/types.h>
+#ifndef _MSC_VER
 #include <unistd.h>
+#else
+typedef signed __int64 ssize_t;
+#endif
 
 #include <errno.h>
 

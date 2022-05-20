@@ -91,7 +91,11 @@ extern void __error_at_line (int status, int errnum, const char *file_name,
 #else /* not _LIBC */
 
 # include <fcntl.h>
+#ifndef _MSC_VER
 # include <unistd.h>
+#else
+#define fileno _fileno
+#endif
 
 # if defined _WIN32 && ! defined __CYGWIN__
 /* Get declarations of the native Windows API functions.  */
@@ -119,7 +123,11 @@ int strerror_r (int errnum, char *buf, size_t buflen);
 #  endif
 # endif
 
+#if HAVE_GETPROGNAME
 # define program_name getprogname ()
+#else
+#include "progname.h"
+#endif
 
 # if GNULIB_STRERROR_R_POSIX || HAVE_STRERROR_R || defined strerror_r
 #  define __strerror_r strerror_r
@@ -202,7 +210,9 @@ print_errno_message (int errnum)
 #endif
 }
 
+#ifdef _GL_ATTRIBUTE_FORMAT_PRINTF_STANDARD
 static void _GL_ATTRIBUTE_FORMAT_PRINTF_STANDARD (3, 0) _GL_ARG_NONNULL ((3))
+#endif
 error_tail (int status, int errnum, const char *message, va_list args)
 {
 #if _LIBC

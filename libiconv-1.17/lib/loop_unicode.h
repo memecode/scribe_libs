@@ -20,7 +20,7 @@
 /* This file defines the conversion loop via Unicode as a pivot encoding. */
 
 /* Attempt to transliterate wc. Return code as in xxx_wctomb. */
-static int unicode_transliterate (conv_t cd, ucs4_t wc,
+static size_t unicode_transliterate (conv_t cd, ucs4_t wc,
                                   unsigned char* outptr, size_t outleft)
 {
   if (cd->oflags & HAVE_HANGUL_JAMO) {
@@ -28,7 +28,7 @@ static int unicode_transliterate (conv_t cd, ucs4_t wc,
        in all Korean encodings and ISO-2022-JP-2), not half-width Jamo
        (contained in Unicode only). */
     ucs4_t buf[3];
-    int ret = johab_hangul_decompose(cd,buf,wc);
+    size_t ret = johab_hangul_decompose(cd,buf,wc);
     if (ret != RET_ILUNI) {
       /* we know 1 <= ret <= 3 */
       state_t backup_state = cd->ostate;
@@ -126,7 +126,7 @@ static int unicode_transliterate (conv_t cd, ucs4_t wc,
       unsigned char* backup_outptr = outptr;
       size_t backup_outleft = outleft;
       unsigned int i;
-      int sub_outcount;
+      size_t sub_outcount;
       for (i = 0; i < num; i++) {
         if (outleft == 0) {
           sub_outcount = RET_TOOSMALL;
@@ -279,7 +279,7 @@ static size_t unicode_loop_convert (iconv_t icd,
     state_t last_istate = cd->istate;
     ucs4_t wc;
     int incount;
-    int outcount;
+    size_t outcount;
     incount = cd->ifuncs.xxx_mbtowc(cd,&wc,inptr,inleft);
     if (incount < 0) {
       if ((unsigned int)(-1-incount) % 2 == (unsigned int)(-1-RET_ILSEQ) % 2) {
@@ -445,7 +445,7 @@ static size_t unicode_loop_reset (iconv_t icd,
       if (cd->ifuncs.xxx_flushwc(cd, &wc)) {
         unsigned char* outptr = (unsigned char*) *outbuf;
         size_t outleft = *outbytesleft;
-        int outcount = cd->ofuncs.xxx_wctomb(cd,outptr,wc,outleft);
+        size_t outcount = cd->ofuncs.xxx_wctomb(cd,outptr,wc,outleft);
         if (outcount != RET_ILUNI)
           goto outcount_ok;
         /* Handle Unicode tag characters (range U+E0000..U+E007F). */

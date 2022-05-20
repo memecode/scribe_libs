@@ -229,7 +229,7 @@ johab_hangul_wctomb (conv_t conv, unsigned char *r, ucs4_t wc, size_t n)
 /* Decompose wc into r[0..2], and return the number of resulting Jamo elements.
    Return RET_ILUNI if decomposition is not possible. */
 
-static int johab_hangul_decompose (conv_t conv, ucs4_t* r, ucs4_t wc)
+static size_t johab_hangul_decompose (conv_t conv, ucs4_t* r, ucs4_t wc)
 {
   unsigned char buf[2];
   int ret = johab_hangul_wctomb(conv,buf,wc,2);
