@@ -53,6 +53,9 @@ set(CMAKE_OSX_DEPLOYMENT_TARGET "10.13")
 if (WIN32)
     get_filename_component(LIB_DIR "../../../Lgi/trunk/lib"
                         ABSOLUTE BASE_DIR ${CMAKE_CURRENT_LIST_DIR})
+    if (NOT EXISTS ${LIB_DIR})
+        file(MAKE_DIRECTORY ${LIB_DIR})
+    endif()
     add_custom_command(TARGET ${TARGET} POST_BUILD
         COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_FILE:${TARGET}> ${LIB_DIR})
 endif()
