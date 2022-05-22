@@ -5,12 +5,25 @@ cmake_policy(SET CMP0054 NEW)
 cmake_policy(SET CMP0115 NEW)
 project(libiconv)
 
+set(DEFINES)
+if (WINDOWS)
+	list(APPNED DEFINES "_CRT_SECURE_NO_WARNINGS")
+endif()
+
 set(DLL_VARIABLE "DLL_VARIABLE")
 set(ICONV_CONST "const")
 set(USE_MBSTATE_T "1")
 set(BROKEN_WCHAR_H "0")
 set(HAVE_WCHAR_T "1")
 set(EILSEQ "42")
+set(GNULIB_CREAT 0)
+set(GNULIB_OPEN 0)
+set(REPLACE_CREAT 0)
+set(GNULIB_MDA_CREAT 0)
+set(GNULIB_FCNTL 0)
+set(GNULIB_MDA_OPEN 0)
+set(GNULIB_OPENAT 0)
+set(GNULIB_NONBLOCKING 0)
 string(CONCAT DLL_EXPORT
 	"#ifdef _WIN32\n"
 	"    #ifdef _DLL\n"
@@ -28,6 +41,8 @@ configure_file(	"srclib/uniwidth.in.h"
 				"srclib/uniwidth.h")
 configure_file(	"srclib/unitypes.in.h"
 				"srclib/unitypes.h")
+configure_file(	"srclib/fcntl.in.h"
+				"srclib/fcntl.h")
 
 # I've had to edit this and commit the edited version, this was the generation step:
 #file(READ config.h.in CONFIG_H)
@@ -47,12 +62,13 @@ add_library(libiconv
 target_include_directories(libiconv
 	PUBLIC
 		.
-		include
-		srclib)
+		srclib
+		${CMAKE_CURRENT_BINARY_DIR}/include
+		)
 target_compile_definitions(libiconv
 	PRIVATE
 		"_DLL"
-		"_CRT_SECURE_NO_WARNINGS")
+		${DEFINES})
 set_target_properties(libiconv PROPERTIES PREFIX "")
 
 # iconv executable
@@ -66,9 +82,11 @@ add_executable(iconv
 target_include_directories(iconv
 	PUBLIC
 		.
-		include
-		srclib)
+		srclib
+		${CMAKE_CURRENT_BINARY_DIR}/include
+		${CMAKE_CURRENT_BINARY_DIR}/srclib
+		)
 target_link_libraries(iconv libiconv)
 target_compile_definitions(iconv
 	PRIVATE
-		"_CRT_SECURE_NO_WARNINGS")
+		${DEFINES})
