@@ -10,6 +10,16 @@ set(USE_MBSTATE_T "1")
 set(BROKEN_WCHAR_H "0")
 set(HAVE_WCHAR_T "1")
 set(EILSEQ "42")
+string(CONCAT DLL_EXPORT
+	"#ifdef _WIN32\n"
+	"    #ifdef _DLL\n"
+	"    #define DLL_VARIABLE __declspec(dllexport)\n"
+	"    #else\n"
+	"    #define DLL_VARIABLE __declspec(dllimport)\n"
+	"    #endif\n"
+	"#else\n"
+	"    #define DLL_VARIABLE\n"
+	"#endif")
 
 configure_file(	"include/iconv.h.in"
 				"include/iconv.h")
@@ -41,8 +51,7 @@ target_include_directories(libiconv
 target_compile_definitions(libiconv
 	PRIVATE
 		"_DLL"
-		"_CRT_SECURE_NO_WARNINGS"
-		"DLL_VARIABLE=__declspec(dllexport)")
+		"_CRT_SECURE_NO_WARNINGS")
 set_target_properties(libiconv PROPERTIES PREFIX "")
 
 # iconv executable
@@ -61,5 +70,4 @@ target_include_directories(iconv
 target_link_libraries(iconv libiconv)
 target_compile_definitions(iconv
 	PRIVATE
-		"_CRT_SECURE_NO_WARNINGS"
-		"DLL_VARIABLE=__declspec(dllimport)")
+		"_CRT_SECURE_NO_WARNINGS")
