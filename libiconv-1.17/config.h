@@ -1454,5 +1454,12 @@
   #  define _UC_RESTRICT
   # endif
   
-// DLL_VARIABLE is defined via cmake.
-
+#ifdef _WIN32
+    #ifdef _DLL
+    #define DLL_VARIABLE __declspec(dllexport)
+    #else
+    #define DLL_VARIABLE __declspec(dllimport)
+    #endif
+#else
+    #define DLL_VARIABLE
+#endif

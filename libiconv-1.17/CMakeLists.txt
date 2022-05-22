@@ -2,6 +2,7 @@
 
 cmake_minimum_required (VERSION 3.5)
 cmake_policy(SET CMP0054 NEW)
+cmake_policy(SET CMP0115 NEW)
 project(libiconv)
 
 set(DLL_VARIABLE "DLL_VARIABLE")
