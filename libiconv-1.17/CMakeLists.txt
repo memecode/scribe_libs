@@ -2,7 +2,9 @@
 
 cmake_minimum_required (VERSION 3.5)
 cmake_policy(SET CMP0054 NEW)
-cmake_policy(SET CMP0115 NEW)
+if (${CMAKE_VERSION} VERSION_GREATER_EQUAL "3.20")
+	cmake_policy(SET CMP0115 NEW)
+endif()
 project(libiconv)
 
 set(DEFINES)
