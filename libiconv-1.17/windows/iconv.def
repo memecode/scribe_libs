@@ -8,3 +8,4 @@ EXPORTS
 	iconv_canonicalize	@6
 	set_program_name	@7
 	error				@8
+	_libiconv_version	@9

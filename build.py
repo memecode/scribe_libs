@@ -6,6 +6,7 @@ import shutil
 import platform
 
 arch = []
+configs = ["Debug", "Release"]
 if platform.system() == "Windows":
     subfolders = ["build-x64"]
     gen = ["Visual Studio 16 2019"]
@@ -33,8 +34,11 @@ for n in range(len(subfolders)):
     if p.returncode:
         print("Error:", p.stdout.decode())
         sys.exit(-1)
-    print("Build:", path)
-    p = subprocess.run(["cmake", "--build", ".", "--config", "Release"], stdout=subprocess.PIPE, stderr=subprocess.STDOUT, cwd=path)
-    if p.returncode:
-        print("Error:", p.stdout.decode())
-        sys.exit(-1)
+
+    for config in configs:
+        print(config, "Build:", path)
+        p = subprocess.run(["cmake", "--build", ".", "--config", config], stdout=subprocess.PIPE, stderr=subprocess.STDOUT, cwd=path)
+        if p.returncode:
+            print(p.stdout.decode())
+            print("Error: build failed.")
+            sys.exit(-1)

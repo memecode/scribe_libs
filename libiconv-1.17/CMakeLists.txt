@@ -79,6 +79,7 @@ add_executable(iconv
 	src/iconv.c
 	srclib/safe-read.c
 	srclib/uniwidth/width.c
+	srclib/progname.c
 	gnulib-local/lib/xmalloc.c
 	include/iconv.h)
 target_include_directories(iconv

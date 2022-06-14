@@ -74,7 +74,7 @@
 #ifndef _@GUARD_PREFIX@_FCNTL_H
 #define _@GUARD_PREFIX@_FCNTL_H
 
-#ifndef __GLIBC__ /* Avoid namespace pollution on glibc systems.  */
+#if !defined(__GLIBC__) && !defined(_WIN32) /* Avoid namespace pollution on glibc systems.  */
 # include <unistd.h>
 #endif
 
