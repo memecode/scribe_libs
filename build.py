@@ -32,7 +32,7 @@ for n in range(len(subfolders)):
     print("args:", " ".join(args))
     p = subprocess.run(args, cwd=path) # stdout=subprocess.PIPE, stderr=subprocess.STDOUT, 
     if p.returncode:
-        print("Error:", p.stdout.decode())
+        print("Error: cmake failed.")
         sys.exit(-1)
 
     for config in configs:
