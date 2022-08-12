@@ -1,6 +1,12 @@
-project(scribeLibs)
 cmake_minimum_required(VERSION 3.8)
+
 set(CMAKE_POLICY_DEFAULT_CMP0077 NEW)
+if (APPLE)
+	set(CMAKE_OSX_ARCHITECTURES "x86_64;ARM64")
+	set(CMAKE_OSX_DEPLOYMENT_TARGET "10.15" CACHE STRING "Minimum OS X deployment version")
+endif()
+
+project(scribeLibs)
 
 if (EXISTS "${CMAKE_CURRENT_LIST_DIR}/../../../codelib/libjpeg-9a")
     set(LIBJPEG ../../../codelib/libjpeg-9a)
