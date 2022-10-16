@@ -25,3 +25,5 @@ if (${HAS_VS2019} GREATER 0)
     set(VSVER "16")
     set(VSYEAR "19")
 endif()
+
+set(CMAKE_OSX_DEPLOYMENT_TARGET 10.13)
