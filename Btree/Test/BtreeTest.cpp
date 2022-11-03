@@ -24,7 +24,7 @@ void Convert(char *infile)
 		// Create the btree
 		printf("Creating btree '%s'\n", filename);
 		unlink(filename);
-		GBTree tree(filename);
+		LBTree tree(filename);
 		if (tree.IsOpen())
 		{
 			DWORD start = GetTickCount();
@@ -63,7 +63,7 @@ void Convert(char *infile)
 
 		// Read btree for correctness
 		printf("Verifing btree...\n\n");
-		GBTree tree(filename);
+		LBTree tree(filename);
 		if (tree.IsOpen())
 		{
 			DWORD start = GetTickCount();

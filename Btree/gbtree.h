@@ -3,14 +3,14 @@
 
 #include "btree.h"
 
-class GBTree
+class LBTree
 {
 	GDatabase *db;
 	BTree *bt;
 
 public:
-	GBTree(const char *file = 0);
-	~GBTree();
+	LBTree(const char *file = 0);
+	~LBTree();
 
 	bool Open(const char *file);
 	bool IsOpen() { return db != 0 && bt != 0; }

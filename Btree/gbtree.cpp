@@ -2,7 +2,7 @@
 #include "db_header.h"
 #include "db_blocklist.h"
 
-GBTree::GBTree(const char *file)
+LBTree::LBTree(const char *file)
 {
 	db = 0;
 	bt = 0;
@@ -10,12 +10,12 @@ GBTree::GBTree(const char *file)
 		Open(file);
 }
 
-GBTree::~GBTree()
+LBTree::~LBTree()
 {
 	Close();
 }
 
-bool GBTree::Open(const char *file)
+bool LBTree::Open(const char *file)
 {
 	Close();
 
@@ -29,7 +29,7 @@ bool GBTree::Open(const char *file)
 	return false;
 }
 
-bool GBTree::Close()
+bool LBTree::Close()
 {
 	if (bt)
 	{
@@ -45,7 +45,7 @@ bool GBTree::Close()
 	return true;
 }
 
-bool GBTree::Insert(const char *Key, long Value)
+bool LBTree::Insert(const char *Key, long Value)
 {
 	if (bt)
 	{
@@ -55,7 +55,7 @@ bool GBTree::Insert(const char *Key, long Value)
 	return false;
 }
 
-bool GBTree::Delete(const char *Key)
+bool LBTree::Delete(const char *Key)
 {
 	if (bt)
 	{
@@ -65,7 +65,7 @@ bool GBTree::Delete(const char *Key)
 	return false;
 }
 
-bool GBTree::Find(const char *Key, long &Result)
+bool LBTree::Find(const char *Key, long &Result)
 {
 	if (bt)
 	{
@@ -76,12 +76,12 @@ bool GBTree::Find(const char *Key, long &Result)
 	return false;
 }
 
-unsigned long GBTree::Length()
+unsigned long LBTree::Length()
 {
 	return bt ? btreeGetSize(bt) : 0;
 }
 
-void GBTree::Print()
+void LBTree::Print()
 {
 	if (bt)
 	{
