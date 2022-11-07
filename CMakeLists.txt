@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.8)
+cmake_minimum_required(VERSION 3.18)
 
 set(CMAKE_POLICY_DEFAULT_CMP0077 NEW)
 if (APPLE)
@@ -18,8 +18,12 @@ endif()
 
 add_subdirectory(libchardet)
 add_subdirectory(libiconv-1.17)
-add_subdirectory(${LIBJPEG} libjpeg-9a)
-add_subdirectory(../../../codelib/libpng libpng)
+if (NOT TARGET libjpeg9a)
+    add_subdirectory(${LIBJPEG} libjpeg-9a)
+endif()
+if (NOT TARGET libpng15)
+    add_subdirectory(../../../codelib/libpng libpng)
+endif()
 
 #add_subdirectory(Btree)
-#add_subdirectory(bzip2-1.0.6)
+add_subdirectory(bzip2-1.0.6)
