@@ -25,5 +25,5 @@ if (NOT TARGET libpng15)
     add_subdirectory(../../../codelib/libpng libpng)
 endif()
 
-#add_subdirectory(Btree)
+add_subdirectory(Btree)
 add_subdirectory(bzip2-1.0.6)
