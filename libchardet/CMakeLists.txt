@@ -2,13 +2,9 @@ project(libchardet)
 cmake_minimum_required(VERSION 3.8)
 
 include(../common.cmake)
-if (WIN32)
-    set(TARGET "chardet${VSYEAR}x${BITSIZE}")
-else()
-    set(TARGET "chardet")
-endif()
+# set(TARGET "chardet${VSYEAR}x${BITSIZE}")
 
-add_library(${TARGET} SHARED
+add_library(chardet SHARED
     src/chardet.cpp
     src/CharDistribution.cpp
     src/JpCntx.cpp
@@ -45,8 +41,8 @@ add_library(${TARGET} SHARED
     src/tables/LangVietnameseModel.cpp
     )
 
-target_include_directories(${TARGET} PUBLIC include src)
-target_compile_definitions(${TARGET} PRIVATE -DHAVE_DLL_EXPORT)
+target_include_directories(chardet PUBLIC include src)
+target_compile_definitions(chardet PRIVATE -DHAVE_DLL_EXPORT)
 
 set(CMAKE_OSX_DEPLOYMENT_TARGET "10.13")
 
@@ -56,6 +52,6 @@ if (WIN32)
     if (NOT EXISTS ${LIB_DIR})
         file(MAKE_DIRECTORY ${LIB_DIR})
     endif()
-    add_custom_command(TARGET ${TARGET} POST_BUILD
-        COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_FILE:${TARGET}> ${LIB_DIR})
+    add_custom_command(TARGET chardet POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_FILE:chardet> ${LIB_DIR})
 endif()

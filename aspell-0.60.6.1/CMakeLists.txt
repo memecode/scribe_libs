@@ -65,12 +65,13 @@ set(SRC
 	modules/filter/tex.cpp modules/filter/sgml.cpp
 	modules/filter/context.cpp modules/filter/nroff.cpp
 	modules/filter/texinfo.cpp
-	win32/api-glue.cpp
 	prog/prezip.c
 	)
 
 if(WIN32)
-	list(APPEND SRC win32/dirent.cpp)
+	list(APPEND SRC
+		win32/dirent.cpp
+		win32/api-glue.cpp)
 endif()
 
 add_library(aspell SHARED ${SRC})
