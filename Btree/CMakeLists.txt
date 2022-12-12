@@ -21,3 +21,11 @@ add_library(btree SHARED
     hashtable.c
     offsetlist.c
     )
+
+target_compile_definitions(btree
+    PRIVATE
+        STDC_HEADERS)
+
+if (WIN32)
+    set_target_properties(btree PROPERTIES WINDOWS_EXPORT_ALL_SYMBOLS ON)
+endif()
