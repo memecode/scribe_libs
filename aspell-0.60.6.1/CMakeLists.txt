@@ -72,6 +72,7 @@ if(WIN32)
 	list(APPEND SRC
 		win32/dirent.cpp
 		win32/api-glue.cpp)
+	file(COPY ${CMAKE_CURRENT_LIST_DIR}/data DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
 endif()
 
 add_library(aspell SHARED ${SRC})
