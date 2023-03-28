@@ -12,23 +12,24 @@ Target = bzip2
 ifndef Build
 	Build = Debug
 endif
+MakeDir := $(shell dirname $(realpath $(firstword $(MAKEFILE_LIST))))
 BuildDir = $(Build)
 
 Flags = -fPIC -w -fno-inline -fpermissive
 
 ifeq ($(Build),Debug)
-	Flags += -g -std=c++14
+	Flags += -MMD -MP -g -std=c++14
 	Tag = d
 	Defs = -D_DEBUG -DLINUX -D_REENTRANT -D_FILE_OFFSET_BITS=64 -DPOSIX
 	Libs = 
 	Inc =  \
-		-I..
+		-I../
 else
-	Flags += -s -Os -std=c++14
+	Flags += -MMD -MP -s -Os -std=c++14
 	Defs = -DLINUX -D_REENTRANT -D_FILE_OFFSET_BITS=64 -DPOSIX
 	Libs = 
 	Inc =  \
-		-I..
+		-I../
 endif
 
 # Dependencies
@@ -40,9 +41,23 @@ Source =	../randtable.c \
 			../bzlib.c \
 			../blocksort.c
 
-SourceLst := $(patsubst %.c,%.o,$(patsubst %.cpp,%.o,$(Source)))
-Objects := $(addprefix $(BuildDir)/,$(SourceLst))
-Deps := $(patsubst %.o,%.d,$(Objects))
+SourceC    := $(filter %.c,$(Source))
+ObjectsC   := $(SourceC:.c=.o)
+SourceCpp  := $(filter %.cpp,$(Source))
+ObjectsCpp := $(SourceCpp:.cpp=.o)
+Objects    := $(notdir $(ObjectsC) $(ObjectsCpp))
+Objects    := $(addprefix $(BuildDir)/,$(Objects))
+Deps       := $(patsubst %.o,%.d,$(Objects))
+
+$(BuildDir)/%.o: %.c
+	mkdir -p $(@D)
+	echo $(notdir $<) [$(Build)]
+	$(CC) $(Inc) $(Flags) $(Defs) -c $< -o $@
+
+$(BuildDir)/%.o: %.cpp
+	mkdir -p $(@D)
+	echo $(notdir $<) [$(Build)]
+	$(CPP) $(Inc) $(Flags) $(Defs) -c $< -o $@
 
 # Target
 TargetFile = lib$(Target)$(Tag).a
@@ -52,24 +67,12 @@ $(TargetFile) : $(Objects)
 	ar rcs $(BuildDir)/$(TargetFile) $(Objects)
 	@echo Done.
 
-.SECONDEXPANSION:
-$(Objects): $(BuildDir)/%.o: $$(wildcard %.c*)
-	mkdir -p $(@D)
-	@echo $(<F) [$(Build)]
-ifeq "$(suffix $<)" ".cpp"
-	$(CPP) -MMD -MP $(Inc) $(Flags) $(Defs) -c $< -o $@
-else
-	$(CC) -MMD -MP $(Inc) $(Flags) $(Defs) -c $< -o $@
-endif
-
 -include $(Objects:.o=.d)
 
 # Clean out targets
 clean :
-	rm $(Objects) $(Deps) $(BuildDir)/$(TargetFile)
+	rm -rf $(BuildDir)
 	@echo Cleaned $(BuildDir)
 
-VPATH=%.cpp \
-	../ \
-	$(BuildDir)
-
+VPATH=$(BuildDir) \
+	../
