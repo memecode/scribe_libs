@@ -22,6 +22,7 @@
  */
 #include "db_internal.h"
 #include "config.h"
+#include <string.h>
 
 void *
 btreeReadHeader(GdbBlock *block, const char *buffer, void *extra)
