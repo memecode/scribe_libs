@@ -6,6 +6,7 @@
 
 #define STDC_HEADERS		1
 #define CACHE_SORTED		1
+#define HAVE_STRING_H		1
 
 #ifndef __cplusplus
 #define true				1
