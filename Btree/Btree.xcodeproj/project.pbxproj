@@ -46,7 +46,7 @@
 		3477C4BD1CC279590028B84B /* db_utils.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = db_utils.c; sourceTree = "<group>"; };
 		3477C4BE1CC279590028B84B /* db.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = db.c; sourceTree = "<group>"; };
 		3477C4BF1CC279590028B84B /* gbtree.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gbtree.cpp; sourceTree = "<group>"; };
-		3477C4C01CC279590028B84B /* GBTreeWordStore.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GBTreeWordStore.cpp; path = ../../trunk_os/src/GBTreeWordStore.cpp; sourceTree = SOURCE_ROOT; };
+		3477C4C01CC279590028B84B /* GBTreeWordStore.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GBTreeWordStore.cpp; path = ../../trunk/src/GBTreeWordStore.cpp; sourceTree = "<group>"; };
 		3477C4C11CC279590028B84B /* hashtable.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = hashtable.c; sourceTree = "<group>"; };
 		3477C4C21CC279590028B84B /* offsetlist.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = offsetlist.c; sourceTree = "<group>"; };
 /* End PBXFileReference section */
