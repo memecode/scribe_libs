@@ -2,7 +2,6 @@ project(libchardet)
 cmake_minimum_required(VERSION 3.8)
 
 include(../common.cmake)
-# set(TARGET "chardet${VSYEAR}x${BITSIZE}")
 
 add_library(chardet SHARED
     src/chardet.cpp
@@ -44,9 +43,14 @@ add_library(chardet SHARED
 target_include_directories(chardet PUBLIC include src)
 target_compile_definitions(chardet PRIVATE -DHAVE_DLL_EXPORT)
 
-set(CMAKE_OSX_DEPLOYMENT_TARGET "10.13")
+set(CMAKE_OSX_DEPLOYMENT_TARGET "10.15")
 
 if (WIN32)
+
+    set_target_properties(chardet PROPERTIES
+                            OUTPUT_NAME_DEBUG "chardet${VSYEAR}x${BITSIZE}d"
+                            OUTPUT_NAME_RELEASE "chardet${VSYEAR}x${BITSIZE}")
+
     get_filename_component(LIB_DIR "../../../Lgi/trunk/lib"
                         ABSOLUTE BASE_DIR ${CMAKE_CURRENT_LIST_DIR})
     if (NOT EXISTS ${LIB_DIR})
@@ -54,4 +58,5 @@ if (WIN32)
     endif()
     add_custom_command(TARGET chardet POST_BUILD
         COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_FILE:chardet> ${LIB_DIR})
+
 endif()
