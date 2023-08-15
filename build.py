@@ -17,8 +17,11 @@ elif platform.system() == "Darwin":
 elif platform.system() == "Linux":    
     subfolders = ["build-x64"]
     gen = ["Unix Makefiles"]
+elif platform.system() == "Haiku":
+    subfolders = ["build-x64"]
+    gen = ["Unix Makefiles"]
 else:
-    print("Unsupported os:", os.name)
+    print("Unsupported os:", os.name, platform.system())
     sys.exit(-1)
 
 for n in range(len(subfolders)):

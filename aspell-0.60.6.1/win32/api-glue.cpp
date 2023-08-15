@@ -2,7 +2,7 @@
 #include "language.hpp"
 #include "data.hpp"
 
-#if defined(LINUX) || defined(MAC)
+#if defined(LINUX) || defined(MAC) || defined(HAIKU)
 #define strcpy_s(dst, sz, src) strncpy(dst, src, sz)
 #define sprintf_s snprintf
 #endif
