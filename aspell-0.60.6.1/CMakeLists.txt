@@ -77,7 +77,10 @@ endif()
 
 add_library(aspell SHARED ${SRC})
 target_compile_definitions(aspell PRIVATE ASPELL060_EXPORTS)
-target_include_directories(aspell PUBLIC common interfaces/cc modules/speller/default)
+target_include_directories(	aspell PUBLIC
+							common
+							interfaces/cc
+							modules/speller/default)
 if(WIN32)
 	target_include_directories(aspell PUBLIC win32)
 else()
