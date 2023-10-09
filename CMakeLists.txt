@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.18)
 
 set(CMAKE_POLICY_DEFAULT_CMP0077 NEW)
 if (APPLE)
-	set(CMAKE_OSX_ARCHITECTURES "x86_64;ARM64")
+	set(CMAKE_OSX_ARCHITECTURES "x86_64;arm64")
 	set(CMAKE_OSX_DEPLOYMENT_TARGET "10.15" CACHE STRING "Minimum OS X deployment version")
 endif()
 

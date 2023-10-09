@@ -14,8 +14,8 @@ if platform.system() == "Windows":
     arch = ["-A", "x64"]
     singleConfig = False
 elif platform.system() == "Darwin":    
-    subfolders = ["build-x64", "build-arm64"]
-    gen = ["Xcode", "Xcode"]
+    subfolders = ["build"]
+    gen = ["Ninja"]
 elif platform.system() == "Linux":    
     subfolders = ["build-x64"]
     gen = ["Unix Makefiles"]
@@ -27,14 +27,21 @@ else:
     sys.exit(-1)
 
 first = True
+clean = len(sys.argv) > 1 and sys.argv[1].lower() == 'clean'
+
 for n in range(len(subfolders)):
     for config in configs:
         path = os.path.abspath(os.path.join(os.path.realpath(__file__), "..", subfolders[n]))
         if singleConfig:
             path = path + "-" + config.lower()
         
-        if (first or singleConfig) and os.path.exists(path):
+        if (first or singleConfig or clean) and os.path.exists(path):
+            if clean:
+                print("removing:", path)
             shutil.rmtree(path)
+        if clean:
+            continue
+
         os.mkdir(path)
 
         if first or singleConfig:
