@@ -2,7 +2,16 @@ cmake_minimum_required(VERSION 3.18)
 
 set(CMAKE_POLICY_DEFAULT_CMP0077 NEW)
 if (APPLE)
-	set(CMAKE_OSX_ARCHITECTURES "x86_64;arm64")
+    execute_process(COMMAND xcodebuild -version
+        OUTPUT_VARIABLE XcodeOut)
+    separate_arguments(XcodeParts UNIX_COMMAND ${XcodeOut})
+    list(GET XcodeParts 1 XCODE_VER)
+    if (${XCODE_VER} VERSION_GREATER_EQUAL "13.0")
+	    set(CMAKE_OSX_ARCHITECTURES "x86_64;arm64")
+    else()
+	    set(CMAKE_OSX_ARCHITECTURES "x86_64")
+    endif()
+    message("XCODE_VER=${XCODE_VER} CMAKE_OSX_ARCHITECTURES=${CMAKE_OSX_ARCHITECTURES}")
 	set(CMAKE_OSX_DEPLOYMENT_TARGET "10.15" CACHE STRING "Minimum OS X deployment version")
 endif()
 
