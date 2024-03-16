@@ -210,8 +210,9 @@ print_errno_message (int errnum)
 #endif
 }
 
+static void
 #ifdef _GL_ATTRIBUTE_FORMAT_PRINTF_STANDARD
-static void _GL_ATTRIBUTE_FORMAT_PRINTF_STANDARD (3, 0) _GL_ARG_NONNULL ((3))
+_GL_ATTRIBUTE_FORMAT_PRINTF_STANDARD (3, 0) _GL_ARG_NONNULL ((3))
 #endif
 error_tail (int status, int errnum, const char *message, va_list args)
 {
