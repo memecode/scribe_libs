@@ -1,4 +1,4 @@
-
+include(../common.cmake)
 
 add_library(btree SHARED
     btree.c
@@ -19,8 +19,7 @@ add_library(btree SHARED
     db_utils.c
     gbtree.cpp
     hashtable.c
-    offsetlist.c
-    )
+    offsetlist.c)
 
 target_compile_definitions(btree
     PRIVATE

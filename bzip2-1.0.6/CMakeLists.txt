@@ -1,4 +1,5 @@
 cmake_minimum_required(VERSION 3.18)
+include(../common.cmake)
 
 add_library(bzip2 SHARED
     blocksort.c

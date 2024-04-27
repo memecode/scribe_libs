@@ -3,6 +3,8 @@ cmake_minimum_required (VERSION 3.12)
 
 set(CMAKE_CXX_STANDARD 11)
 
+include(../common.cmake)
+
 function(RemoveNDEBUG sym)
 	if (1)
 		string(REPLACE " -DNDEBUG" "" ${sym} ${${sym}})

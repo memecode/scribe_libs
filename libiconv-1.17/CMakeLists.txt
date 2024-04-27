@@ -6,10 +6,11 @@ if (${CMAKE_VERSION} VERSION_GREATER_EQUAL "3.20")
 	cmake_policy(SET CMP0115 NEW)
 endif()
 project(libiconv)
+include(../common.cmake)
 
 set(DEFINES)
 if (WINDOWS)
-	list(APPNED DEFINES "_CRT_SECURE_NO_WARNINGS")
+	list(APPEND DEFINES "_CRT_SECURE_NO_WARNINGS")
 endif()
 
 set(DLL_VARIABLE "DLL_VARIABLE")

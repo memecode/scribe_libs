@@ -8,6 +8,8 @@ import platform
 arch = []
 configs = ["Debug", "Release"]
 singleConfig = True
+universalCheck = []
+universalArchs = []
 if platform.system() == "Windows":
     subfolders = ["build-x64"]
     gen = ["Visual Studio 16 2019"]
@@ -16,6 +18,13 @@ if platform.system() == "Windows":
 elif platform.system() == "Darwin":    
     subfolders = ["build"]
     gen = ["Ninja"]
+    universalCheck.append("aspell-0.60.6.1/libaspell-dist-0.60$tag.dylib")
+    universalCheck.append("libchardet/libchardet.dylib")
+    universalCheck.append("libiconv-1.17/libiconv.dylib")
+    universalCheck.append("Btree/libbtree.dylib")
+    universalCheck.append("bzip2-1.0.6/libbzip2.dylib")
+    universalArchs.append('x86_64')
+    universalArchs.append('arm64')
 elif platform.system() == "Linux":    
     subfolders = ["build-x64"]
     gen = ["Unix Makefiles"]
@@ -34,6 +43,11 @@ for n in range(len(subfolders)):
         path = os.path.abspath(os.path.join(os.path.realpath(__file__), "..", subfolders[n]))
         if singleConfig:
             path = path + "-" + config.lower()
+
+        if config.lower() == "debug":
+            tag = "d"
+        else:
+            tag = ""
         
         if (first or singleConfig or clean) and os.path.exists(path):
             if clean:
@@ -71,3 +85,19 @@ for n in range(len(subfolders)):
             print(p.stdout.decode())
             print("Error: build failed.")
             sys.exit(-1)
+        else:
+            for file in universalCheck:
+                fileName = file.replace("$tag", tag);
+                check = os.path.join(path, fileName)
+                p = subprocess.run(["file", check], stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+                parts = p.stdout.decode().split()
+                found = []
+                for p in parts:
+                    if p in universalArchs:
+                        found.append(p)
+                if len(found) == len(universalArchs):
+                    print("Universal check:", check, "ok")
+                else:
+                    print("Universal check:", check, "ERROR: missing architectures, found:", found)
+                    sys.exit(-1)
+
