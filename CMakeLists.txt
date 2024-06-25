@@ -17,7 +17,14 @@ endif()
 
 project(scribeLibs)
 
-if(NOT APPLE)
+if(HAIKU)
+	set(LIBJPEG_SO "/boot/system/develop/lib/libjpeg.so")
+	if (NOT EXISTS ${LIBJPEG_SO})
+		message(FATAL_ERROR "No libjpeg at: ${LIBJPEG_SO}")
+	endif()
+	add_library(libjpeg SHARED IMPORTED)
+	
+elseif(NOT APPLE)
     if (EXISTS "${CMAKE_CURRENT_LIST_DIR}/../../../codelib/libjpeg-9a")
         set(LIBJPEG ../../../codelib/libjpeg-9a)
     elseif (EXISTS "${CMAKE_CURRENT_LIST_DIR}/../../../codelib/libjpeg")
