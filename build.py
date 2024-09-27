@@ -23,6 +23,8 @@ elif platform.system() == "Darwin":
     universalCheck.append("libiconv-1.17/libiconv.dylib")
     universalCheck.append("Btree/libbtree.dylib")
     universalCheck.append("bzip2-1.0.6/libbzip2.dylib")
+    universalCheck.append("lib/libjpeg.1.58.dylib")
+    universalCheck.append("lib/libpng16.16.dylib")
     universalArchs.append('x86_64')
     universalArchs.append('arm64')
 elif platform.system() == "Linux":    
@@ -72,7 +74,7 @@ for n in range(len(subfolders)):
                 sys.exit(-1)
 
         print(config, "Build:", path)
-        args = ["cmake", "--build", "."]
+        args = ["cmake", "--build", ".", "--target", "install"]
         if not singleConfig:
             args += ["--config", config]
         if 0:

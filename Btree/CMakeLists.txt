@@ -28,3 +28,6 @@ target_compile_definitions(btree
 if (WIN32)
     set_target_properties(btree PROPERTIES WINDOWS_EXPORT_ALL_SYMBOLS ON)
 endif()
+
+install(TARGETS btree
+		DESTINATION ${CMAKE_BINARY_DIR}/lib)

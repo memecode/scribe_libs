@@ -93,4 +93,5 @@ set_target_properties(aspell PROPERTIES
 	OUTPUT_NAME "aspell-dist-0.60"
 	DEBUG_POSTFIX "d")
 	
-
+install(TARGETS aspell
+	DESTINATION ${CMAKE_BINARY_DIR}/lib)

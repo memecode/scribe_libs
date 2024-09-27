@@ -94,3 +94,6 @@ target_link_libraries(iconv libiconv)
 target_compile_definitions(iconv
 	PRIVATE
 		${DEFINES})
+
+install(TARGETS libiconv
+		DESTINATION ${CMAKE_BINARY_DIR}/lib)

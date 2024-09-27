@@ -1,5 +1,7 @@
 syntax: glob
 
 build-x64*
+build-debug
+build-release
 bzip2-1.0.6\windows\x64*
 aspell-0.60.6.1\win32\dist\x64*

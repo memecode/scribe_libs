@@ -60,3 +60,6 @@ if (WIN32)
         COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_FILE:chardet> ${LIB_DIR})
 
 endif()
+
+install(TARGETS chardet
+	DESTINATION ${CMAKE_BINARY_DIR}/lib)

@@ -14,3 +14,6 @@ add_library(bzip2 SHARED
 if (WIN32)
     set_target_properties(bzip2 PROPERTIES WINDOWS_EXPORT_ALL_SYMBOLS ON)
 endif()
+
+install(TARGETS bzip2
+		DESTINATION ${CMAKE_BINARY_DIR}/lib)
