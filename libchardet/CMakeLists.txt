@@ -63,3 +63,7 @@ endif()
 
 install(TARGETS chardet
 	DESTINATION ${CMAKE_BINARY_DIR}/lib)
+install(FILES
+        src/chardet.h
+        include/version.h
+    DESTINATION ${CMAKE_BINARY_DIR}/include/chardet)
