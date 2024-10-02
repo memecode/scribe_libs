@@ -58,7 +58,8 @@ for n in range(len(subfolders)):
         if clean:
             continue
 
-        os.mkdir(path)
+        if not os.path.exists(path):
+            os.mkdir(path)
 
         if first or singleConfig:
             first = False
