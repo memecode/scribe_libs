@@ -2,7 +2,9 @@ cmake_minimum_required(VERSION 3.20)
 
 set(CMAKE_POLICY_DEFAULT_CMP0077 NEW)
 project(scribeLibs)
-    
+
+get_filename_component(CODELIB "${CMAKE_CURRENT_LIST_DIR}/../../../codelib" ABSOLUTE)
+
 if (APPLE)
     execute_process(COMMAND xcodebuild -version
         OUTPUT_VARIABLE XcodeOut)
@@ -67,18 +69,24 @@ elseif(APPLE)
 
 else()
 
-    if (EXISTS "${CMAKE_CURRENT_LIST_DIR}/../../../codelib/libjpeg-9a")
-        set(LIBJPEG ../../../codelib/libjpeg-9a)
-    elseif (EXISTS "${CMAKE_CURRENT_LIST_DIR}/../../../codelib/libjpeg")
-        set(LIBJPEG ../../../codelib/libjpeg)
+    if (EXISTS "${CODELIB}/libjpeg-9a")
+        set(LIBJPEG ${CODELIB}/libjpeg-9a)
+    elseif (EXISTS "${CODELIB}/libjpeg")
+        set(LIBJPEG ${CODELIB}/libjpeg)
     else()
         message(FATAL_ERROR "Can't find libjpeg")
     endif()
 
-    if (EXISTS "${CMAKE_CURRENT_LIST_DIR}/../../../codelib/libpng")
-        set(LIBPNG ../../../codelib/libpng)
+    if (EXISTS "${CODELIB}/libpng")
+        set(LIBPNG ${CODELIB}/libpng)
     else()
         message(FATAL_ERROR "Can't find libpng")
+    endif()
+
+    if (EXISTS "${CODELIB}/lunasvg")
+        set(LUNASVG ${CODELIB}/lunasvg)
+    else()
+        message(FATAL_ERROR "Can't find lunasvg")
     endif()
 
 endif()
@@ -93,4 +101,7 @@ if(LIBJPEG)
 endif()
 if(LIBPNG)
     add_subdirectory(${LIBPNG} libpng)
+endif()
+if(LUNASVG)
+    add_subdirectory(${LUNASVG} lunasvg)
 endif()

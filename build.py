@@ -67,6 +67,7 @@ for n in range(len(subfolders)):
             args = ["cmake", "-G", gen[n]] + arch + [".."]
             if singleConfig:
                 args += ["-DCMAKE_BUILD_TYPE="+config]
+            args += ["-DCMAKE_INSTALL_PREFIX="+path]
 
             print("args:", " ".join(args))
             p = subprocess.run(args, cwd=path) # stdout=subprocess.PIPE, stderr=subprocess.STDOUT, 
