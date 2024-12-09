@@ -68,6 +68,7 @@ for n in range(len(subfolders)):
             if singleConfig:
                 args += ["-DCMAKE_BUILD_TYPE="+config]
             args += ["-DCMAKE_INSTALL_PREFIX="+path]
+            args += ["-DBUILD_SHARED_LIBS=OFF"]
 
             print("args:", " ".join(args))
             p = subprocess.run(args, cwd=path) # stdout=subprocess.PIPE, stderr=subprocess.STDOUT, 
