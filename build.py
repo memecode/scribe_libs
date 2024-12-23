@@ -4,6 +4,7 @@ import sys
 import subprocess
 import shutil
 import platform
+import stat
 
 arch = []
 configs = ["Debug", "Release"]
@@ -23,8 +24,6 @@ elif platform.system() == "Darwin":
     universalCheck.append("libiconv-1.17/libiconv.dylib")
     universalCheck.append("Btree/libbtree.dylib")
     universalCheck.append("bzip2-1.0.6/libbzip2.dylib")
-    universalCheck.append("lib/libjpeg.1.58.dylib")
-    universalCheck.append("lib/libpng16.16.dylib")
     universalArchs.append('x86_64')
     universalArchs.append('arm64')
 elif platform.system() == "Linux":    
@@ -40,6 +39,10 @@ else:
 first = True
 clean = len(sys.argv) > 1 and sys.argv[1].lower() == 'clean'
 
+def remove_readonly(func, path, excinfo):
+    os.chmod(path, stat.S_IWRITE)
+    func(path)
+
 for n in range(len(subfolders)):
     for config in configs:
         path = os.path.abspath(os.path.join(os.path.realpath(__file__), "..", subfolders[n]))
@@ -54,7 +57,7 @@ for n in range(len(subfolders)):
         if (first or singleConfig or clean) and os.path.exists(path):
             if clean:
                 print("removing:", path)
-            shutil.rmtree(path)
+            shutil.rmtree(path, onerror=remove_readonly)
         if clean:
             continue
 
