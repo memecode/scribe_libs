@@ -19,18 +19,7 @@ if (APPLE)
 	set(CMAKE_OSX_DEPLOYMENT_TARGET "10.15" CACHE STRING "Minimum OS X deployment version")
 endif()
 
-if(HAIKU)
-
-    set(LIBJPEG_SO "/boot/system/develop/lib/libjpeg.so")
-	if (NOT EXISTS ${LIBJPEG_SO})
-		message(FATAL_ERROR "No libjpeg at: ${LIBJPEG_SO}")
-	endif()
-	add_library(libjpeg SHARED IMPORTED)
-
-endif()
-
 add_subdirectory(aspell-0.60.6.1)
 add_subdirectory(libchardet)
-add_subdirectory(libiconv-1.17)
 add_subdirectory(Btree)
 add_subdirectory(bzip2-1.0.6)
