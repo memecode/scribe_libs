@@ -3,8 +3,6 @@ cmake_minimum_required(VERSION 3.20)
 set(CMAKE_POLICY_DEFAULT_CMP0077 NEW)
 project(scribeLibs)
 
-get_filename_component(CODELIB "${CMAKE_CURRENT_LIST_DIR}/../../../codelib" ABSOLUTE)
-
 if (APPLE)
     execute_process(COMMAND xcodebuild -version
         OUTPUT_VARIABLE XcodeOut)
