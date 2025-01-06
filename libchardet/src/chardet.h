@@ -64,7 +64,7 @@
 	#endif
 #endif
 
-#include <version.h>
+#include "version.h"
 
 #include <stdio.h>
 #include <string.h>
