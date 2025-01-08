@@ -19,11 +19,10 @@ if platform.system() == "Windows":
 elif platform.system() == "Darwin":    
     subfolders = ["build"]
     gen = ["Ninja"]
-    universalCheck.append("aspell-0.60.6.1/libaspell-dist-0.60$tag.dylib")
-    universalCheck.append("libchardet/libchardet.dylib")
-    universalCheck.append("libiconv-1.17/libiconv.dylib")
-    universalCheck.append("Btree/libbtree.dylib")
-    universalCheck.append("bzip2-1.0.6/libbzip2.dylib")
+    universalCheck.append("lib/libaspell-dist-0.60$tag.dylib")
+    universalCheck.append("lib/libchardet.dylib")
+    universalCheck.append("lib/libbtree.dylib")
+    universalCheck.append("lib/libbzip2.dylib")
     universalArchs.append('x86_64')
     universalArchs.append('arm64')
 elif platform.system() == "Linux":    
@@ -107,5 +106,7 @@ for n in range(len(subfolders)):
                     print("Universal check:", check, "ok")
                 else:
                     print("Universal check:", check, "ERROR: missing architectures, found:", found)
+                    for p in parts:
+                        print(p)
                     sys.exit(-1)
 
