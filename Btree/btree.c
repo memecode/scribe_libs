@@ -21,6 +21,7 @@
  * Boston, MA  02111-1307, USA.
  */
 #include "db_internal.h"
+#include "config.h"
 
 BTree *
 btreeOpen(GDatabase *db, offset_t offset)
