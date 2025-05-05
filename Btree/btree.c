@@ -96,7 +96,7 @@ btreeSetError(const char *Err, ...)
 }
 
 const char *
-btreeGetError()
+btreeGetError(void)
 {
     return btreeErr;
 }

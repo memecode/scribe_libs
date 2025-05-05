@@ -1,5 +1,4 @@
-#ifndef _CONFIG_H_
-#define _CONFIG_H_
+#pragma once
 
 #include <assert.h>
 #include <stdlib.h>
@@ -42,5 +41,3 @@ void
 btreeSetError(const char *Err, ...);
 
 extern const char *btreeGetError(void);
-
-#endif
