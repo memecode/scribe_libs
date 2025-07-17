@@ -30,7 +30,7 @@ gdbGetFreeBlockList(GDatabase *db, GdbFreeBlock **blocks, long *count)
 	GdbFreeBlock *blockList;
 	unsigned long listSize;
 	unsigned char *buffer;
-	int i, counter = 0;
+	int counter = 0;
 	
 	if (blocks == NULL || count == NULL)
 		return 0;
@@ -65,7 +65,7 @@ gdbGetFreeBlockList(GDatabase *db, GdbFreeBlock **blocks, long *count)
 												 sizeof(GdbFreeBlock)));
 		
 	
-	for (i = 0; i < db->freeBlockCount; i++)
+	for (uint32_t i = 0; i < db->freeBlockCount; i++)
 	{
 		blockList[i].size   = gdbGet16(buffer, &counter);
 		blockList[i].offset = gdbGet32(buffer, &counter);
