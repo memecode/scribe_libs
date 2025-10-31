@@ -2,7 +2,7 @@
 #include "language.hpp"
 #include "data.hpp"
 
-#if defined(LINUX) || defined(MAC) || defined(HAIKU)
+#if !defined(WINDOWS)
 #define strcpy_s(dst, sz, src) strncpy(dst, src, sz)
 #define sprintf_s snprintf
 #endif
@@ -67,18 +67,29 @@ extern "C" int prezip_decompress(FILE *in_file, FILE *out_file, char *ErrOut, in
 int aspell_prezip(const char *InFile, const char *OutFile, bool Decomp, char *ErrOut, int ErrLen)
 {
 	if (!InFile || !OutFile)
+	{
+		if (ErrOut)
+			snprintf(ErrOut, ErrLen, "Missing param: %p,%p", InFile, OutFile);
 		return 0;
+	}
 
 	FStream in, out;
 	if (in.open(InFile, "rb").has_err())
+	{
+		if (ErrOut)
+			snprintf(ErrOut, ErrLen, "Failed to open '%s' for reading.", InFile);
 		return 0;
+	}
 	if (out.open(OutFile, "wb").has_err())
+	{
+		if (ErrOut)
+			snprintf(ErrOut, ErrLen, "Failed to open '%s' for writing.", OutFile);
 		return 0;
+	}
 
 	if (Decomp)
 		return prezip_decompress(in.c_stream(), out.c_stream(), ErrOut, ErrLen) == 0;
-	else
-		prezip_compress(in.c_stream(), out.c_stream(), ErrOut, ErrLen);
-	
+
+	prezip_compress(in.c_stream(), out.c_stream(), ErrOut, ErrLen);
 	return 1;
 }

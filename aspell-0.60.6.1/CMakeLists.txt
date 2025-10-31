@@ -68,12 +68,12 @@ set(SRC
 	modules/filter/context.cpp modules/filter/nroff.cpp
 	modules/filter/texinfo.cpp
 	prog/prezip.c
+	common/api-glue.cpp
 	)
 
 if(WIN32)
 	list(APPEND SRC
-		win32/dirent.cpp
-		win32/api-glue.cpp)
+		win32/dirent.cpp)
 	file(COPY ${CMAKE_CURRENT_LIST_DIR}/data DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
 endif()
 
