@@ -911,7 +911,7 @@
 			Name="Win32"
 			>
 			<File
-				RelativePath="..\api-glue.cpp"
+				RelativePath="..\..\common\api-glue.cpp"
 				>
 			</File>
 			<File

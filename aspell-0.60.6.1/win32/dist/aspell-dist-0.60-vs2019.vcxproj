@@ -259,6 +259,7 @@
     <ClInclude Include="settings.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\common\api-glue.cpp" />
     <ClCompile Include="..\..\common\cache.cpp" />
     <ClCompile Include="..\..\common\can_have_error.cpp" />
     <ClCompile Include="..\..\common\config.cpp" />
@@ -316,7 +317,6 @@
     <ClCompile Include="..\..\prog\checker_string.cpp" />
     <ClCompile Include="..\..\prog\check_funs.cpp" />
     <ClCompile Include="..\..\prog\prezip.c" />
-    <ClCompile Include="..\api-glue.cpp" />
     <ClCompile Include="..\dirent.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
