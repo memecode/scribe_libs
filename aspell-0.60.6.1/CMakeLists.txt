@@ -94,7 +94,10 @@ set_target_properties(aspell PROPERTIES
 	DEBUG_POSTFIX "d")
 	
 install(TARGETS aspell
-	DESTINATION ${CMAKE_BINARY_DIR}/lib)
+	RUNTIME
+        DESTINATION ${CMAKE_BINARY_DIR}/bin
+    LIBRARY
+        DESTINATION ${CMAKE_BINARY_DIR}/lib)
 install(FILES
 		interfaces/cc/aspell.h
 	DESTINATION ${CMAKE_BINARY_DIR}/include)

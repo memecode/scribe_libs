@@ -62,7 +62,10 @@ if (WIN32)
 endif()
 
 install(TARGETS chardet
-	DESTINATION ${CMAKE_BINARY_DIR}/lib)
+	RUNTIME
+        DESTINATION ${CMAKE_BINARY_DIR}/bin
+    LIBRARY
+        DESTINATION ${CMAKE_BINARY_DIR}/lib)
 install(FILES
         src/chardet.h
         include/version.h

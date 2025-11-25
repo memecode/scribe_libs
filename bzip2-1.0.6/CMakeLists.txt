@@ -16,4 +16,7 @@ if (WIN32)
 endif()
 
 install(TARGETS bzip2
-		DESTINATION ${CMAKE_BINARY_DIR}/lib)
+    RUNTIME
+        DESTINATION ${CMAKE_BINARY_DIR}/bin
+    LIBRARY
+        DESTINATION ${CMAKE_BINARY_DIR}/lib)

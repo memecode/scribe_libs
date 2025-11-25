@@ -30,4 +30,7 @@ if (WIN32)
 endif()
 
 install(TARGETS btree
-		DESTINATION ${CMAKE_BINARY_DIR}/lib)
+    RUNTIME
+        DESTINATION ${CMAKE_BINARY_DIR}/bin
+    LIBRARY
+        DESTINATION ${CMAKE_BINARY_DIR}/lib)
