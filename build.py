@@ -13,7 +13,11 @@ universalCheck = []
 universalArchs = []
 if platform.system() == "Windows":
     subfolders = ["build-x64"]
-    gen = ["Visual Studio 16 2019"]
+    vs2022Exists = os.path.exists("C:\\Program Files\\Microsoft Visual Studio\\2022")
+    if vs2022Exists:
+        gen = ["Visual Studio 17 2022"]
+    else:
+        gen = ["Visual Studio 16 2019"]
     arch = ["-A", "x64"]
     singleConfig = False
 elif platform.system() == "Darwin":    
