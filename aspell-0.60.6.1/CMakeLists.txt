@@ -95,7 +95,7 @@ set_target_properties(aspell PROPERTIES
 	
 install(TARGETS aspell
 	RUNTIME
-        DESTINATION ${CMAKE_BINARY_DIR}/bin
+        DESTINATION ${CMAKE_BINARY_DIR}/lib
     LIBRARY
         DESTINATION ${CMAKE_BINARY_DIR}/lib)
 install(FILES
