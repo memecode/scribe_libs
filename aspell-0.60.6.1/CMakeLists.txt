@@ -97,7 +97,9 @@ install(TARGETS aspell
 	RUNTIME
         DESTINATION ${CMAKE_BINARY_DIR}/lib
     LIBRARY
-        DESTINATION ${CMAKE_BINARY_DIR}/lib)
+        DESTINATION ${CMAKE_BINARY_DIR}/lib
+	ARCHIVE
+		DESTINATION ${CMAKE_BINARY_DIR}/lib)
 install(FILES
 		interfaces/cc/aspell.h
 	DESTINATION ${CMAKE_BINARY_DIR}/include)
