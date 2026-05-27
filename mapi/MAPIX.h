@@ -65,6 +65,8 @@ typedef ULONG       FLAGS;
 #define MAPI_SIMPLE_DEFAULT (MAPI_LOGON_UI | MAPI_FORCE_DOWNLOAD | MAPI_ALLOW_OTHERS)
 #define MAPI_SIMPLE_EXPLICIT (MAPI_NEW_SESSION | MAPI_FORCE_DOWNLOAD | MAPI_EXPLICIT_PROFILE)
 
+#define MAPIINIT_0_VERSION		0
+
 /* Structure passed to MAPIInitialize(), and its ulFlags values */
 
 typedef struct
@@ -536,6 +538,31 @@ DECLARE_MAPI_INTERFACE_(IMsgServiceAdmin, IUnknown)
 	BEGIN_INTERFACE	
 	MAPI_IUNKNOWN_METHODS(PURE)
 	MAPI_IMSGSERVICEADMIN_METHODS(PURE)
+};
+
+
+// Explicitly define Outlook's MAPI conversion GUIDs if missing from your SDK headers
+// {EE039283-8459-44e2-9E47-BD0B4D16279E}
+DEFINE_GUID(CLSID_IConverterSession, 0xEE039283, 0x8459, 0x44e2, 0x9E, 0x47, 0xBD, 0x0B, 0x4D, 0x16, 0x27, 0x9E);
+// {4B401570-BEE6-11d1-B148-00C04F8EFB13}
+DEFINE_GUID(IID_IConverterSession, 0x4B401570, 0xBEE6, 0x11d1, 0xB1, 0x48, 0x00, 0xC0, 0x4F, 0x8E, 0xFB, 0x13);
+
+// Enum settings required by the interface
+enum ENCODINGTYPE { iet7Bit = 0, iet8Bit = 1, ietBinary = 2, ietQuotedPrintable = 3, ietBase64 = 4, ietUUEncode = 5 };
+enum MIMESAVETYPE { mstDefault = 0, mstMhtml = 1 };
+
+// IConverterSession Interface Definition
+interface IConverterSession : public IUnknown
+{
+public:
+	virtual HRESULT STDMETHODCALLTYPE SetConfig(ULONG ulConfig, ULONG ulValue) = 0;
+	virtual HRESULT STDMETHODCALLTYPE SetADRBook(LPADRBOOK padrbook) = 0;
+	virtual HRESULT STDMETHODCALLTYPE SetEncoding(ENCODINGTYPE et) = 0;
+	virtual HRESULT STDMETHODCALLTYPE SetSaveFormat(MIMESAVETYPE mst) = 0;
+	virtual HRESULT STDMETHODCALLTYPE MIMEToMAPI(LPSTREAM pstm, LPMESSAGE pmsg, LPCSTR pszSrcSrv, ULONG ulFlags) = 0;
+	virtual HRESULT STDMETHODCALLTYPE MAPIToMIMEStm(LPMESSAGE pmsg, LPSTREAM pstm, ULONG ulFlags) = 0;
+	virtual HRESULT STDMETHODCALLTYPE SetTextCodePage(ULONG ulCodePage) = 0;
+	virtual HRESULT STDMETHODCALLTYPE SetRecipientCodePage(ULONG ulCodePage) = 0;
 };
 
 #ifdef	__cplusplus
