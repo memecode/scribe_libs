@@ -76,6 +76,8 @@ namespace aspeller {
     id_.reset(new Id(this));
   }
 
+  Dictionary::~Dictionary() {}
+
   const char *  Dictionary::lang_name() const {
     return lang_->name();
   }
