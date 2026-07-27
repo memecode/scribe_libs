@@ -555,6 +555,7 @@
 #define PR_VIEWS_ENTRYID							PROP_TAG( PT_BINARY,	0x35E5)
 #define PR_COMMON_VIEWS_ENTRYID						PROP_TAG( PT_BINARY,	0x35E6)
 #define PR_FINDER_ENTRYID							PROP_TAG( PT_BINARY,	0x35E7)
+#define PR_IPM_DRAFTS_ENTRYID						PROP_TAG( PT_BINARY,	0x36D7)
 
 /* Proptags 0x35E8-0x35FF reserved for folders "guaranteed" by PR_VALID_FOLDER_MASK */
 

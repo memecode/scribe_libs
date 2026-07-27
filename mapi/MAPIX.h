@@ -67,6 +67,10 @@ typedef ULONG       FLAGS;
 
 #define MAPIINIT_0_VERSION		0
 
+#ifndef MDB_ONLINE
+#define MDB_ONLINE ((ULONG) 0x00000100)
+#endif
+
 /* Structure passed to MAPIInitialize(), and its ulFlags values */
 
 typedef struct
