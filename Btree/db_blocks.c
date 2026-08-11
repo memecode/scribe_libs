@@ -352,7 +352,12 @@ gdbReadBlock(GDatabase *db, offset_t offset, blocktype_t blockType,
 			
 			prevOffset = nextOffset;
 			
-			fread(&nextOffset, sizeof(offset_t), 1, db->fp);
+			if (fread(&nextOffset, sizeof(offset_t), 1, db->fp) != 1)
+			{
+				btreeSetError("ERROR: Unable to read from %s at offset %ld, %ld bytes",
+					db->filename, ftell(db->fp), (unsigned long)sizeof(offset_t));
+				return NULL;
+			}
 			
 			if (prevOffset == nextOffset)
 			{
@@ -365,10 +370,18 @@ gdbReadBlock(GDatabase *db, offset_t offset, blocktype_t blockType,
 			if (i < block->chainCount)
 				block->chain[i++] = nextOffset;
 			
-			fread(buffer + pos, 1,
-				  (block->dataSize - pos < blockDataSize ?
-				   block->dataSize - pos : blockDataSize),
-				  db->fp);
+			{
+				size_t bytesToRead =
+					(block->dataSize - pos < blockDataSize ?
+					 block->dataSize - pos : blockDataSize);
+
+				if (fread(buffer + pos, 1, bytesToRead, db->fp) != bytesToRead)
+				{
+					btreeSetError("ERROR: Unable to read from %s at offset %ld, %ld bytes",
+						db->filename, ftell(db->fp), (unsigned long)bytesToRead);
+					return NULL;
+				}
+			}
 
 			pos += blockDataSize;
 		}
