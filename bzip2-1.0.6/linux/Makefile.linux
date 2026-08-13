@@ -15,34 +15,34 @@ endif
 MakeDir := $(shell dirname $(realpath $(firstword $(MAKEFILE_LIST))))
 BuildDir = $(Build)
 
-CFlags = -MMD -MP -g -fPIC -fno-inline
+CFlags = -MMD -MP -fPIC -fno-inline
 CppFlags = $(CFlags) -fpermissive -std=c++17
 
 ifeq ($(Build),Debug)
-	CFlags += -g
-	CppFlags += -g
+	CFlags += -g3 -ggdb3 -fno-optimize-sibling-calls -fno-omit-frame-pointer
+	CppFlags += -g3 -ggdb3 -fno-optimize-sibling-calls -fno-omit-frame-pointer
 	Tag = d
 	Defs = -D_DEBUG -DLINUX -D_REENTRANT -D_FILE_OFFSET_BITS=64 -DPOSIX
 	Libs = 
 	Inc =  \
-		-I../
+		-I..
 else
-	CFlags += -s -Os
-	CppFlags += -s -Os
+	CFlags += -g -Os
+	CppFlags += -g -Os
 	Defs = -DLINUX -D_REENTRANT -D_FILE_OFFSET_BITS=64 -DPOSIX
 	Libs = 
 	Inc =  \
-		-I../
+		-I..
 endif
 
 # Dependencies
-Source =	../randtable.c \
-			../huffman.c \
-			../decompress.c \
-			../crctable.c \
-			../compress.c \
+Source =	../blocksort.c \
 			../bzlib.c \
-			../blocksort.c
+			../compress.c \
+			../crctable.c \
+			../decompress.c \
+			../huffman.c \
+			../randtable.c
 
 SourceC    := $(filter %.c,$(Source))
 ObjectsC   := $(SourceC:.c=.o)
