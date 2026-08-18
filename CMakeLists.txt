@@ -17,7 +17,42 @@ if (APPLE)
 	set(CMAKE_OSX_DEPLOYMENT_TARGET "10.15" CACHE STRING "Minimum OS X deployment version")
 endif()
 
+set(DEPS "${CMAKE_CURRENT_SOURCE_DIR}")
+
+function(GitProject NAME URI BRANCH ADDTARGET CLONE_ERR_FATAL)
+
+    set(DIR "${DEPS}/${NAME}")
+    message(STATUS "${NAME} = ${DIR}")
+    if(NOT EXISTS ${DIR})
+        execute_process(COMMAND git clone --recurse-submodules -b ${BRANCH} ${URI} ${DIR}
+            RESULT_VARIABLE clone_result
+            OUTPUT_VARIABLE clone_out)
+        if(NOT ${clone_result} MATCHES "^[0-9]+$" OR ${clone_result})
+            message(STATUS "git clone --recurse-submodules -b ${BRANCH} ${URI} ${DIR}")
+            if(${CLONE_ERR_FATAL})
+                message(FATAL_ERROR "${NAME} clone failed: ${clone_result} ${clone_out}")
+            else()
+                message(WARNING "${NAME} clone failed: ${clone_result} ${clone_out}")
+                return()
+            endif()
+        endif()
+    endif()
+
+    if(${ADDTARGET})
+        set(LISTS "${DIR}/CMakeLists.txt")
+        message("adding cmake: ${LISTS}")
+        if(EXISTS ${LISTS})
+            add_subdirectory(${DIR} ${NAME})
+        else()
+            message(STATUS "${NAME} is not a cmake project")
+        endif()
+    endif()
+
+endfunction()
+
 add_subdirectory(aspell-0.60.6.1)
 add_subdirectory(libchardet)
 add_subdirectory(Btree)
 add_subdirectory(bzip2-1.0.6)
+
+gitProject("litehtml" "https://github.com/litehtml/litehtml.git" "master" TRUE TRUE)
