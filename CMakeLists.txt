@@ -55,4 +55,4 @@ add_subdirectory(libchardet)
 add_subdirectory(Btree)
 add_subdirectory(bzip2-1.0.6)
 
-gitProject("litehtml" "https://github.com/litehtml/litehtml.git" "master" TRUE TRUE)
+GitProject("litehtml" "https://github.com/memecode/litehtml.git" "master" TRUE TRUE)
