@@ -36,6 +36,14 @@ function(GitProject NAME URI BRANCH ADDTARGET CLONE_ERR_FATAL)
                 return()
             endif()
         endif()
+    else()
+        execute_process(COMMAND git pull
+            WORKING_DIRECTORY ${DIR}
+            RESULT_VARIABLE pull_result
+            OUTPUT_VARIABLE pull_out)
+        if(NOT ${pull_result} MATCHES "^[0-9]+$" OR ${pull_result})
+            message(WARNING "${NAME} pull failed: ${pull_result} ${pull_out}")
+        endif()
     endif()
 
     if(${ADDTARGET})
@@ -51,8 +59,9 @@ function(GitProject NAME URI BRANCH ADDTARGET CLONE_ERR_FATAL)
 endfunction()
 
 add_subdirectory(aspell-0.60.6.1)
-add_subdirectory(libchardet)
 add_subdirectory(Btree)
 add_subdirectory(bzip2-1.0.6)
 
+GitProject("libchardet" "https://github.com/Joungkyun/libchardet.git" "master" FALSE TRUE)
+add_subdirectory(libchardet_cmake)
 GitProject("litehtml" "https://github.com/memecode/litehtml.git" "master" TRUE TRUE)

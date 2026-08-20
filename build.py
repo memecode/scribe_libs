@@ -31,7 +31,7 @@ elif platform.system() == "Darwin":
     universalArchs.append('arm64')
 elif platform.system() == "Linux":    
     subfolders = ["build-x64"]
-    gen = ["Unix Makefiles"]
+    gen = ["Ninja"]
 elif platform.system() == "Haiku":
     subfolders = ["build-x64"]
     gen = ["Ninja"]
