@@ -69,6 +69,7 @@ endfunction()
 add_subdirectory(aspell-0.60.6.1)
 add_subdirectory(Btree)
 add_subdirectory(bzip2-1.0.6)
+add_subdirectory(sqlite)
 
 GitProject("libchardet" "https://github.com/Joungkyun/libchardet.git" "master" FALSE TRUE)
 add_subdirectory(libchardet_cmake)
@@ -78,3 +79,4 @@ if(APPLE)
     set_target_properties(litehtml gumbo PROPERTIES
         OSX_ARCHITECTURES "${CMAKE_OSX_ARCHITECTURES}")
 endif()
+
