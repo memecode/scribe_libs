@@ -22,3 +22,6 @@ install(TARGETS bzip2
         DESTINATION ${CMAKE_BINARY_DIR}/lib
     ARCHIVE
 		DESTINATION ${CMAKE_BINARY_DIR}/lib)
+
+install(FILES bzlib.h
+    DESTINATION ${CMAKE_BINARY_DIR}/include)
