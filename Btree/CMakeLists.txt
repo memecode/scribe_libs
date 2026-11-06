@@ -27,6 +27,7 @@ target_compile_definitions(btree
 
 if (WIN32)
     set_target_properties(btree PROPERTIES WINDOWS_EXPORT_ALL_SYMBOLS ON)
+   	target_compile_options(btree PUBLIC /MP)
 endif()
 
 install(TARGETS btree

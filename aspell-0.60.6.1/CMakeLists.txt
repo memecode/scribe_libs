@@ -85,6 +85,7 @@ target_include_directories(	aspell PUBLIC
 							modules/speller/default)
 if(WIN32)
 	target_include_directories(aspell PUBLIC win32)
+	target_compile_options(aspell PUBLIC /MP)
 else()
 	target_include_directories(aspell PUBLIC linux gen)
 endif()

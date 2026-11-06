@@ -66,6 +66,8 @@ if (WIN32)
     add_custom_command(TARGET chardet POST_BUILD
         COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_FILE:chardet> ${LIB_DIR})
 
+   	target_compile_options(chardet PUBLIC /MP)
+
 endif()
 
 install(TARGETS chardet

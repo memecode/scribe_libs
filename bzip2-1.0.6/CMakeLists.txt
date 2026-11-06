@@ -13,6 +13,7 @@ add_library(bzip2 SHARED
 
 if (WIN32)
     set_target_properties(bzip2 PROPERTIES WINDOWS_EXPORT_ALL_SYMBOLS ON)
+   	target_compile_options(bzip2 PUBLIC /MP)
 endif()
 
 install(TARGETS bzip2

@@ -78,5 +78,9 @@ GitProject("litehtml" "https://github.com/memecode/litehtml.git" "master" TRUE T
 if(APPLE)
     set_target_properties(litehtml gumbo PROPERTIES
         OSX_ARCHITECTURES "${CMAKE_OSX_ARCHITECTURES}")
+elseif(WIN32)
+	target_compile_options(gumbo PUBLIC /MP)
+	target_compile_options(litehtml PUBLIC /MP)
+	target_compile_options(sqlite3 PUBLIC /MP)
 endif()
 
